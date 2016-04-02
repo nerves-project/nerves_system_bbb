@@ -13,8 +13,7 @@ defmodule NervesSystemBbb.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [env: [
-    ]]
+    []
   end
 
   # Dependencies can be Hex packages:
@@ -33,4 +32,5 @@ defmodule NervesSystemBbb.Mixfile do
       {:nerves_toolchain_arm_unknown_linux_gnueabihf, path: "../nerves_toolchain_arm_unknown_linux_gnueabihf"}
     ]
   end
+
 end
