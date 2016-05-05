@@ -41,4 +41,4 @@ script:
 
 # Display build log on failure
 after_failure:
-    - tail -n 1000 ./ci/build.log
+    - tail -n 1000 build.log
