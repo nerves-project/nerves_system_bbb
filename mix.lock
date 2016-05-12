@@ -5,7 +5,7 @@
   "metrics": {:hex, :metrics, "1.0.1"},
   "mimerl": {:hex, :mimerl, "1.0.2"},
   "nerves_system": {:hex, :nerves_system, "0.1.0"},
-  "nerves_system_br": {:hex, :nerves_system_br, "0.4.2"},
+  "nerves_system_br": {:git, "https://github.com/nerves-project/nerves_system_br.git", "ab789ec3a94f4cdbe59e39b165b43e1a58b5444f", []},
   "nerves_toolchain": {:hex, :nerves_toolchain, "0.6.2"},
   "nerves_toolchain_arm_unknown_linux_gnueabihf": {:hex, :nerves_toolchain_arm_unknown_linux_gnueabihf, "0.6.1"},
   "porcelain": {:hex, :porcelain, "2.0.1"},
