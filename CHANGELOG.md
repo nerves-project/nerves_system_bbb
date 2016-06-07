@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.6.2
+  * Bug Fixes
+    * Enabled bbborg-overlays for universal device tree
+
 ## v0.6.1
   * Nerves.System.BR v0.5.1
     * Bug Fixes(nerves-env)
