@@ -99,6 +99,24 @@ iex(demo@nerves-0099)> File.read("/sys/bus/iio/devices/iio:device0/in_voltage0_r
 {:ok, "3891\n"}
 ```
 
+### SPI
+
+The following examples shows to read values from the SPIs inputs in Elixir.
+
+```
+iex(demo@nerves-0099)> File.write("/sys/devices/platform/bone_capemgr/slots","BB-SPIDEV0")
+:ok
+iex(demo@nerves-0099)> File.write("/sys/devices/platform/bone_capemgr/slots","BB-SPIDEV1")
+:ok
+iex(demo@nerves-0099) ls "/dev"
+  ...
+                    pts                 random                    shm              spidev1.0
+              spidev1.1              spidev2.0              spidev2.1                    tty
+  ...
+iex(demo@nerves-0099) File.read "/sys/bus/spi/devices/spi1.0/statistics/transfers"
+{:ok, "0"}
+```
+
 ## Supported USB WiFi devices
 
 The base image includes drivers and firmware for Ralink RT53xx
