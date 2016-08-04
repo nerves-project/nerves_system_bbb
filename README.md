@@ -101,21 +101,51 @@ iex(demo@nerves-0099)> File.read("/sys/bus/iio/devices/iio:device0/in_voltage0_r
 
 ### SPI
 
-The following examples shows to read values from the SPIs inputs in Elixir.
+The following examples shows how to get SPI0 functional in Elixir.
 
+Load the overlay, configure the pins, and load the device drivers:
+
+> Note: The order of the above stops is important. The overlay must be loaded and the pins configured before writing "BB-SPIDEV0".
+
+```console
+iex(demo@nerves-0099)1> :os.cmd('config-pin overlay cape-universaln')
+'Loading cape-universaln overlay\n'
+iex(demo@nerves-0099)2> [17,18,21,22] |> Enum.each(&(:os.cmd('config-pin -a  P9_#{&1} spi')))
+:ok
+iex(demo@nerves-0099)3> File.write("/sys/devices/platform/bone_capemgr/slots","BB-SPIDEV0")
+{:error, :eexist}
 ```
-iex(demo@nerves-0099)> File.write("/sys/devices/platform/bone_capemgr/slots","BB-SPIDEV0")
-:ok
-iex(demo@nerves-0099)> File.write("/sys/devices/platform/bone_capemgr/slots","BB-SPIDEV1")
-:ok
-iex(demo@nerves-0099) ls "/dev"
+
+Verify that the device drivers are loaded and read spi0 transfers:
+
+```console
+iex(demo@nerves-0099)4> ls "/dev"
   ...
-                    pts                 random                    shm              spidev1.0
-              spidev1.1              spidev2.0              spidev2.1                    tty
+        spidev1.0              spidev1.1              spidev2.0              spidev2.1
   ...
-iex(demo@nerves-0099) File.read "/sys/bus/spi/devices/spi1.0/statistics/transfers"
+iex(demo@nerves-0099)5> File.read "/sys/bus/spi/devices/spi1.0/statistics/transfers"
 {:ok, "0"}
 ```
+
+Verify that the pins are configured:
+
+```console
+iex(demo@nerves-0099)6> [17,18,21,22] |> Enum.map(&(:os.cmd('config-pin -q  P9_#{&1} spi')))
+['P9_17 Mode: spi\n', 'P9_18 Mode: spi\n', 'P9_21 Mode: spi\n', 'P9_22 Mode: spi\n']
+```
+
+If you have included [ElixirAle](https://github.com/fhunleth/elixir_ale) as a dependency, you can start it now and test a transfer:
+
+> The example below should work without any additional hardware connected to the BBB. If you have SPI hardware connected to the BBB, your returned binary might be different.
+
+```console
+iex(demo@nerves-0099)7> Spi.start_link "spidev1.0", [], name: :spi0
+{:ok, #PID<0.181.0>}
+iex(demo@nerves-0099)8> Spi.transfer :spi0, <<1,2,3,4>>
+<<255, 255, 255, 255>>
+```
+
+> Note: If you get back all 0's, then you have likely have not configured the overlay pins correctly.
 
 ## Supported USB WiFi devices
 
