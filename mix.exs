@@ -34,7 +34,9 @@ defmodule NervesSystemBbb.Mixfile do
 
   defp package do
     [maintainers: ["Frank Hunleth", "Justin Schneck"],
-     files: ["rootfs-additions", "bbb-busybox.config", "LICENSE", "mix.exs", "nerves_defconfig", "nerves.exs", "README.md", "VERSION"],
+     files: ["rootfs-additions", "bbb-busybox.config", "LICENSE",
+             "mix.exs", "nerves_defconfig", "nerves.exs", "README.md",
+             "VERSION", "fwup.conf", "post-createfs.sh"],
      licenses: ["Apache 2.0"],
      links: %{"Github" => "https://github.com/nerves-project/nerves_system_bbb"}]
   end
