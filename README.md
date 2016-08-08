@@ -22,6 +22,35 @@ This is the base Nerves System configuration for the [BeagleBone Black](http://b
 | Ethernet             | Yes    |
 | WiFi                 | Requires USB WiFi dongle        |
 
+## Preparing your BeagleBone
+
+The BeagleBone hardware is configured to always try the
+eMMC Flash first when looking for software. If you have a new BeagleBone,
+it will boot to Debian even if a MicroSD card is inserted with good
+software. To boot from the MicroSD card, hold down the USER button and
+apply power.
+
+When starting with Nerves, you will find that booting
+from a MicroSD card is convenient since you can easily recover
+from broken software images. Holding down the USER button will get
+old. To force the BeagleBone to boot
+from the MicroSD card, simply corrupt the image on the eMMC memory.
+Don't worry, the BeagleBone website has instructions for restoring
+Debian.
+
+From Debian:
+```
+debian@beaglebone:~$ sudo dd if=/dev/zero of=/dev/mmcblk0 bs=1M count=100
+100+0 records in
+100+0 records out
+104857600 bytes (105 MB) copied, 5.72098 s, 18.3 MB/s
+debian@beaglebone:~$ sudo reboot
+```
+
+When it reboots, it will boot from the MicroSD slot. If a MicroSD card hasn't
+been inserted or if there are errors reading it, you will see the letter `C` printed
+repeatedly on the console port.
+
 ## Console access
 
 The console is configured to output to `ttyS0` by default. This is the
