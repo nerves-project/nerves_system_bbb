@@ -18,6 +18,8 @@ config :nerves_system_bbb, :nerves_env,
       "bbb-busybox.config",
       "rootfs-additions",
       "fwup.conf",
-      "post-createfs.sh"
+      "post-createfs.sh",
+      "uboot",
+      "uboot-script.cmd"
     ]
   ]
