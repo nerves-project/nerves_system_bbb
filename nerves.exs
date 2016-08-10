@@ -20,6 +20,7 @@ config :nerves_system_bbb, :nerves_env,
       "fwup.conf",
       "post-createfs.sh",
       "uboot",
-      "uboot-script.cmd"
+      "uboot-script.cmd",
+      "linux"
     ]
   ]
