@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.org/nerves-project/nerves_system_bbb.png?branch=master)](https://travis-ci.org/nerves-project/nerves_system_bbb)
 
-This is the base Nerves System configuration for the [BeagleBone Black](http://beagleboard.org/black).
+This is the base Nerves System configuration for the [BeagleBone Black](http://beagleboard.org/black). It
+also works on the [BeagleBone Green](http://beagleboard.org/green).
 
 ![BeagleBone Black image](assets/images/beaglebone-black.png)
 <br><sup>[Image credit](#fritzing)</sup>
@@ -13,7 +14,7 @@ This is the base Nerves System configuration for the [BeagleBone Black](http://b
 | Memory               | 512 MB DRAM                      |
 | Storage              | 4 GB eMMC Flash and MicroSD         |
 | Linux kernel         | 4.4.9 w/ BBB patches |
-| IEx terminal         | ttyS0 via FTDI pins |
+| IEx terminal         | ttyS0 via the FTDI connector |
 | GPIO, I2C, SPI       | Yes - Elixir ALE            |
 | ADC                  | Yes                             |
 | PWM                  | Yes, but no Elixir support      |
