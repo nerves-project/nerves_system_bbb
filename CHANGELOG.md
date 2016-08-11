@@ -1,6 +1,9 @@
 # Changelog
 
-## 0.8.0-dev
+## v0.7.1
+
+  * Package versions
+    * Nerves.System.BR v0.6.1
 
   * New features
     * Pull in BeagleBone Green updates (new u-boot, bbg device tree)
