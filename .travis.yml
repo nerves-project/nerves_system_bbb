@@ -75,6 +75,16 @@ deploy:
       repo: $REPO
       tags: true
 
+  - provider: s3
+    access_key_id: $S3_ID
+    secret_access_key: $S3_KEY
+    bucket: $S3_BUCKET
+    skip_cleanup: true
+    local_dir: artifacts
+    upload-dir: test
+    on:
+      repo: $REPO
+
 # Display build log on failure
 after_failure:
   - tail -n 1000 build.log
