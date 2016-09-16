@@ -82,6 +82,7 @@ deploy:
     skip_cleanup: true
     local_dir: artifacts
     upload-dir: test
+    acl: public_read
     on:
       repo: $REPO
 
