@@ -85,6 +85,7 @@ deploy:
     acl: public_read
     on:
       repo: $REPO
+      all_branches: true
 
 # Display build log on failure
 after_failure:
