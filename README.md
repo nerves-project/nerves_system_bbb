@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.org/nerves-project/nerves_system_bbb.png?branch=master)](https://travis-ci.org/nerves-project/nerves_system_bbb)
 
-This is the base Nerves System configuration for the [BeagleBone Black](http://beagleboard.org/black).
+This is the base Nerves System configuration for the [BeagleBone Black](http://beagleboard.org/black). It
+also works on the [BeagleBone Green](http://beagleboard.org/green).
 
 ![BeagleBone Black image](assets/images/beaglebone-black.png)
 <br><sup>[Image credit](#fritzing)</sup>
@@ -13,7 +14,7 @@ This is the base Nerves System configuration for the [BeagleBone Black](http://b
 | Memory               | 512 MB DRAM                      |
 | Storage              | 4 GB eMMC Flash and MicroSD         |
 | Linux kernel         | 4.4.9 w/ BBB patches |
-| IEx terminal         | ttyS0 via FTDI pins |
+| IEx terminal         | ttyS0 via the FTDI connector |
 | GPIO, I2C, SPI       | Yes - Elixir ALE            |
 | ADC                  | Yes                             |
 | PWM                  | Yes, but no Elixir support      |
@@ -21,6 +22,35 @@ This is the base Nerves System configuration for the [BeagleBone Black](http://b
 | Camera               | None                            |
 | Ethernet             | Yes    |
 | WiFi                 | Requires USB WiFi dongle        |
+
+## Preparing your BeagleBone
+
+The BeagleBone hardware is configured to always try the
+eMMC Flash first when looking for software. If you have a new BeagleBone,
+it will boot to Debian even if a MicroSD card is inserted with good
+software. To boot from the MicroSD card, hold down the USER button and
+apply power.
+
+When starting with Nerves, you will find that booting
+from a MicroSD card is convenient since you can easily recover
+from broken software images. Holding down the USER button will get
+old. To force the BeagleBone to boot
+from the MicroSD card, simply corrupt the image on the eMMC memory.
+Don't worry, the BeagleBone website has instructions for restoring
+Debian.
+
+From Debian:
+```
+debian@beaglebone:~$ sudo dd if=/dev/zero of=/dev/mmcblk0 bs=1M count=100
+100+0 records in
+100+0 records out
+104857600 bytes (105 MB) copied, 5.72098 s, 18.3 MB/s
+debian@beaglebone:~$ sudo reboot
+```
+
+When it reboots, it will boot from the MicroSD slot. If a MicroSD card hasn't
+been inserted or if there are errors reading it, you will see the letter `C` printed
+repeatedly on the console port.
 
 ## Console access
 
@@ -98,6 +128,54 @@ iex(demo@nerves-0099)> File.read("/sys/bus/iio/devices/iio:device0/in_voltage0_r
 iex(demo@nerves-0099)> File.read("/sys/bus/iio/devices/iio:device0/in_voltage0_raw")
 {:ok, "3891\n"}
 ```
+
+### SPI
+
+The following examples shows how to get SPI0 functional in Elixir.
+
+Load the overlay, configure the pins, and load the device drivers:
+
+> Note: The order of the above stops is important. The overlay must be loaded and the pins configured before writing "BB-SPIDEV0".
+
+```console
+iex(demo@nerves-0099)1> :os.cmd('config-pin overlay cape-universaln')
+'Loading cape-universaln overlay\n'
+iex(demo@nerves-0099)2> [17,18,21,22] |> Enum.each(&(:os.cmd('config-pin -a  P9_#{&1} spi')))
+:ok
+iex(demo@nerves-0099)3> File.write("/sys/devices/platform/bone_capemgr/slots","BB-SPIDEV0")
+{:error, :eexist}
+```
+
+Verify that the device drivers are loaded and read spi0 transfers:
+
+```console
+iex(demo@nerves-0099)4> ls "/dev"
+  ...
+        spidev1.0              spidev1.1              spidev2.0              spidev2.1
+  ...
+iex(demo@nerves-0099)5> File.read "/sys/bus/spi/devices/spi1.0/statistics/transfers"
+{:ok, "0"}
+```
+
+Verify that the pins are configured:
+
+```console
+iex(demo@nerves-0099)6> [17,18,21,22] |> Enum.map(&(:os.cmd('config-pin -q  P9_#{&1} spi')))
+['P9_17 Mode: spi\n', 'P9_18 Mode: spi\n', 'P9_21 Mode: spi\n', 'P9_22 Mode: spi\n']
+```
+
+If you have included [ElixirAle](https://github.com/fhunleth/elixir_ale) as a dependency, you can start it now and test a transfer:
+
+> The example below should work without any additional hardware connected to the BBB. If you have SPI hardware connected to the BBB, your returned binary might be different.
+
+```console
+iex(demo@nerves-0099)7> Spi.start_link "spidev1.0", [], name: :spi0
+{:ok, #PID<0.181.0>}
+iex(demo@nerves-0099)8> Spi.transfer :spi0, <<1,2,3,4>>
+<<255, 255, 255, 255>>
+```
+
+> Note: If you get back all 0's, then you have likely have not configured the overlay pins correctly.
 
 ## Supported USB WiFi devices
 
