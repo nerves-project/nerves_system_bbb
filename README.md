@@ -13,7 +13,7 @@ also works on the [BeagleBone Green](http://beagleboard.org/green).
 | CPU                  | 1 GHz ARM Cortex-A8             |
 | Memory               | 512 MB DRAM                      |
 | Storage              | 4 GB eMMC Flash and MicroSD         |
-| Linux kernel         | 4.4.9 w/ BBB patches |
+| Linux kernel         | 4.4.43 w/ BBB patches |
 | IEx terminal         | ttyS0 via the FTDI connector |
 | GPIO, I2C, SPI       | Yes - Elixir ALE            |
 | ADC                  | Yes                             |
