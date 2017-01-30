@@ -13,7 +13,7 @@ also works on the [BeagleBone Green](http://beagleboard.org/green).
 | CPU                  | 1 GHz ARM Cortex-A8             |
 | Memory               | 512 MB DRAM                      |
 | Storage              | 4 GB eMMC Flash and MicroSD         |
-| Linux kernel         | 4.4.9 w/ BBB patches |
+| Linux kernel         | 4.4.43 w/ BBB patches |
 | IEx terminal         | ttyS0 via the FTDI connector |
 | GPIO, I2C, SPI       | Yes - Elixir ALE            |
 | ADC                  | Yes                             |
@@ -200,7 +200,7 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
   1. Add nerves_system_bbb to your list of dependencies in `mix.exs`:
 
         def deps do
-          [{:nerves_system_bbb, "~> 0.4.0"}]
+          [{:nerves_system_bbb, "~> 0.10.0"}]
         end
 
   2. Ensure nerves_system_bbb is started before your application:
