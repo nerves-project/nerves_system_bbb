@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.11.0
+
+  * New Features
+    * Support for Nerves 0.5.0
+
 ## v0.10.0
 
   * New features
