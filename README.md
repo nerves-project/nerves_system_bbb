@@ -2,8 +2,8 @@
 
 [![Build Status](https://travis-ci.org/nerves-project/nerves_system_bbb.png?branch=master)](https://travis-ci.org/nerves-project/nerves_system_bbb)
 
-This is the base Nerves System configuration for the [BeagleBone Black](http://beagleboard.org/black). It
-also works on the [BeagleBone Green](http://beagleboard.org/green).
+This is the base Nerves System configuration for the [BeagleBone Black](http://beagleboard.org/black),
+[BeagleBone Green](http://beagleboard.org/green), and [BeagleBone Green Wireless](https://beagleboard.org/green-wireless/).
 
 ![BeagleBone Black image](assets/images/beaglebone-black.png)
 <br><sup>[Image credit](#fritzing)</sup>
@@ -21,7 +21,7 @@ also works on the [BeagleBone Green](http://beagleboard.org/green).
 | UART                 | ttyS0 + more via device tree overlay  |
 | Camera               | None                            |
 | Ethernet             | Yes    |
-| WiFi                 | Requires USB WiFi dongle        |
+| WiFi                 | Beaglebone Green Wireless (wl18xx driver). Other requires USB WiFi dongle/driver |
 
 ## Preparing your BeagleBone
 
@@ -179,8 +179,11 @@ iex(demo@nerves-0099)8> Spi.transfer :spi0, <<1,2,3,4>>
 
 ## Supported USB WiFi devices
 
-The base image includes drivers and firmware for Ralink RT53xx
-(`rt2800usb` driver) and RealTek RTL8712U (`r8712u` driver) devices.
+The base image includes drivers and firmware for the TI WiLink8 (`wl18xx`), Ralink RT53xx
+(`rt2800usb` driver) and RealTek RTL8712U (`r8712u` driver) devices. All WiFi
+drivers are compiled as modules. Currently, Nerves doesn't autoload the drivers,
+so you'll need to load them at the beginning of your application. For example,
+run `:os.cmd('modprobe wl18xx')` if you're using a BeagleBone Green Wireless.
 
 We are still working out which subset of all possible WiFi dongles to
 support in our images. At some point, we may have the option to support
