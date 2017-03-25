@@ -8,7 +8,7 @@ defmodule NervesSystemBbb.Mixfile do
   def project do
     [app: :nerves_system_bbb,
      version: @version,
-     elixir: "~> 1.2",
+     elixir: "~> 1.3",
      compilers: Mix.compilers ++ [:nerves_package],
      description: description(),
      package: package(),
