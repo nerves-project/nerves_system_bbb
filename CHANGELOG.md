@@ -1,6 +1,13 @@
 # Changelog
 
-## v0.11.1-dev
+## v0.12.0-dev
+
+  * nerves_system_br v0.10.0
+    * Buildroot 2017.02
+    * Erlang/OTP 19.3
+
+  * New features
+    * Support for BBG Wireless
 
 ## v0.11.0
 
