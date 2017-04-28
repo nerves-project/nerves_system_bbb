@@ -1,13 +1,15 @@
 # Changelog
 
-## v0.12.0-dev
+## v0.12.0
 
   * nerves_system_br v0.10.0
     * Buildroot 2017.02
     * Erlang/OTP 19.3
 
   * New features
-    * Support for BBG Wireless
+    * Support for BBG Wireless - the BBGW's MAC Address is not automatically set
+      so support needs to be added. However, one BBGW on a WLAN works.
+    * Bump Linux kernel to 4.4.60
 
 ## v0.11.0
 
