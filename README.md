@@ -1,4 +1,4 @@
-# BeagleBone Black
+# BeagleBone Black, Green and Green Wireless
 
 [![Build Status](https://travis-ci.org/nerves-project/nerves_system_bbb.png?branch=master)](https://travis-ci.org/nerves-project/nerves_system_bbb)
 
@@ -13,7 +13,7 @@ This is the base Nerves System configuration for the [BeagleBone Black](http://b
 | CPU                  | 1 GHz ARM Cortex-A8             |
 | Memory               | 512 MB DRAM                      |
 | Storage              | 4 GB eMMC Flash and MicroSD         |
-| Linux kernel         | 4.4.43 w/ BBB patches |
+| Linux kernel         | 4.4.60 w/ BBB patches |
 | IEx terminal         | ttyS0 via the FTDI connector |
 | GPIO, I2C, SPI       | Yes - Elixir ALE            |
 | ADC                  | Yes                             |
@@ -196,6 +196,20 @@ for your device. At a shell prompt, run `lsmod` to see which drivers are loaded.
 Running `dmesg` may also give a clue. When using `dmesg`, reinsert the USB
 dongle to generate new log messages if you don't see them.
 
+## Beaglebone Green WiFi
+
+Initial support for the BBGW's onboard wireless module is available. To try it out,
+run (assuming you have Nerves.InterimWiFi in your image):
+
+```
+:os.cmd('modprobe wl18xx')
+:os.cmd('modprobe wlcore-sdio')
+Nerves.InterimWiFi.setup "wlan0", ssid: "xxx", key_mgmt: :"WPA-PSK", psk: "yyy"
+```
+
+Be aware that this Nerves system does not configure the MAC address. The result is
+that only one BBGW may exist on the WiFi network at a time.
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
@@ -203,7 +217,7 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
   1. Add nerves_system_bbb to your list of dependencies in `mix.exs`:
 
         def deps do
-          [{:nerves_system_bbb, "~> 0.11.0"}]
+          [{:nerves_system_bbb, "~> 0.12.0"}]
         end
 
   2. Ensure nerves_system_bbb is started before your application:
