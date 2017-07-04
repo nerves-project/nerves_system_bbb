@@ -16,7 +16,7 @@ config pkg, :nerves_env,
   ],
   platform: Nerves.System.BR,
   platform_config: [
-    defconfig: "nerves_defconfig",
+    defconfig: "nerves_defconfig"
   ],
   checksum: [
     "nerves_defconfig",
