@@ -2,6 +2,32 @@
 
 ## v0.13.0-dev
 
+This release is NOT backwards compatible with previous releases and will not
+upgrade old systems. With work, it is possible to upgrade old systems, but it is
+not recommended.
+
+  * nerves_system_br v0.12.1
+    * erlinit 1.1.1
+    * fwup 0.15.0
+
+  * New features
+    * The application data partition is now `ext4`. This greatly improves its
+      robustness to corruption. Nerves.Runtime contains code to initialize it on
+      first boot.
+    * Firmware images now contain metadata that can be queried at runtime (see
+      Nerves.Runtime.KV
+    * The boot partition is managed in an A/B style to support more robust
+      firmware updates.
+
+  * Bug fixes
+    * The Linux kernel is no longer compiled for SMP. All Beaglebone variants
+      are single processor.
+
+NOTE: It is possible to support "failback" operation of firmware updates with
+the BBB. I.e. if an partition doesn't boot, the system reverts to the previous
+one. This is not implemented here, but this system is being made to align more
+with implementations that do this to make the transition easier.
+
 ## v0.12.0
 
   * nerves_system_br v0.10.0
