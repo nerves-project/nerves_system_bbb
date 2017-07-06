@@ -1,6 +1,6 @@
 # Changelog
 
-## v0.13.0-dev
+## v0.13.0
 
 This release is NOT backwards compatible with previous releases and will not
 upgrade old systems. With work, it is possible to upgrade old systems, but it is
