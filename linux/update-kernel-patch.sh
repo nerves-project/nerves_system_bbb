@@ -11,7 +11,7 @@ update_kernel_patch() {
   local OUTPUT_PATCH=$3
 
   local ORIGINAL_DIFF=patch-$PATCH_VERSION.diff
-  local ORIGINAL_DIFF_GZ=$ORIGINAL_DIFF.gz
+  local ORIGINAL_DIFF_XZ=$ORIGINAL_DIFF.xz
   local KERNEL_TARBALL=linux-$KERNEL_VERSION.tar.xz
 
   # Work in a temporary directory
@@ -26,11 +26,11 @@ update_kernel_patch() {
 
   case $KERNEL_VERSION in
       3*)
-          RCN_PATCH_URL=http://rcn-ee.net/deb/sid-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_GZ
+          RCN_PATCH_URL=http://rcn-ee.net/deb/sid-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_XZ
           KERNEL_URL=https://www.kernel.org/pub/linux/kernel/v3.x/$KERNEL_TARBALL
           ;;
       4*)
-          RCN_PATCH_URL=http://rcn-ee.net/deb/jessie-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_GZ
+          RCN_PATCH_URL=http://rcn-ee.net/deb/jessie-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_XZ
           KERNEL_URL=https://www.kernel.org/pub/linux/kernel/v4.x/$KERNEL_TARBALL
           ;;
       *)
@@ -50,7 +50,7 @@ update_kernel_patch() {
   tar -x -f $KERNEL_TARBALL && mv linux-$KERNEL_VERSION b
 
   # Expand the "git" style patch
-  gunzip $ORIGINAL_DIFF_GZ
+  unxz $ORIGINAL_DIFF_XZ
 
   # Make a git repo and apply the "git" style patch
   echo "Creating temporary git repo to extract RCN patch..."
@@ -81,6 +81,7 @@ update_kernel_patch() {
 #update_kernel_patch 4.1.23-ti-r60 4.1.23 rcn-linux-4.1.23-ti.patch
 #update_kernel_patch 4.4.9-bone10 4.4.9 rcn-linux-4.4.9-bone.patch
 #update_kernel_patch 4.4.9-ti-r25 4.4.9 rcn-linux-4.4.9-ti.patch
-update_kernel_patch 4.4.60-ti-r97 4.4.60 rcn-linux-4.4.60-ti.patch
+update_kernel_patch 4.4.68-ti-r111 4.4.68 rcn-linux-4.4.68-ti.patch
+#update_kernel_patch 4.9.38-ti-r48 4.9.38 rcn-linux-4.9.38-ti.patch
 
 echo "Updated patches. Now rebuild the linux kernel."
