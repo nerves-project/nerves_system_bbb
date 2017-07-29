@@ -20,7 +20,7 @@ config pkg, :nerves_env,
   ],
   checksum: [
     "nerves_defconfig",
-    "rootfs-additions",
+    "rootfs_overlay",
     "linux",
     "fwup.conf",
     "uboot",

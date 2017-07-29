@@ -36,7 +36,7 @@ defmodule NervesSystemBbb.Mixfile do
 
   defp package do
     [maintainers: ["Frank Hunleth", "Justin Schneck"],
-     files: ["rootfs-additions", "bbb-busybox.config", "LICENSE",
+     files: ["rootfs_overlay", "bbb-busybox.config", "LICENSE",
              "mix.exs", "nerves_defconfig", "nerves.exs", "README.md",
              "VERSION", "fwup.conf", "post-createfs.sh", "uboot",
              "uboot-script.cmd", "linux"],
