@@ -1,6 +1,6 @@
 # BeagleBone Black, Green and Green Wireless
 
-[![Build Status](https://travis-ci.org/nerves-project/nerves_system_bbb.png?branch=master)](https://travis-ci.org/nerves-project/nerves_system_bbb)
+[![CircleCI](https://circleci.com/gh/nerves-project/nerves_system_bbb.svg?style=svg)](https://circleci.com/gh/nerves-project/nerves_system_bbb)
 
 This is the base Nerves System configuration for the [BeagleBone Black](http://beagleboard.org/black),
 [BeagleBone Green](http://beagleboard.org/green), and [BeagleBone Green Wireless](https://beagleboard.org/green-wireless/).
