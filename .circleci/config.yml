@@ -172,7 +172,7 @@ workflows:
           requires:
             - build_system
           filters:
+            tags:
+              only: /^v\d+\.\d+\.\d+$(?!\D)/
             branches:
               only: master
-            tags:
-              only: /v(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)\.(?:0|[1-9]\d*)/
