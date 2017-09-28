@@ -13,7 +13,7 @@ This is the base Nerves System configuration for the [BeagleBone Black](http://b
 | CPU                  | 1 GHz ARM Cortex-A8             |
 | Memory               | 512 MB DRAM                     |
 | Storage              | 4 GB eMMC Flash and MicroSD     |
-| Linux kernel         | 4.4.60 w/ BBB patches           |
+| Linux kernel         | 4.4.88 w/ BBB patches           |
 | IEx terminal         | ttyGS0 via the USB              |
 | GPIO, I2C, SPI       | Yes - Elixir ALE                |
 | ADC                  | Yes                             |
@@ -25,19 +25,16 @@ This is the base Nerves System configuration for the [BeagleBone Black](http://b
 
 ## Preparing your BeagleBone
 
-The BeagleBone hardware is configured to always try the
-eMMC Flash first when looking for software. If you have a new BeagleBone,
-it will boot to Debian even if a MicroSD card is inserted with good
-software. To boot from the MicroSD card, hold down the USER button and
-apply power.
+The BeagleBone hardware is configured to always try the eMMC Flash first when
+looking for software. If you have a new BeagleBone, it will boot to Debian even
+if a MicroSD card is inserted with good software. To boot from the MicroSD card,
+hold down the USER button and apply power.
 
-When starting with Nerves, you will find that booting
-from a MicroSD card is convenient since you can easily recover
-from broken software images. Holding down the USER button will get
-old. To force the BeagleBone to boot
-from the MicroSD card, simply corrupt the image on the eMMC memory.
-Don't worry, the BeagleBone website has instructions for restoring
-Debian.
+When starting with Nerves, you will find that booting from a MicroSD card is
+convenient since you can easily recover from broken software images. Holding
+down the USER button will get old. To force the BeagleBone to boot from the
+MicroSD card, simply corrupt the image on the eMMC memory.  Don't worry, the
+BeagleBone website has instructions for restoring Debian.
 
 From Debian:
 ```
@@ -49,51 +46,49 @@ debian@beaglebone:~$ sudo reboot
 ```
 
 When it reboots, it will boot from the MicroSD slot. If a MicroSD card hasn't
-been inserted or if there are errors reading it, you will see the letter `C` printed
-repeatedly on the console port.
+been inserted or if there are errors reading it, you will see the letter `C`
+printed repeatedly on the console port.
 
 ## Console access
 
-The console is configured to output to `ttyGS0` by default. This
-is output through a USB cable connected to the BeagleBone's OTG USB
-port. It will show up on the connected computer as a virtual serial
-port.
+The console is configured to output to `ttyGS0` by default. This is output
+through a USB cable connected to the BeagleBone's OTG USB port. It will show up
+on the connected computer as a virtual serial port.
 
-It is also possible to configure the IEx prompt through the 6 pin 
-header on the BeagleBone that's labeled J1. A 3.3V FTDI
-cable is needed to access the output. To use this output, override
-the default `erlinit.config` and specify that the output should go to
-`ttyS0`.
+It is also possible to configure the IEx prompt through the 6 pin header on the
+BeagleBone that's labeled J1. A 3.3V FTDI cable is needed to access the output.
+To use this output, override the default `erlinit.config` and specify that the
+output should go to `ttyS0`.
 
-The HDMI output has been disabled via device tree to free up pins on the
-GPIO header. If you would like console access via HDMI, you will need
-to enable HDMI support in the Linux kernel, remove the HDMI disable
-argument in the uboot script providing kernel arguments, and change
-`erlinit.conf` to output to `tty1`.
+The HDMI output has been disabled via device tree to free up pins on the GPIO
+header. If you would like console access via HDMI, you will need to enable HDMI
+support in the Linux kernel, remove the HDMI disable argument in the uboot
+script providing kernel arguments, and change `erlinit.conf` to output to
+`tty1`.
 
 ## Linux versions
 
-The BeagleBone Black has many options for Linux that vary by
-kernel version and patch set. Nerves tracks those maintained by
-Robert Nelson at https://eewiki.net/display/linuxonarm/BeagleBone+Black.
-His patch sets have `-rt` and `-ti`/`-bone` options. The `-rt` for real-time
-actually refers to `CONFIG_PREEMPT` and a couple other real-time options being
-configured in the Linux kernel. Nerves uses those options as well. Nerves
-follows the `-ti` patch set. See `nerves_system_br/boards/bbb` for the actual
-patches.
+The BeagleBone Black has many options for Linux that vary by kernel version and
+patch set. Nerves tracks those maintained by Robert Nelson at
+https://eewiki.net/display/linuxonarm/BeagleBone+Black.  His patch sets have
+`-rt` and `-ti`/`-bone` options. The `-rt` for real-time actually refers to
+`CONFIG_PREEMPT` and a couple other real-time options being configured in the
+Linux kernel. Nerves uses those options as well. Nerves follows the `-ti` patch
+set. See `nerves_system_br/boards/bbb` for the actual patches.
 
-Be aware that if you have been using Linux kernel 3.8 on the BeagleBone, that there
-have been device tree overlay and PRU updates. File paths have changed for
+Be aware that if you have been using Linux kernel 3.8 on the BeagleBone, that
+there have been device tree overlay and PRU updates. File paths have changed for
 inserting device tree overlays.
 
 ## Device tree overlays
 
 Most pins on the BBB's headers are configurable via the device tree.
-Configuration can be done at runtime via the [Universal I/O](https://github.com/cdsteinkuehler/beaglebone-universal-io)
-device tree overlays. These overlays are included in the kernel configuration
-for Nerves so you do not need to compile that project. Additionally, the
-`config-pin` script is available in `/usr/bin` on the target. It has
-minor modifications to run on Nerves.
+Configuration can be done at runtime via the [Universal
+I/O](https://github.com/cdsteinkuehler/beaglebone-universal-io) device tree
+overlays. These overlays are included in the kernel configuration for Nerves so
+you do not need to compile that project. Additionally, the `config-pin` script
+is available in `/usr/bin` on the target. It has minor modifications to run on
+Nerves.
 
 ### Universal I/O
 
@@ -219,19 +214,12 @@ that only one BBGW may exist on the WiFi network at a time.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
-
-  1. Add nerves_system_bbb to your list of dependencies in `mix.exs`:
-
-        def deps do
-          [{:nerves_system_bbb, "~> 0.12.0"}]
-        end
-
-  2. Ensure nerves_system_bbb is started before your application:
-
-        def application do
-          [applications: [:nerves_system_bbb]]
-        end
-
+If you're new to Nerves, check out the
+[nerves_init_gadget](https://github.com/fhunleth/nerves_init_gadget) project for
+creating a starter project for the Beaglebone boards. The instructions are
+basically the same for the Raspberry Pi Zero or Zero W except you should `export
+MIX_TARGET=bbb` so that the appropriate `mix` targets get run. It will get you
+started with the basics like bringing up the virtual Ethernet interface,
+initializing the application partition, and enabling ssh-based firmware updates.
 
 [Image credit](#fritzing): This image is from the [Fritzing](http://fritzing.org/home/) parts library.
