@@ -3,7 +3,8 @@
 [![CircleCI](https://circleci.com/gh/nerves-project/nerves_system_bbb.svg?style=svg)](https://circleci.com/gh/nerves-project/nerves_system_bbb)
 
 This is the base Nerves System configuration for the [BeagleBone Black](http://beagleboard.org/black),
-[BeagleBone Green](http://beagleboard.org/green), and [BeagleBone Green Wireless](https://beagleboard.org/green-wireless/).
+[BeagleBone Green](http://beagleboard.org/green), [BeagleBone Green Wireless](https://beagleboard.org/green-wireless/),
+and [PocketBeagle](https://beagleboard.org/pocket).
 
 ![BeagleBone Black image](assets/images/beaglebone-black.png)
 <br><sup>[Image credit](#fritzing)</sup>
@@ -13,7 +14,7 @@ This is the base Nerves System configuration for the [BeagleBone Black](http://b
 | CPU                  | 1 GHz ARM Cortex-A8             |
 | Memory               | 512 MB DRAM                     |
 | Storage              | 4 GB eMMC Flash and MicroSD     |
-| Linux kernel         | 4.4.88 w/ BBB patches           |
+| Linux kernel         | 4.4.91 w/ BBB patches           |
 | IEx terminal         | ttyGS0 via the USB              |
 | GPIO, I2C, SPI       | Yes - Elixir ALE                |
 | ADC                  | Yes                             |
@@ -25,10 +26,11 @@ This is the base Nerves System configuration for the [BeagleBone Black](http://b
 
 ## Preparing your BeagleBone
 
-The BeagleBone hardware is configured to always try the eMMC Flash first when
-looking for software. If you have a new BeagleBone, it will boot to Debian even
-if a MicroSD card is inserted with good software. To boot from the MicroSD card,
-hold down the USER button and apply power.
+If your BeagleBone has eMMC (the PocketBeagle doesn't), it will be configured to
+try the eMMC first when looking for software on boot. If you haven't
+reprogrammed it, it will boot to Debian even if a MicroSD card is inserted with
+good software. To boot from the MicroSD card, hold down the USER button and
+apply power.
 
 When starting with Nerves, you will find that booting from a MicroSD card is
 convenient since you can easily recover from broken software images. Holding
