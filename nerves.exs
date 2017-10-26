@@ -27,6 +27,7 @@ config pkg, :nerves_env,
     "bbb-busybox.config",
     "nerves.exs",
     "uboot-script.cmd",
+    "post-build.sh",
     "post-createfs.sh",
     "VERSION"
   ]
