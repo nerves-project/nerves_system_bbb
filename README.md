@@ -1,4 +1,4 @@
-# BeagleBone Black, Green and Green Wireless
+# Generic BeagleBone Support
 
 [![CircleCI](https://circleci.com/gh/nerves-project/nerves_system_bbb.svg?style=svg)](https://circleci.com/gh/nerves-project/nerves_system_bbb)
 [![Hex version](https://img.shields.io/hexpm/v/nerves_system_bbb.svg "Hex version")](https://hex.pm/packages/nerves_system_bbb)
