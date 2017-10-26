@@ -30,7 +30,7 @@ update_kernel_patch() {
           KERNEL_URL=https://www.kernel.org/pub/linux/kernel/v3.x/$KERNEL_TARBALL
           ;;
       4*)
-          RCN_PATCH_URL=http://rcn-ee.net/deb/jessie-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_XZ
+          RCN_PATCH_URL=http://rcn-ee.net/deb/stretch-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_XZ
           KERNEL_URL=https://www.kernel.org/pub/linux/kernel/v4.x/$KERNEL_TARBALL
           ;;
       *)
@@ -81,7 +81,7 @@ update_kernel_patch() {
 #update_kernel_patch 4.1.23-ti-r60 4.1.23 rcn-linux-4.1.23-ti.patch
 #update_kernel_patch 4.4.9-bone10 4.4.9 rcn-linux-4.4.9-bone.patch
 #update_kernel_patch 4.4.9-ti-r25 4.4.9 rcn-linux-4.4.9-ti.patch
-update_kernel_patch 4.4.88-ti-r129 4.4.88 rcn-linux-4.4.88-ti.patch
-#update_kernel_patch 4.9.38-ti-r48 4.9.38 rcn-linux-4.9.38-ti.patch
+#update_kernel_patch 4.4.91-ti-r134 4.4.91 rcn-linux-4.4.91-ti.patch
+update_kernel_patch 4.9.58-ti-r72 4.9.58 rcn-linux-4.9.58-ti.patch
 
 echo "Updated patches. Now rebuild the linux kernel."
