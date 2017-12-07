@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.18.0
+
+  Updated dependencies
+  * [nerves_system_br v0.15.0](https://github.com/nerves-project/nerves_system_br/releases/tag/v0.15.0)
+  * [toolchain v0.12.1](https://github.com/nerves-project/toolchains/releases/tag/v0.12.1)
+  * u-boot 2017.09
+  * Linux 4.4.91 w/ RCN's patches
+
+  * Enhancements
+    * Support for nerves 0.8. Moves nerves.exs into mix.exs
+    * Support for pocketbeagle
+  
+  * Bug Fixes
+    * Clear out the wl18xx MAC address field
+      This will trigger the WiLink device driver to use the MAC address that
+      TI programmed into the module rather than 00:00:de:ad:be:ef.
+    
+
 ## v0.17.1
 
   Updated dependencies
