@@ -11,7 +11,7 @@ defmodule NervesSystemBbb.Mixfile do
       app: @app,
       version: @version,
       elixir: "~> 1.4",
-      compilers: Mix.compilers ++ [:nerves_package],
+      compilers: Mix.compilers() ++ [:nerves_package],
       nerves_package: nerves_package(),
       description: description(),
       package: package(),
@@ -28,7 +28,7 @@ defmodule NervesSystemBbb.Mixfile do
     [
       type: :system,
       artifact_url: [
-        "https://github.com/nerves-project/#{@app}/releases/download/v#{@version}/#{@app}-v#{@version}.tar.gz",
+        "https://github.com/nerves-project/#{@app}/releases/download/v#{@version}/#{@app}-v#{@version}.tar.gz"
       ],
       platform: Nerves.System.BR,
       platform_config: [
@@ -41,8 +41,8 @@ defmodule NervesSystemBbb.Mixfile do
   defp deps do
     [
       {:nerves, "~> 0.8", runtime: false},
-      {:nerves_system_br, "~> 0.15.0", runtime: false, app: false},
-      {:nerves_toolchain_arm_unknown_linux_gnueabihf, "~> 0.12.1", runtime: false, app: false}
+      {:nerves_system_br, "~> 0.15.1", runtime: false},
+      {:nerves_toolchain_arm_unknown_linux_gnueabihf, "~> 0.12.1", runtime: false},
     ]
   end
 
@@ -63,18 +63,18 @@ defmodule NervesSystemBbb.Mixfile do
 
   defp package_files do
     [
-      "rootfs_overlay",
-      "bbb-busybox.config",
       "LICENSE",
       "mix.exs",
       "nerves_defconfig",
       "README.md",
       "VERSION",
+      "rootfs_overlay",
       "fwup.conf",
       "post-createfs.sh",
       "post-build.sh",
       "uboot",
       "uboot-script.cmd",
+      "bbb-busybox.config",
       "linux"
     ]
   end
