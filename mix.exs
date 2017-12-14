@@ -71,6 +71,7 @@ defmodule NervesSystemBbb.Mixfile do
       "VERSION",
       "rootfs_overlay",
       "fwup.conf",
+      "fwup-revert.conf",
       "post-createfs.sh",
       "post-build.sh",
       "uboot",

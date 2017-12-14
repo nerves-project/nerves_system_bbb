@@ -4,6 +4,9 @@ set -e
 
 # Clear the MAC address on the TI WL18xx .bin file.
 #
+# NOTE: This is only relevant for the BBG Wireless and any other board using
+#       a TI WiLink WiFi module.
+#
 # If the MAC address field is set to 0, the WL18xx parts will use whatever
 # TI programmed into the module's fuses. The wl127x-nvs.bin file distributed
 # with the linux-firmware package has the MAC address set to 00:00:de:ad:be:ef
@@ -26,3 +29,8 @@ dd if=/dev/zero of=$TARGET_DIR/lib/firmware/ti-connectivity/wl127x-nvs.bin \
     bs=1 count=4 seek=3 2> /dev/null
 dd if=/dev/zero of=$TARGET_DIR/lib/firmware/ti-connectivity/wl127x-nvs.bin \
     bs=1 count=2 seek=10 2> /dev/null
+
+# Create the revert script for manually switching back to the previously
+# active firmware.
+mkdir -p $TARGET_DIR/usr/share/fwup
+$HOST_DIR/usr/bin/fwup -c -f $NERVES_DEFCONFIG_DIR/fwup-revert.conf -o $TARGET_DIR/usr/share/fwup/revert.fw
