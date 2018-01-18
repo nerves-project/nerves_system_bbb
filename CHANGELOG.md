@@ -1,5 +1,7 @@
 # Changelog
 
+## v0.19.2-dev
+
 ## v0.19.1
 
   Updated dependencies
@@ -17,10 +19,10 @@
       Nerves systems. See rootfs_overlay/etc/erlinit.config if undesired.
     * Start running nerves_system_linter to check for configuration errors.
     * Automount the boot partition readonly at `/boot`
-    * Support for reverting firmware. 
-      
+    * Support for reverting firmware.
+
       See [Reverting Firmware](https://hexdocs.pm/nerves_runtime/readme.html#reverting-firmware) for more info on reverting firmware.
-      
+
       See [fwup-revert.conf](https://github.com/nerves-project/nerves_system_rpi/blob/master/fwup-revert.conf) for more information on how fwup handles reverting.
 
 ## v0.18.0
@@ -34,12 +36,12 @@
   * Enhancements
     * Support for nerves 0.8. Moves nerves.exs into mix.exs
     * Support for pocketbeagle
-  
+
   * Bug Fixes
     * Clear out the wl18xx MAC address field
       This will trigger the WiLink device driver to use the MAC address that
       TI programmed into the module rather than 00:00:de:ad:be:ef.
-    
+
 
 ## v0.17.1
 
