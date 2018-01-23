@@ -15,7 +15,7 @@ defmodule Test.Mixfile do
      archives: [nerves_bootstrap: "~> 0.6"],
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     aliases: aliases(),
+     aliases: Nerves.Bootstrap.add_aliases([]),
      deps: deps()]
   end
 
@@ -35,16 +35,9 @@ defmodule Test.Mixfile do
   # Type "mix help deps" for more examples and options
   def deps do
     [
-      {:nerves, "~> 0.7", runtime: false},
       {:nerves_system_bbb, path: "../", runtime: false},
       {:nerves_system_test, github: "nerves-project/nerves_system_test"}
-      #{:nerves_system_test, path: "../../nerves_system_test"}
     ]
-  end
-
-  def aliases() do
-    ["deps.precompile": ["nerves.precompile", "deps.precompile"],
-     "deps.loadpaths":  ["deps.loadpaths", "nerves.loadpaths"]]
   end
 
 end

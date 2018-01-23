@@ -19,8 +19,8 @@ websocket_protocol = System.get_env("WEBSOCKET_PROTOCOL") || "ws"
 
 # Common configuration
 
-# Configure bootloader boot order.
-config :bootloader,
+# Configure shoehorn boot order.
+config :shoehorn,
   app: :nerves_system_test,
   init: [:nerves_runtime, :nerves_network]
 
