@@ -16,7 +16,9 @@ defmodule NervesSystemBbb.Mixfile do
       description: description(),
       package: package(),
       deps: deps(),
-      aliases: ["deps.precompile": ["nerves.env", "deps.precompile"]]
+      aliases: [
+        "deps.precompile": ["nerves.env", "deps.precompile"],
+        "deps.get": ["deps.get", "nerves.deps.get"]]
     ]
   end
 
@@ -27,8 +29,8 @@ defmodule NervesSystemBbb.Mixfile do
   def nerves_package do
     [
       type: :system,
-      artifact_url: [
-        "https://github.com/nerves-project/#{@app}/releases/download/v#{@version}/#{@app}-v#{@version}.tar.gz"
+      artifact_sites: [
+        {:github_releases, "nerves-project/#{@app}"}
       ],
       platform: Nerves.System.BR,
       platform_config: [
