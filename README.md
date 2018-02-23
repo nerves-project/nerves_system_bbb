@@ -40,7 +40,8 @@ MicroSD card, simply corrupt the image on the eMMC memory.  Don't worry, the
 BeagleBone website has instructions for restoring Debian.
 
 From Debian:
-```
+
+```bash
 debian@beaglebone:~$ sudo dd if=/dev/zero of=/dev/mmcblk0 bs=1M count=100
 100+0 records in
 100+0 records out
@@ -73,11 +74,11 @@ script providing kernel arguments, and change `erlinit.conf` to output to
 
 The BeagleBone Black has many options for Linux that vary by kernel version and
 patch set. Nerves tracks those maintained by Robert Nelson at
-https://eewiki.net/display/linuxonarm/BeagleBone+Black.  His patch sets have
-`-rt` and `-ti`/`-bone` options. The `-rt` for real-time actually refers to
-`CONFIG_PREEMPT` and a couple other real-time options being configured in the
-Linux kernel. Nerves uses those options as well. Nerves follows the `-ti` patch
-set. See `nerves_system_br/boards/bbb` for the actual patches.
+[eewiki.net](https://eewiki.net/display/linuxonarm/BeagleBone+Black).  His patch
+sets have `-rt` and `-ti`/`-bone` options. The `-rt` for real-time actually
+refers to `CONFIG_PREEMPT` and a couple other real-time options being configured
+in the Linux kernel. Nerves uses those options as well. Nerves follows the `-ti`
+patch set. See `nerves_system_br/boards/bbb` for the actual patches.
 
 Be aware that if you have been using Linux kernel 3.8 on the BeagleBone, that
 there have been device tree overlay and PRU updates. File paths have changed for
@@ -98,7 +99,7 @@ Nerves.
 The universal I/O overlays can be loaded manually or by using the `config-pin`
 shell script:
 
-```
+```elixir
 iex(demo@nerves-0099)> :os.cmd('config-pin overlay cape-universaln')
 'Loading cape-universaln overlay\n'
 iex(demo@nerves-0099)> :os.cmd('config-pin -i P9_16') |> IO.puts
@@ -118,7 +119,7 @@ iex(demo@nerves-0099)> :os.cmd('config-pin P9_16 pwm')
 
 The following example shows how to read values from the 7 ADC inputs in Elixir.
 
-```
+```elixir
 iex(demo@nerves-0099)> File.write("/sys/devices/platform/bone_capemgr/slots","BB-ADC")
 :ok
 iex(demo@nerves-0099)> ls "/sys/bus/iio/devices/iio:device0"
@@ -184,36 +185,36 @@ iex(demo@nerves-0099)8> Spi.transfer :spi0, <<1,2,3,4>>
 
 ## Supported USB WiFi devices
 
-The base image includes drivers and firmware for the TI WiLink8 (`wl18xx`), Ralink RT53xx
-(`rt2800usb` driver) and RealTek RTL8712U (`r8712u` driver) devices. All WiFi
-drivers are compiled as modules. Currently, Nerves doesn't autoload the drivers,
-so you'll need to load them at the beginning of your application. For example,
-run `:os.cmd('modprobe wl18xx')` if you're using a BeagleBone Green Wireless.
+The base image includes drivers and firmware for the TI WiLink8 (`wl18xx`),
+Ralink RT53xx (`rt2800usb` driver) and RealTek RTL8712U (`r8712u` driver)
+devices. All WiFi drivers are compiled as modules. Currently, Nerves doesn't
+autoload the drivers, so you'll need to load them at the beginning of your
+application. For example, run `:os.cmd('modprobe wl18xx')` if you're using a
+BeagleBone Green Wireless.
 
-We are still working out which subset of all possible WiFi dongles to
-support in our images. At some point, we may have the option to support
-all dongles and selectively install modules at packaging time, but until
-then, these drivers and their associated firmware blobs add significantly
-to Nerves release images.
+We are still working out which subset of all possible WiFi dongles to support in
+our images. At some point, we may have the option to support all dongles and
+selectively install modules at packaging time, but until then, these drivers and
+their associated firmware blobs add significantly to Nerves release images.
 
-If you are unsure what driver your WiFi dongle requires, run Raspbian and configure WiFi
-for your device. At a shell prompt, run `lsmod` to see which drivers are loaded.
-Running `dmesg` may also give a clue. When using `dmesg`, reinsert the USB
-dongle to generate new log messages if you don't see them.
+If you are unsure what driver your WiFi dongle requires, run Raspbian and
+configure WiFi for your device. At a shell prompt, run `lsmod` to see which
+drivers are loaded.  Running `dmesg` may also give a clue. When using `dmesg`,
+reinsert the USB dongle to generate new log messages if you don't see them.
 
 ## Beaglebone Green WiFi
 
-Initial support for the BBGW's onboard wireless module is available. To try it out,
-run (assuming you have Nerves.InterimWiFi in your image):
+Initial support for the BBGW's onboard wireless module is available. To try it
+out, run (assuming you have Nerves.InterimWiFi in your image):
 
-```
+```elixir
 :os.cmd('modprobe wl18xx')
 :os.cmd('modprobe wlcore-sdio')
 Nerves.InterimWiFi.setup "wlan0", ssid: "xxx", key_mgmt: :"WPA-PSK", psk: "yyy"
 ```
 
-Be aware that this Nerves system does not configure the MAC address. The result is
-that only one BBGW may exist on the WiFi network at a time.
+Be aware that this Nerves system does not configure the MAC address. The result
+is that only one BBGW may exist on the WiFi network at a time.
 
 ## Installation
 

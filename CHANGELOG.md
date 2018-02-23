@@ -1,56 +1,62 @@
 # Changelog
 
+## v1.0.0-rc.0
+
+* Updated dependencies
+  * [nerves_system_br v1.0.0-rc.0](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.0.0-rc.0)
+  * [nerves_toolchain v1.0.0-rc.0](https://github.com/nerves-project/toolchains/releases/tag/v1.0.0-rc.0)
+  * [nerves v1.0.0-rc.0](https://github.com/nerves-project/nerves/releases/tag/1.0.0-rc.0)
+
 ## v0.20.0
 
-  Updated dependencies
+* Updated dependencies
   * [nerves_system_br v0.17.0](https://github.com/nerves-project/nerves_system_br/releases/tag/v0.17.0)
   * [nerves_toolchain v0.13.0](https://github.com/nerves-project/toolchains/releases/tag/v0.13.0)
   * [nerves v0.9.0](https://github.com/nerves-project/nerves/releases/tag/v0.9.0)
 
 ## v0.19.1
 
-  Updated dependencies
+* Updated dependencies
   * [nerves_system_br v0.16.3](https://github.com/nerves-project/nerves_system_br/releases/tag/v0.16.3)
     This fixes the call to otp_build so that it always uses Buildroot's version
     the autoconf tools.
 
 ## v0.19.0
 
-  Updated dependencies
+* Updated dependencies
   * [nerves_system_br v0.16.1-2017-11](https://github.com/nerves-project/nerves_system_br/releases/tag/v0.16.1-2017-11)
 
-  * Enhancements
-    * Reboot automatically if Erlang VM exits - This is consistent with other
-      Nerves systems. See rootfs_overlay/etc/erlinit.config if undesired.
-    * Start running nerves_system_linter to check for configuration errors.
-    * Automount the boot partition readonly at `/boot`
-    * Support for reverting firmware.
+* Enhancements
+  * Reboot automatically if Erlang VM exits - This is consistent with other
+    Nerves systems. See rootfs_overlay/etc/erlinit.config if undesired.
+  * Start running nerves_system_linter to check for configuration errors.
+  * Automount the boot partition readonly at `/boot`
+  * Support for reverting firmware.
 
-      See [Reverting Firmware](https://hexdocs.pm/nerves_runtime/readme.html#reverting-firmware) for more info on reverting firmware.
+    See [Reverting Firmware](https://hexdocs.pm/nerves_runtime/readme.html#reverting-firmware) for more info on reverting firmware.
 
-      See [fwup-revert.conf](https://github.com/nerves-project/nerves_system_rpi/blob/master/fwup-revert.conf) for more information on how fwup handles reverting.
+    See [fwup-revert.conf](https://github.com/nerves-project/nerves_system_rpi/blob/master/fwup-revert.conf) for more information on how fwup handles reverting.
 
 ## v0.18.0
 
-  Updated dependencies
+* Updated dependencies
   * [nerves_system_br v0.15.0](https://github.com/nerves-project/nerves_system_br/releases/tag/v0.15.0)
   * [toolchain v0.12.1](https://github.com/nerves-project/toolchains/releases/tag/v0.12.1)
   * u-boot 2017.09
   * Linux 4.4.91 w/ RCN's patches
 
-  * Enhancements
-    * Support for nerves 0.8. Moves nerves.exs into mix.exs
-    * Support for pocketbeagle
+* Enhancements
+  * Support for nerves 0.8. Moves nerves.exs into mix.exs
+  * Support for pocketbeagle
 
-  * Bug Fixes
-    * Clear out the wl18xx MAC address field
-      This will trigger the WiLink device driver to use the MAC address that
-      TI programmed into the module rather than 00:00:de:ad:be:ef.
-
+* Bug Fixes
+  * Clear out the wl18xx MAC address field
+    This will trigger the WiLink device driver to use the MAC address that
+    TI programmed into the module rather than 00:00:de:ad:be:ef.
 
 ## v0.17.1
 
-  Updated dependencies
+* Updated dependencies
   * [nerves_system_br v0.14.1](https://github.com/nerves-project/nerves_system_br/releases/tag/v0.14.1)
 
 ## v0.17.0
@@ -60,58 +66,58 @@ to a virtual serial port on the USB OTG connector. This release also enables
 a virtual Ethernet interface on the same USB interface for software updates.
 See the `nerves_init_gadget` project for initialization code.
 
-  Updated dependencies
+* Updated dependencies
   * [nerves_system_br v0.14.0](https://github.com/nerves-project/nerves_system_br/releases/tag/v0.14.0)
     * [Buildroot 2017.08](https://git.busybox.net/buildroot/plain/CHANGES?id=2017.08)
     * [fwup 0.17.0](https://github.com/fhunleth/fwup/releases/tag/v0.17.0)
     * [erlinit 1.2.0](https://github.com/nerves-project/erlinit/releases/tag/v1.2.0)
     * [nbtty 0.3.0](https://github.com/fhunleth/nbtty/releases/tag/v0.3.0)
 
-  * Enhancements
-    * Add global patch directory
+* Enhancements
+  * Add global patch directory
 
-    This is required to pull in the e2fsprogs patch that's needed now that
-    util-linux's uuid_generate function calls getrandom and can block
-    indefinitely for the urandom pool to initialize
+  This is required to pull in the e2fsprogs patch that's needed now that
+  util-linux's uuid_generate function calls getrandom and can block
+  indefinitely for the urandom pool to initialize
 
-  * Bug Fixes
-    * Use `nbtty` by default to fix tty hang issue
+* Bug Fixes
+  * Use `nbtty` by default to fix tty hang issue
 
 ## v0.16.1
 
-  Updated dependencies
+* Updated dependencies
   * nerves_system_br v0.13.7
 
 ## v0.16.0
-  This release contains an updated toolchain with Linux 4.1 Headers.
-  You will have to clean and compile any c/c++ code in your project and
-  dependencies. Failure to do so will result in an error when producing firmware.
 
-  * nerves_system_br v0.13.5
-    * fwup 0.15.4
+This release contains an updated toolchain with Linux 4.1 Headers.
+You will have to clean and compile any c/c++ code in your project and
+dependencies. Failure to do so will result in an error when producing firmware.
 
-  * Nerves toolchain v0.11.0
-    https://github.com/nerves-project/toolchains/releases/tag/v0.11.0
+* nerves_system_br v0.13.5
+  * fwup 0.15.4
+
+* Nerves toolchain v0.11.0
 
 ## v0.15.0
 
-  * nerves_system_br v0.13.3
-    * erlinit 1.1.4
+* nerves_system_br v0.13.3
+  * erlinit 1.1.4
 
-  * New features
-    * Firmware updates verify that they're updating the right target. If the target
-      doesn't say that it's an `bbb` through the firmware metadata, the update
-      will fail.
-    * Added meta-misc and meta-vcs-identifier to the `fwup.conf` metadata for use
-      by users and for the regression test framework
-    * Use String.trim instead of String.strip to silence Elixir 1.5 warnings
+* New features
+  * Firmware updates verify that they're updating the right target. If the target
+    doesn't say that it's an `bbb` through the firmware metadata, the update
+    will fail.
+  * Added meta-misc and meta-vcs-identifier to the `fwup.conf` metadata for use
+    by users and for the regression test framework
+  * Use String.trim instead of String.strip to silence Elixir 1.5 warnings
 
 ## v0.14.0
 
-  * nerves_system_br v0.13.2
-    * OTP 20
-    * erlinit 1.1.3
-    * fwup 0.15.3
+* nerves_system_br v0.13.2
+  * OTP 20
+  * erlinit 1.1.3
+  * fwup 0.15.3
 
 ## v0.13.0
 
@@ -119,22 +125,22 @@ This release is NOT backwards compatible with previous releases and will not
 upgrade old systems. With work, it is possible to upgrade old systems, but it is
 not recommended.
 
-  * nerves_system_br v0.12.1
-    * erlinit 1.1.1
-    * fwup 0.15.0
+* nerves_system_br v0.12.1
+  * erlinit 1.1.1
+  * fwup 0.15.0
 
-  * New features
-    * The application data partition is now `ext4`. This greatly improves its
-      robustness to corruption. Nerves.Runtime contains code to initialize it on
-      first boot.
-    * Firmware images now contain metadata that can be queried at runtime (see
-      Nerves.Runtime.KV
-    * The boot partition is managed in an A/B style to support more robust
-      firmware updates.
+* New features
+  * The application data partition is now `ext4`. This greatly improves its
+    robustness to corruption. Nerves.Runtime contains code to initialize it on
+    first boot.
+  * Firmware images now contain metadata that can be queried at runtime (see
+    Nerves.Runtime.KV
+  * The boot partition is managed in an A/B style to support more robust
+    firmware updates.
 
-  * Bug fixes
-    * The Linux kernel is no longer compiled for SMP. All Beaglebone variants
-      are single processor.
+* Bug fixes
+  * The Linux kernel is no longer compiled for SMP. All Beaglebone variants
+    are single processor.
 
 NOTE: It is possible to support "failback" operation of firmware updates with
 the BBB. I.e. if an partition doesn't boot, the system reverts to the previous
@@ -143,34 +149,34 @@ with implementations that do this to make the transition easier.
 
 ## v0.12.0
 
-  * nerves_system_br v0.10.0
-    * Buildroot 2017.02
-    * Erlang/OTP 19.3
+* nerves_system_br v0.10.0
+  * Buildroot 2017.02
+  * Erlang/OTP 19.3
 
-  * New features
-    * Support for BBG Wireless - the BBGW's MAC Address is not automatically set
-      so support needs to be added. However, one BBGW on a WLAN works.
-    * Bump Linux kernel to 4.4.60
+* New features
+  * Support for BBG Wireless - the BBGW's MAC Address is not automatically set
+    so support needs to be added. However, one BBGW on a WLAN works.
+  * Bump Linux kernel to 4.4.60
 
 ## v0.11.0
 
-  * New Features
-    * Support for Nerves 0.5.0
+* New Features
+  * Support for Nerves 0.5.0
 
 ## v0.10.0
 
-  * New features
-    * Bump toolchain to use gcc 5.3 (previously using gcc 4.9.3)
-    * Bump Linux kernel to 4.4.43
+* New features
+  * Bump toolchain to use gcc 5.3 (previously using gcc 4.9.3)
+  * Bump Linux kernel to 4.4.43
 
 ## v0.9.0
 
 This version switches to using the `nerves_package` compiler. This will
 consolidate overall deps and compilers.
 
-  * Nerves.System.BR v0.8.1
-    * Support for distillery
-    * Support for nerves_package compiler
+* Nerves.System.BR v0.8.1
+  * Support for distillery
+  * Support for nerves_package compiler
 
 ## v0.8.0
 
@@ -178,72 +184,75 @@ When upgrading to this version, be sure to review the updates to
 nerves_defconfig. BR2_PACKAGE_ERLANG is no longer selected automatically and
 must be added.
 
-  * nerves_system_br v0.7.0
-    * Package updates
-      * Buildroot 2016.08
+* nerves_system_br v0.7.0
+  * Package updates
+    * Buildroot 2016.08
 
-    * Bug fixes
-      * Many packages were removed. These include Elixir and LFE since neither are
-        actually used. Both are added as part of the user build step, so no
-        functionality is lost. The most visible result is that the system images
-        are smaller and the test .fw file boots to the Erlang prompt.
-      * Fix false positive from scrubber when checking executable formats due to
-        C++ template instantiations. Ignores SYSV vs. GNU/Linux ABI difference.
+  * Bug fixes
+    * Many packages were removed. These include Elixir and LFE since neither are
+      actually used. Both are added as part of the user build step, so no
+      functionality is lost. The most visible result is that the system images
+      are smaller and the test .fw file boots to the Erlang prompt.
+    * Fix false positive from scrubber when checking executable formats due to
+      C++ template instantiations. Ignores SYSV vs. GNU/Linux ABI difference.
 
 ## v0.7.1
 
-  * Package versions
-    * Nerves.System.BR v0.6.1
+* Package versions
+  * Nerves.System.BR v0.6.1
 
-  * New features
-    * Pull in BeagleBone Green updates (new u-boot, bbg device tree)
+* New features
+  * Pull in BeagleBone Green updates (new u-boot, bbg device tree)
 
 ## v0.7.0
-  * Nerves.System.BR v0.6.0
-    * Package updates
-      * Erlang OTP 19
-      * Elixir 1.3.1
-      * fwup 0.8.0
-      * erlinit 0.7.3
-      * bborg-overlays (pull in I2C typo fix from upstream)
-    * Bug fixes
-      * Synchronize file system kernel configs across all platforms
+
+* Nerves.System.BR v0.6.0
+  * Package updates
+    * Erlang OTP 19
+    * Elixir 1.3.1
+    * fwup 0.8.0
+    * erlinit 0.7.3
+    * bborg-overlays (pull in I2C typo fix from upstream)
+  * Bug fixes
+    * Synchronize file system kernel configs across all platforms
 
 ## v0.6.2
-  * Bug Fixes
-    * Enabled bbborg-overlays for universal device tree
+
+* Bug Fixes
+  * Enabled bbborg-overlays for universal device tree
 
 ## v0.6.1
-  * Nerves.System.BR v0.5.1
-    * Bug Fixes(nerves-env)
-      * Added include paths to CFLAGS and CXXFLAGS
-      * Pass sysroot to LDFLAGS
+
+* Nerves.System.BR v0.5.1
+  * Bug Fixes(nerves-env)
+    * Added include paths to CFLAGS and CXXFLAGS
+    * Pass sysroot to LDFLAGS
 
 ## v0.6.0
 
-  * Nerves.System.BR v0.5.0
-    * New features
-      * WiFi drivers enabled by default on RPi2 and RPi3
-      * Include wireless regulatory database in Linux kernel by default
-        on WiFi-enabled platforms. Since kernel/rootfs are read-only and
-        coupled together for firmware updates, the normal CRDA/udev approach
-        isn't necessary.
-      * Upgraded the default BeagleBone Black kernel from 3.8 to 4.4.9. The
-        standard BBB device tree overlays are included by default even though the
-        upstream kernel patches no longer include them.
-      * Change all fwup configurations from two step upgrades to one step
-        upgrades. If you used the base fwup.conf files to upgrade, you no
-        longer need to finalize the upgrade. If not, there's no change.
+* Nerves.System.BR v0.5.0
+  * New features
+    * WiFi drivers enabled by default on RPi2 and RPi3
+    * Include wireless regulatory database in Linux kernel by default
+      on WiFi-enabled platforms. Since kernel/rootfs are read-only and
+      coupled together for firmware updates, the normal CRDA/udev approach
+      isn't necessary.
+    * Upgraded the default BeagleBone Black kernel from 3.8 to 4.4.9. The
+      standard BBB device tree overlays are included by default even though the
+      upstream kernel patches no longer include them.
+    * Change all fwup configurations from two step upgrades to one step
+      upgrades. If you used the base fwup.conf files to upgrade, you no
+      longer need to finalize the upgrade. If not, there's no change.
 
 ## v0.5.0
 
-  * Nerves.System.BR v0.4.1
-    * Bug fixes
-      * syslinux fails to boot when compiled on some gcc 5 systems
-      * Fixed regression when booting off eMMC on the BBB
+* Nerves.System.BR v0.4.1
+  * Bug fixes
+    * syslinux fails to boot when compiled on some gcc 5 systems
+    * Fixed regression when booting off eMMC on the BBB
 
-    * Package updates
-      * Erlang 18.3
-      * Elixir 1.2.5
-  * Enhancements
-    * Includes config-pin for controlling pin muxing. more info: https://github.com/cdsteinkuehler/beaglebone-universal-io
+  * Package updates
+    * Erlang 18.3
+    * Elixir 1.2.5
+* Enhancements
+  * Includes config-pin for controlling pin muxing. See [beaglebone-universal-io](https://github.com/cdsteinkuehler/beaglebone-universal-io)
