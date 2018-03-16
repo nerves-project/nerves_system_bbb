@@ -22,7 +22,7 @@ websocket_protocol = System.get_env("WEBSOCKET_PROTOCOL") || "ws"
 # Configure shoehorn boot order.
 config :shoehorn,
   app: :nerves_system_test,
-  init: [:nerves_runtime, :nerves_network]
+  init: [:nerves_runtime, :system_registry_term_storage, :nerves_network]
 
 # Only trust signed firmware
 config :nerves_system_test, :firmware, public_key: System.get_env("NERVES_FW_PUB_KEY")
