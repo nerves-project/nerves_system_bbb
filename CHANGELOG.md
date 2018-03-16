@@ -2,6 +2,19 @@
 
 ## v1.0.0-rc.1
 
+This release contains updates to Erlang and heart from `nerves_system_br`. It
+also has a configuration change to the Linux kernel that enables scaling the
+processor frequency based on workload. This makes the process run much cooler
+while still allowing it to increase frequency for heavy computations.
+
+Note that the trivial `.fw` files are no longer created by CI scripts. If you've
+forked this project and are building systems using CI, make sure to update your
+publish scripts.
+
+* Updated dependencies
+  * [nerves_system_br v1.0.0-rc.2](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.0.0-rc.2)
+  * Linux 4.4.113 w/ RCN's patches
+
 ## v1.0.0-rc.0
 
 * Updated dependencies
