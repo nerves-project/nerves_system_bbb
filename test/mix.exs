@@ -7,7 +7,7 @@ if Mix.env() == :test do
   System.put_env("NERVES_FW_VCS_IDENTIFIER", hash)
 end
 
-defmodule Test.Mixfile do
+defmodule Test.MixProject do
   use Mix.Project
 
   def project do
@@ -23,9 +23,7 @@ defmodule Test.Mixfile do
     ]
   end
 
-  # Configuration for the OTP application.
-  #
-  # Type `mix help compile.app` for more information.
+  # Type `mix help compile.app` to learn about applications.
   def application, do: []
 
   defp bootstrap(args) do
@@ -34,15 +32,7 @@ defmodule Test.Mixfile do
     Mix.Task.run("loadconfig", args)
   end
 
-  # Dependencies can be Hex packages:
-  #
-  #   {:my_dep, "~> 0.3.0"}
-  #
-  # Or git/path repositories:
-  #
-  #   {:my_dep, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
-  #
-  # Type "mix help deps" for more examples and options
+  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
       {:nerves_system_bbb, path: "../", runtime: false},
