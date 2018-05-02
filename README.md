@@ -15,7 +15,7 @@ and [PocketBeagle](https://beagleboard.org/pocket).
 | CPU                  | 1 GHz ARM Cortex-A8             |
 | Memory               | 512 MB DRAM                     |
 | Storage              | 4 GB eMMC Flash and MicroSD     |
-| Linux kernel         | 4.4.91 w/ BBB patches           |
+| Linux kernel         | 4.4 w/ BBB patches              |
 | IEx terminal         | ttyGS0 via the USB              |
 | GPIO, I2C, SPI       | Yes - Elixir ALE                |
 | ADC                  | Yes                             |
@@ -24,6 +24,24 @@ and [PocketBeagle](https://beagleboard.org/pocket).
 | Camera               | None                            |
 | Ethernet             | Yes                             |
 | WiFi                 | Beaglebone Green Wireless (wl18xx driver). Other requires USB WiFi dongle/driver |
+
+## Using
+
+The most common way of using this Nerves System is create a project with `mix
+nerves.new` and to export `MIX_TARGET=bbb`. See the [Getting started
+guide](https://hexdocs.pm/nerves/getting-started.html#creating-a-new-nerves-app)
+for more information.
+
+If you need custom modifications to this system for your device, clone this
+repository and update as described in [Making custom
+systems](https://hexdocs.pm/nerves/systems.html#customizing-your-own-nerves-system)
+
+If you're new to Nerves, check out the
+[nerves_init_gadget](https://github.com/nerves-project/nerves_init_gadget)
+project for creating a starter project. It will get you started with the basics
+like bringing up networking, initializing the writable application data
+partition, and enabling ssh-based firmware updates.  It's easiest to begin by
+using the wired Ethernet interface 'eth0' and DHCP.
 
 ## Preparing your BeagleBone
 
