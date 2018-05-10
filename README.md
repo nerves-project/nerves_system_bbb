@@ -151,41 +151,20 @@ inserting device tree overlays.
 ## Device tree overlays
 
 Most pins on the BBB's headers are configurable via the device tree.
-Configuration can be done at runtime via the [Universal
-I/O](https://github.com/cdsteinkuehler/beaglebone-universal-io) device tree
-overlays. These overlays are included in the kernel configuration for Nerves so
-you do not need to compile that project. Additionally, the `config-pin` script
-is available in `/usr/bin` on the target. It has minor modifications to run on
-Nerves.
 
 ### Universal I/O
 
-The universal I/O overlays can be loaded manually or by using the `config-pin`
-shell script:
-
-```elixir
-iex(demo@nerves-0099)> :os.cmd('config-pin overlay cape-universaln')
-'Loading cape-universaln overlay\n'
-iex(demo@nerves-0099)> :os.cmd('config-pin -i P9_16') |> IO.puts
-Pin name: P9_16
-Function if no cape loaded: gpio
-Function if cape loaded: default gpio gpio_pu gpio_pd pwm
-Function information: gpio1_19 default gpio1_19 gpio1_19 gpio1_19 ehrpwm1B
-Cape: cape-universala cape-universal cape-universaln
-Kernel GPIO id: 51
-PRU GPIO id: 83
-
-:ok
-iex(demo@nerves-0099)> :os.cmd('config-pin P9_16 pwm')
-```
+Support for loading device tree overlays at runtime had been deprecated in Linux.
+See [here](https://elinux.org/Beagleboard:BeagleBoneBlack_Debian#U-Boot_Overlays)
+for more details.
 
 ### ADCs
 
 The following example shows how to read values from the 7 ADC inputs in Elixir.
+You will first need to load "BB-ADC" device tree overlay using the guide described
+above.
 
 ```elixir
-iex(demo@nerves-0099)> File.write("/sys/devices/platform/bone_capemgr/slots","BB-ADC")
-:ok
 iex(demo@nerves-0099)> ls "/sys/bus/iio/devices/iio:device0"
 buffer              dev                 in_voltage0_raw     in_voltage1_raw
 in_voltage2_raw     in_voltage3_raw     in_voltage4_raw     in_voltage5_raw
@@ -203,18 +182,7 @@ iex(demo@nerves-0099)> File.read("/sys/bus/iio/devices/iio:device0/in_voltage0_r
 
 The following examples shows how to get SPI0 functional in Elixir.
 
-Load the overlay, configure the pins, and load the device drivers:
-
-> Note: The order of the above stops is important. The overlay must be loaded and the pins configured before writing "BB-SPIDEV0".
-
-```console
-iex(demo@nerves-0099)1> :os.cmd('config-pin overlay cape-universaln')
-'Loading cape-universaln overlay\n'
-iex(demo@nerves-0099)2> [17,18,21,22] |> Enum.each(&(:os.cmd('config-pin -a  P9_#{&1} spi')))
-:ok
-iex(demo@nerves-0099)3> File.write("/sys/devices/platform/bone_capemgr/slots","BB-SPIDEV0")
-{:error, :eexist}
-```
+Load the "BB-SPIDEV0" device tree overlay using the guide described above.
 
 Verify that the device drivers are loaded and read spi0 transfers:
 
@@ -225,13 +193,6 @@ iex(demo@nerves-0099)4> ls "/dev"
   ...
 iex(demo@nerves-0099)5> File.read "/sys/bus/spi/devices/spi1.0/statistics/transfers"
 {:ok, "0"}
-```
-
-Verify that the pins are configured:
-
-```console
-iex(demo@nerves-0099)6> [17,18,21,22] |> Enum.map(&(:os.cmd('config-pin -q  P9_#{&1} spi')))
-['P9_17 Mode: spi\n', 'P9_18 Mode: spi\n', 'P9_21 Mode: spi\n', 'P9_22 Mode: spi\n']
 ```
 
 If you have included [ElixirAle](https://github.com/fhunleth/elixir_ale) as a dependency, you can start it now and test a transfer:
