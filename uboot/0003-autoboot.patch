@@ -1,26 +1,25 @@
-From 0d43846d50636195e37001c220be9ac67504dd25 Mon Sep 17 00:00:00 2001
-From: Frank Hunleth <fhunleth@troodon-software.com>
-Date: Wed, 7 Jun 2017 18:23:38 -0400
-Subject: [PATCH] autoboot
+From 6e03c8bb59bc6dd2d0ee9aacb406e8d5a3e04351 Mon Sep 17 00:00:00 2001
+From: connor rigby <konnorrigby@gmail.com>
+Date: Thu, 10 May 2018 08:54:32 -0700
+Subject: [PATCH 1/1] [PATCH] autoboot
 
 ---
  include/configs/am335x_evm.h | 3 +++
  1 file changed, 3 insertions(+)
 
 diff --git a/include/configs/am335x_evm.h b/include/configs/am335x_evm.h
-index e49a487..64b6920 100644
+index 158b7d4e8e..67ea346207 100644
 --- a/include/configs/am335x_evm.h
 +++ b/include/configs/am335x_evm.h
-@@ -22,6 +22,9 @@
+@@ -23,6 +23,9 @@
  # define CONFIG_TIMESTAMP
  #endif
  
 +#undef CONFIG_BOOTDELAY
 +#define CONFIG_BOOTDELAY                (-2) /* Always autoboot */
 +
- #define CONFIG_SYS_BOOTM_LEN		(16 << 20)
+ #define CONFIG_SYS_BOOTM_LEN		SZ_16M
  
  #define CONFIG_MACH_TYPE		MACH_TYPE_AM335XEVM
 -- 
-2.7.4
-
+2.17.0
