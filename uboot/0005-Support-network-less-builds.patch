@@ -1,0 +1,48 @@
+From 7fc6d77de50c259e24e6861e42dbb4d0a935631a Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Sun, 3 Jun 2018 12:16:48 -0400
+Subject: [PATCH] Support network-less builds
+
+---
+ board/ti/am335x/board.c      | 2 ++
+ include/configs/am335x_evm.h | 4 +---
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/board/ti/am335x/board.c b/board/ti/am335x/board.c
+index b39656a..8df4173 100644
+--- a/board/ti/am335x/board.c
++++ b/board/ti/am335x/board.c
+@@ -1266,6 +1266,7 @@ int board_late_init(void)
+ 		env_set("boot_fit", "1");
+ #endif
+ 
++#ifdef CONFIG_NET
+ #if !defined(CONFIG_SPL_BUILD)
+ 	/* try reading mac address from efuse */
+ 	mac_lo = readl(&cdev->macid0l);
+@@ -1298,6 +1299,7 @@ int board_late_init(void)
+ 			eth_env_set_enetaddr("eth1addr", mac_addr);
+ 	}
+ #endif
++#endif
+ 
+ #ifdef CONFIG_ENV_VARS_UBOOT_RUNTIME_CONFIG
+ #ifdef CONFIG_TI_I2C_BOARD_DETECT
+diff --git a/include/configs/am335x_evm.h b/include/configs/am335x_evm.h
+index 47698d2..766a90f 100644
+--- a/include/configs/am335x_evm.h
++++ b/include/configs/am335x_evm.h
+@@ -86,9 +86,7 @@
+ 	func(MMC, mmc, 0) \
+ 	func(LEGACY_MMC, legacy_mmc, 0) \
+ 	func(MMC, mmc, 1) \
+-	func(LEGACY_MMC, legacy_mmc, 1) \
+-	func(PXE, pxe, na) \
+-	func(DHCP, dhcp, na)
++	func(LEGACY_MMC, legacy_mmc, 1)
+ 
+ #include <config_distro_bootcmd.h>
+ 
+-- 
+2.7.4
+
