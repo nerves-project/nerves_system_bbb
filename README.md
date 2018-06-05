@@ -139,14 +139,9 @@ you will be responsible for setting this yourself.
 The BeagleBone Black has many options for Linux that vary by kernel version and
 patch set. Nerves tracks those maintained by Robert Nelson at
 [eewiki.net](https://eewiki.net/display/linuxonarm/BeagleBone+Black).  His patch
-sets have `-rt` and `-ti`/`-bone` options. The `-rt` for real-time actually
-refers to `CONFIG_PREEMPT` and a couple other real-time options being configured
-in the Linux kernel. Nerves uses those options as well. Nerves follows the `-ti`
-patch set. See `nerves_system_br/boards/bbb` for the actual patches.
-
-Be aware that if you have been using Linux kernel 3.8 on the BeagleBone, that
-there have been device tree overlay and PRU updates. File paths have changed for
-inserting device tree overlays.
+sets have `-rt` and `-ti`/`-bone` options. We're currently following the -bone
+options to more closely mirror the official Debian builds. See the `linux`
+directory for the script that extracts the patches from the Debian releases.
 
 ## Device tree overlays
 
