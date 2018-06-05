@@ -1,4 +1,4 @@
-From bfac74f2c3ba8a5658dadce37a656dd4a4e88b31 Mon Sep 17 00:00:00 2001
+From 7c228db94ad150f622b6a7a248ba3033c5bfdd9b Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 3 Jun 2018 11:33:53 -0400
 Subject: [PATCH] Add MMC environment location
@@ -6,22 +6,20 @@ Subject: [PATCH] Add MMC environment location
 Nerves stores its U-boot environment in a different location than the
 default BBB builds, so add it in.
 ---
- include/configs/am335x_evm.h | 5 +++++
- 1 file changed, 5 insertions(+)
+ include/configs/am335x_evm.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/include/configs/am335x_evm.h b/include/configs/am335x_evm.h
-index 13e6f53..47698d2 100644
+index 13e6f53..0984697 100644
 --- a/include/configs/am335x_evm.h
 +++ b/include/configs/am335x_evm.h
-@@ -383,6 +383,11 @@
+@@ -383,6 +383,9 @@
  #define CONFIG_ENV_OFFSET		0x001c0000
  #define CONFIG_ENV_OFFSET_REDUND	0x001e0000
  #define CONFIG_SYS_ENV_SECT_SIZE	CONFIG_SYS_NAND_BLOCK_SIZE
 +#elif defined(CONFIG_ENV_IS_IN_MMC)
 +#define CONFIG_SYS_MMC_ENV_DEV		0
 +#define CONFIG_ENV_OFFSET		0x00100000
-+#undef CONFIG_ENV_SIZE
-+#define CONFIG_ENV_SIZE                 0x2000
  #endif
  
  /* SPI flash. */
