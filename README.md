@@ -244,4 +244,30 @@ MIX_TARGET=bbb` so that the appropriate `mix` targets get run. It will get you
 started with the basics like bringing up the virtual Ethernet interface,
 initializing the application partition, and enabling ssh-based firmware updates.
 
+## Provisioning devices offline (factory setup)
+
+This system supports provisioning serial numbers on devices when creating MicroSD cards
+or online. This is an optional step and the Beaglebone's EEPROM serial number or
+Ethernet MAC address will be used to create a serial number for the device if you
+skip it.
+
+To provision a serial number offline, set the `SERIAL_NUMBER` environment variable
+when burning the firmware. If you're programming MicroSD cards using `fwup`, the
+commandline is:
+
+```sh
+sudo SERIAL_NUMBER=1234 fwup path_to_firmware.fw
+```
+
+To provision a serial number on a running device, run the following and reboot:
+
+```elixir
+iex> cmd("fw_setenv serial_number 1234")
+```
+
+Serial numbers are stored on the MicroSD card so if the MicroSD card is replaced,
+the serial number will been to be programmed again. The numbers are stored in
+a U-boot environment block. This is a special region that is separate from the
+application partition so reformatting the application partition will not lose
+the serial number.
 [Image credit](#fritzing): This image is from the [Fritzing](http://fritzing.org/home/) parts library.
