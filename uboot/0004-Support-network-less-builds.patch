@@ -1,4 +1,4 @@
-From 7fc6d77de50c259e24e6861e42dbb4d0a935631a Mon Sep 17 00:00:00 2001
+From 975a950b028055ab0912551c3d8a9282f778ef65 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 3 Jun 2018 12:16:48 -0400
 Subject: [PATCH] Support network-less builds
@@ -29,10 +29,10 @@ index b39656a..8df4173 100644
  #ifdef CONFIG_ENV_VARS_UBOOT_RUNTIME_CONFIG
  #ifdef CONFIG_TI_I2C_BOARD_DETECT
 diff --git a/include/configs/am335x_evm.h b/include/configs/am335x_evm.h
-index 47698d2..766a90f 100644
+index a5583da..45a910d 100644
 --- a/include/configs/am335x_evm.h
 +++ b/include/configs/am335x_evm.h
-@@ -86,9 +86,7 @@
+@@ -83,9 +83,7 @@
  	func(MMC, mmc, 0) \
  	func(LEGACY_MMC, legacy_mmc, 0) \
  	func(MMC, mmc, 1) \

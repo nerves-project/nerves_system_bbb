@@ -1,4 +1,4 @@
-From c021ee459c8788951522ca7e651473bf6ec2b043 Mon Sep 17 00:00:00 2001
+From 4c05d0e6ef10556f7abf1ad5b8a8e7ef2747b4b7 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 5 Jun 2018 09:10:14 -0400
 Subject: [PATCH] fs: add support for SquashFS
@@ -29,7 +29,7 @@ comes from BareBox. It has the current limitations:
  fs/squashfs/namei.c               | 346 ++++++++++++++++++++++
  fs/squashfs/page_actor.c          |  99 +++++++
  fs/squashfs/page_actor.h          |  52 ++++
- fs/squashfs/squashfs.c            | 399 ++++++++++++++++++++++++++
+ fs/squashfs/squashfs.c            | 392 +++++++++++++++++++++++++
  fs/squashfs/squashfs.h            | 123 ++++++++
  fs/squashfs/squashfs_compat.h     | 590 ++++++++++++++++++++++++++++++++++++++
  fs/squashfs/squashfs_fs.h         | 456 +++++++++++++++++++++++++++++
@@ -37,11 +37,11 @@ comes from BareBox. It has the current limitations:
  fs/squashfs/squashfs_fs_sb.h      |  76 +++++
  fs/squashfs/super.c               | 343 ++++++++++++++++++++++
  fs/squashfs/xz_wrapper.c          | 190 ++++++++++++
- fs/squashfs/zlib_wrapper.c        | 127 ++++++++
+ fs/squashfs/zlib_wrapper.c        | 128 +++++++++
  fs/squashfs/zstd_wrapper.c        | 147 ++++++++++
  include/fs.h                      |   1 +
  include/squashfs.h                |  22 ++
- 32 files changed, 5365 insertions(+)
+ 32 files changed, 5359 insertions(+)
  create mode 100644 fs/squashfs/Kconfig
  create mode 100644 fs/squashfs/Makefile
  create mode 100644 fs/squashfs/block.c
@@ -3052,12 +3052,10 @@ index 0000000..08f4356
 +#endif
 diff --git a/fs/squashfs/squashfs.c b/fs/squashfs/squashfs.c
 new file mode 100644
-index 0000000..8a4cdea
+index 0000000..20eeb31
 --- /dev/null
 +++ b/fs/squashfs/squashfs.c
-@@ -0,0 +1,399 @@
-+//#define DEBUG
-+
+@@ -0,0 +1,392 @@
 +#include <linux/compat.h>
 +
 +#include <common.h>
@@ -3085,25 +3083,20 @@ index 0000000..8a4cdea
 +char *squashfs_devread(struct squashfs_sb_info *fs, int address,
 +		int byte_len)
 +{
-+    lbaint_t sector;
-+    int byte_offset;
-+    ssize_t size;
++	lbaint_t sector;
++	int byte_offset;
 +	char *buf;
 +
 +	buf = malloc(byte_len);
 +	if (buf == NULL)
 +		return NULL;
 +
-+    sector = address >> cur_dev->log2blksz;
-+    byte_offset = address % cur_dev->blksz;
++	sector = address >> cur_dev->log2blksz;
++	byte_offset = address % cur_dev->blksz;
 +
-+    size = fs_devread(cur_dev, &cur_part_info, sector, byte_offset,
-+              byte_len, buf);
-+
-+	if (size < 0) {
-+        debug("read error: %d\n", size);
++	if (!fs_devread(cur_dev, &cur_part_info, sector, byte_offset,
++		byte_len, buf))
 +		return NULL;
-+	}
 +
 +	return buf;
 +}
@@ -5329,10 +5322,10 @@ index 0000000..6600f1e
 +};
 diff --git a/fs/squashfs/zlib_wrapper.c b/fs/squashfs/zlib_wrapper.c
 new file mode 100644
-index 0000000..a992a05
+index 0000000..7d6ca5f
 --- /dev/null
 +++ b/fs/squashfs/zlib_wrapper.c
-@@ -0,0 +1,127 @@
+@@ -0,0 +1,128 @@
 +/*
 + * Squashfs - a compressed read only filesystem for Linux
 + *
@@ -5368,11 +5361,12 @@ index 0000000..a992a05
 +
 +static void *zlib_init(struct squashfs_sb_info *dummy, void *buff)
 +{
-+	z_stream *stream = kmalloc(sizeof(z_stream), GFP_KERNEL);
++	z_stream *stream = calloc(sizeof(z_stream), 1);
 +	if (stream == NULL)
 +		goto failed;
-+	memset(stream, 0, sizeof(z_stream));
 +
++	stream->zalloc = gzalloc;
++	stream->zfree = gzfree;
 +	return stream;
 +
 +failed:
