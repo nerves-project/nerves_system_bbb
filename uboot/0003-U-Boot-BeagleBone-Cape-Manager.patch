@@ -1,7 +1,7 @@
-From e0bd735cd5ea9228035b01fc0e5fec175ba2c89b Mon Sep 17 00:00:00 2001
+From 7da41c0c942bff5d31bfa40b8e2bfd65962d60dc Mon Sep 17 00:00:00 2001
 From: Robert Nelson <robertcnelson@gmail.com>
-Date: Thu, 5 Apr 2018 11:04:01 -0500
-Subject: [PATCH 2/2] U-Boot: BeagleBone Cape Manager
+Date: Wed, 20 Jun 2018 13:18:20 -0500
+Subject: [PATCH] U-Boot: BeagleBone Cape Manager
 
 Signed-off-by: Robert Nelson <robertcnelson@gmail.com>
 ---
@@ -17,10 +17,10 @@ Signed-off-by: Robert Nelson <robertcnelson@gmail.com>
  create mode 100644 board/ti/am335x/hash-string.h
 
 diff --git a/arch/arm/mach-omap2/am33xx/clock_am33xx.c b/arch/arm/mach-omap2/am33xx/clock_am33xx.c
-index dc61131c1e..e16f70d4da 100644
+index 32cdf63..fb871c2 100644
 --- a/arch/arm/mach-omap2/am33xx/clock_am33xx.c
 +++ b/arch/arm/mach-omap2/am33xx/clock_am33xx.c
-@@ -221,6 +221,7 @@ void enable_basic_clocks(void)
+@@ -220,6 +220,7 @@ void enable_basic_clocks(void)
  		&cmper->gpio2clkctrl,
  		&cmper->gpio3clkctrl,
  		&cmper->i2c1clkctrl,
@@ -29,10 +29,10 @@ index dc61131c1e..e16f70d4da 100644
  		&cmper->spi0clkctrl,
  		&cmrtc->rtcclkctrl,
 diff --git a/board/ti/am335x/board.c b/board/ti/am335x/board.c
-index 80a954523f..b39656a372 100644
+index ca03925..f4840d2 100644
 --- a/board/ti/am335x/board.c
 +++ b/board/ti/am335x/board.c
-@@ -40,6 +40,7 @@
+@@ -39,6 +39,7 @@
  #include <environment.h>
  #include "../common/board_detect.h"
  #include "board.h"
@@ -40,7 +40,7 @@ index 80a954523f..b39656a372 100644
  
  DECLARE_GLOBAL_DATA_PTR;
  
-@@ -77,9 +78,462 @@ void do_board_detect(void)
+@@ -76,9 +77,462 @@ void do_board_detect(void)
  	if (ti_i2c_eeprom_am_get(CONFIG_EEPROM_BUS_ADDRESS,
  				 CONFIG_EEPROM_CHIP_ADDRESS))
  		printf("ti_i2c_eeprom_init failed\n");
@@ -503,7 +503,7 @@ index 80a954523f..b39656a372 100644
  #ifndef CONFIG_DM_SERIAL
  struct serial_device *default_serial_console(void)
  {
-@@ -845,6 +1299,14 @@ int board_late_init(void)
+@@ -750,6 +1204,14 @@ int board_init(void)
  	}
  #endif
  
@@ -517,12 +517,12 @@ index 80a954523f..b39656a372 100644
 +
  	return 0;
  }
- #endif
+ 
 diff --git a/board/ti/am335x/board.h b/board/ti/am335x/board.h
-index 6f96532bac..e4d5daf269 100644
+index b658914..df64fca 100644
 --- a/board/ti/am335x/board.h
 +++ b/board/ti/am335x/board.h
-@@ -11,6 +11,22 @@
+@@ -10,6 +10,22 @@
  #ifndef _BOARD_H_
  #define _BOARD_H_
  
@@ -545,7 +545,7 @@ index 6f96532bac..e4d5daf269 100644
  /**
   * AM335X (EMIF_4D) EMIF REG_COS_COUNT_1, REG_COS_COUNT_2, and
   * REG_PR_OLD_COUNT values to avoid LCDC DMA FIFO underflows and Frame
-@@ -129,5 +145,6 @@ void enable_uart3_pin_mux(void);
+@@ -128,5 +144,6 @@ void enable_uart3_pin_mux(void);
  void enable_uart4_pin_mux(void);
  void enable_uart5_pin_mux(void);
  void enable_i2c0_pin_mux(void);
@@ -554,7 +554,7 @@ index 6f96532bac..e4d5daf269 100644
  #endif
 diff --git a/board/ti/am335x/hash-string.h b/board/ti/am335x/hash-string.h
 new file mode 100644
-index 0000000000..b267a87788
+index 0000000..b267a87
 --- /dev/null
 +++ b/board/ti/am335x/hash-string.h
 @@ -0,0 +1,59 @@
@@ -618,7 +618,7 @@ index 0000000000..b267a87788
 +  return hval;
 +}
 diff --git a/board/ti/am335x/mux.c b/board/ti/am335x/mux.c
-index 2b10b64d3a..3733246852 100644
+index dc0189a..8eb99c3 100644
 --- a/board/ti/am335x/mux.c
 +++ b/board/ti/am335x/mux.c
 @@ -120,6 +120,14 @@ static struct module_pin_mux i2c1_pin_mux[] = {
@@ -648,7 +648,7 @@ index 2b10b64d3a..3733246852 100644
  /*
   * The AM335x GP EVM, if daughter card(s) are connected, can have 8
   * different profiles.  These profiles determine what peripherals are
-@@ -359,6 +372,7 @@ void enable_board_pin_mux(void)
+@@ -356,6 +369,7 @@ void enable_board_pin_mux(void)
  #else
  		configure_module_pin_mux(mmc1_pin_mux);
  #endif
@@ -656,19 +656,19 @@ index 2b10b64d3a..3733246852 100644
  	} else if (board_is_gp_evm()) {
  		/* General Purpose EVM */
  		unsigned short profile = detect_daughter_board_profile();
-@@ -404,6 +418,7 @@ void enable_board_pin_mux(void)
+@@ -401,6 +415,7 @@ void enable_board_pin_mux(void)
  #else
  		configure_module_pin_mux(mmc1_pin_mux);
  #endif
 +		configure_module_pin_mux(i2c2_pin_mux);
- 	} else if (board_is_icev2()) {
+ 	} else if (board_is_pb()) {
+ 		configure_module_pin_mux(mii1_pin_mux);
  		configure_module_pin_mux(mmc0_pin_mux);
- 		configure_module_pin_mux(gpio0_18_pin_mux);
 diff --git a/include/configs/ti_armv7_common.h b/include/configs/ti_armv7_common.h
-index 32f5ddaad6..9b5cc8ddf4 100644
+index b0f517c..d6aa290 100644
 --- a/include/configs/ti_armv7_common.h
 +++ b/include/configs/ti_armv7_common.h
-@@ -344,6 +344,31 @@
+@@ -338,6 +338,31 @@
  			"echo loading ${bootdir}/${bootfile} ...; "\
  			"run loadimage;" \
  			"setenv fdtdir /boot/dtbs/${uname_r}; " \
@@ -700,7 +700,7 @@ index 32f5ddaad6..9b5cc8ddf4 100644
  			"if test -e ${devtype} ${bootpart} ${fdtdir}/${fdtfile}; then " \
  				"run loadfdt;" \
  			"else " \
-@@ -384,6 +409,180 @@
+@@ -378,6 +403,180 @@
  					"fi;" \
  				"fi;" \
  			"fi; " \
@@ -882,10 +882,10 @@ index 32f5ddaad6..9b5cc8ddf4 100644
  			"if test -e ${devtype} ${bootpart} ${bootdir}/${rdfile}; then " \
  				"echo loading ${bootdir}/${rdfile} ...; "\
 diff --git a/include/configs/ti_armv7_omap.h b/include/configs/ti_armv7_omap.h
-index 9da6ea8643..712d58146f 100644
+index 98b5839..ce7927e 100644
 --- a/include/configs/ti_armv7_omap.h
 +++ b/include/configs/ti_armv7_omap.h
-@@ -12,6 +12,9 @@
+@@ -11,6 +11,9 @@
  #ifndef __CONFIG_TI_ARMV7_OMAP_H__
  #define __CONFIG_TI_ARMV7_OMAP_H__
  
@@ -896,10 +896,10 @@ index 9da6ea8643..712d58146f 100644
   * GPMC NAND block.  We support 1 device and the physical address to
   * access CS0 at is 0x8000000.
 diff --git a/include/environment/ti/mmc.h b/include/environment/ti/mmc.h
-index 0364f62c3d..d48d6c2d91 100644
+index 110c426..d6bbe3e 100644
 --- a/include/environment/ti/mmc.h
 +++ b/include/environment/ti/mmc.h
-@@ -69,6 +69,21 @@
+@@ -68,6 +68,21 @@
  	"loadimage=load ${devtype} ${bootpart} ${loadaddr} ${bootdir}/${bootfile}\0" \
  	"loadrd=load ${devtype} ${bootpart} ${rdaddr} ${bootdir}/${rdfile}; setenv rdsize ${filesize}\0" \
  	"loadfdt=echo loading ${fdtdir}/${fdtfile} ...; load ${devtype} ${bootpart} ${fdtaddr} ${fdtdir}/${fdtfile}\0" \
@@ -922,5 +922,5 @@ index 0364f62c3d..d48d6c2d91 100644
  		"ums 0 ${devtype} 1;\0" \
  	"envboot=mmc dev ${mmcdev}; " \
 -- 
-2.16.3
+2.7.4
 

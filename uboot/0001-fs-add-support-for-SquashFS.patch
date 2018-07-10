@@ -1,4 +1,4 @@
-From 4c05d0e6ef10556f7abf1ad5b8a8e7ef2747b4b7 Mon Sep 17 00:00:00 2001
+From bc776024d8afe60fad85f3b01f03aaec63d39c02 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Tue, 5 Jun 2018 09:10:14 -0400
 Subject: [PATCH] fs: add support for SquashFS
@@ -7,17 +7,17 @@ This adds basic support for loading files from SquashFS. Much of it
 comes from BareBox. It has the current limitations:
 
 1. It's slow
-2. Only zlib compressions is supported
+2. Only zlib and lzo compressions are supported
 ---
  fs/Kconfig                        |   2 +
  fs/Makefile                       |   1 +
  fs/fs.c                           |  19 ++
  fs/squashfs/Kconfig               |  67 +++++
  fs/squashfs/Makefile              |  17 ++
- fs/squashfs/block.c               | 212 ++++++++++++++
- fs/squashfs/cache.c               | 393 +++++++++++++++++++++++++
+ fs/squashfs/block.c               | 211 ++++++++++++++
+ fs/squashfs/cache.c               | 391 +++++++++++++++++++++++++
  fs/squashfs/decompressor.c        | 149 ++++++++++
- fs/squashfs/decompressor.h        |  61 ++++
+ fs/squashfs/decompressor.h        |  65 +++++
  fs/squashfs/decompressor_single.c |  84 ++++++
  fs/squashfs/file.c                | 445 ++++++++++++++++++++++++++++
  fs/squashfs/file_cache.c          |  34 +++
@@ -25,14 +25,14 @@ comes from BareBox. It has the current limitations:
  fs/squashfs/id.c                  |  98 +++++++
  fs/squashfs/inode.c               | 396 +++++++++++++++++++++++++
  fs/squashfs/lz4_wrapper.c         | 140 +++++++++
- fs/squashfs/lzo_wrapper.c         | 129 +++++++++
+ fs/squashfs/lzo_wrapper.c         | 128 +++++++++
  fs/squashfs/namei.c               | 346 ++++++++++++++++++++++
  fs/squashfs/page_actor.c          |  99 +++++++
  fs/squashfs/page_actor.h          |  52 ++++
- fs/squashfs/squashfs.c            | 392 +++++++++++++++++++++++++
+ fs/squashfs/squashfs.c            | 393 +++++++++++++++++++++++++
  fs/squashfs/squashfs.h            | 123 ++++++++
- fs/squashfs/squashfs_compat.h     | 590 ++++++++++++++++++++++++++++++++++++++
- fs/squashfs/squashfs_fs.h         | 456 +++++++++++++++++++++++++++++
+ fs/squashfs/squashfs_compat.h     | 589 ++++++++++++++++++++++++++++++++++++++
+ fs/squashfs/squashfs_fs.h         | 458 +++++++++++++++++++++++++++++
  fs/squashfs/squashfs_fs_i.h       |  52 ++++
  fs/squashfs/squashfs_fs_sb.h      |  76 +++++
  fs/squashfs/super.c               | 343 ++++++++++++++++++++++
@@ -41,7 +41,7 @@ comes from BareBox. It has the current limitations:
  fs/squashfs/zstd_wrapper.c        | 147 ++++++++++
  include/fs.h                      |   1 +
  include/squashfs.h                |  22 ++
- 32 files changed, 5359 insertions(+)
+ 32 files changed, 5361 insertions(+)
  create mode 100644 fs/squashfs/Kconfig
  create mode 100644 fs/squashfs/Makefile
  create mode 100644 fs/squashfs/block.c
@@ -83,10 +83,10 @@ index 1cb9831..620af7f 100644
 +
  endmenu
 diff --git a/fs/Makefile b/fs/Makefile
-index 8a8175b..43dc40a 100644
+index bad0c2c..fad05b7 100644
 --- a/fs/Makefile
 +++ b/fs/Makefile
-@@ -18,6 +18,7 @@ obj-$(CONFIG_CMD_CRAMFS) += cramfs/
+@@ -16,6 +16,7 @@ obj-$(CONFIG_CMD_CRAMFS) += cramfs/
  obj-$(CONFIG_FS_EXT4) += ext4/
  obj-y += fat/
  obj-$(CONFIG_FS_JFFS2) += jffs2/
@@ -95,10 +95,10 @@ index 8a8175b..43dc40a 100644
  obj-$(CONFIG_SANDBOX) += sandbox/
  obj-$(CONFIG_CMD_UBIFS) += ubifs/
 diff --git a/fs/fs.c b/fs/fs.c
-index 6155cb1..807be9c 100644
+index 33808d5..f30ee67 100644
 --- a/fs/fs.c
 +++ b/fs/fs.c
-@@ -15,6 +15,7 @@
+@@ -14,6 +14,7 @@
  #include <sandboxfs.h>
  #include <ubifs_uboot.h>
  #include <btrfs.h>
@@ -106,7 +106,7 @@ index 6155cb1..807be9c 100644
  #include <asm/io.h>
  #include <div64.h>
  #include <linux/math64.h>
-@@ -236,6 +237,24 @@ static struct fstype_info fstypes[] = {
+@@ -235,6 +236,24 @@ static struct fstype_info fstypes[] = {
  		.opendir = fs_opendir_unsupported,
  	},
  #endif
@@ -206,7 +206,7 @@ index 0000000..cda519b
 +endif
 diff --git a/fs/squashfs/Makefile b/fs/squashfs/Makefile
 new file mode 100644
-index 0000000..077114c
+index 0000000..3ed89a6
 --- /dev/null
 +++ b/fs/squashfs/Makefile
 @@ -0,0 +1,17 @@
@@ -222,17 +222,17 @@ index 0000000..077114c
 +obj-y	+= inode.o
 +obj-y	+= namei.o
 +obj-y	+= super.o
-+obj-$(CONFIG_SQUASHFS_XZ) += xz_wrapper.o
++#obj-$(CONFIG_SQUASHFS_XZ) += xz_wrapper.o
 +obj-$(CONFIG_SQUASHFS_LZO) += lzo_wrapper.o
-+obj-$(CONFIG_SQUASHFS_LZ4) += lz4_wrapper.o
++#obj-$(CONFIG_SQUASHFS_LZ4) += lz4_wrapper.o
 +obj-$(CONFIG_SQUASHFS_ZLIB) += zlib_wrapper.o
-+obj-$(CONFIG_SQUASHFS_ZSTD) += zstd_wrapper.o
++#obj-$(CONFIG_SQUASHFS_ZSTD) += zstd_wrapper.o
 diff --git a/fs/squashfs/block.c b/fs/squashfs/block.c
 new file mode 100644
-index 0000000..f9a2aa7
+index 0000000..225d4a9
 --- /dev/null
 +++ b/fs/squashfs/block.c
-@@ -0,0 +1,212 @@
+@@ -0,0 +1,211 @@
 +/*
 + * Squashfs - a compressed read only filesystem for Linux
 + *
@@ -331,7 +331,7 @@ index 0000000..f9a2aa7
 +	int bytes, compressed, b = 0, k = 0, avail;
 +
 +	buf = calloc(((output->length + msblk->devblksize - 1)
-+			>> msblk->devblksize_log2) + 1, sizeof(*buf));
++		>> msblk->devblksize_log2) + 1, sizeof(*buf));
 +	if (buf == NULL)
 +		return -ENOMEM;
 +
@@ -349,9 +349,8 @@ index 0000000..f9a2aa7
 +			index, compressed ? "" : "un", length, output->length);
 +
 +		if (length < 0 || length > output->length ||
-+				(index + length) > msblk->bytes_used) {
++				(index + length) > msblk->bytes_used)
 +			goto read_failure;
-+		}
 +
 +		for (b = 0; bytes < length; b++, cur_index++) {
 +			buf[b] = squashfs_devread(msblk,
@@ -447,10 +446,10 @@ index 0000000..f9a2aa7
 +}
 diff --git a/fs/squashfs/cache.c b/fs/squashfs/cache.c
 new file mode 100644
-index 0000000..acaf8c5
+index 0000000..5f5de95
 --- /dev/null
 +++ b/fs/squashfs/cache.c
-@@ -0,0 +1,393 @@
+@@ -0,0 +1,391 @@
 +/*
 + * Squashfs - a compressed read only filesystem for Linux
 + *
@@ -740,11 +739,9 @@ index 0000000..acaf8c5
 +	while (length) {
 +		entry = squashfs_cache_get(sb, msblk->block_cache, *block, 0);
 +		if (entry->error) {
-+			TRACE("entry->error\n");
 +			res = entry->error;
 +			goto error;
 +		} else if (*offset >= entry->length) {
-+			TRACE("entry->length\n");
 +			res = -EIO;
 +			goto error;
 +		}
@@ -846,7 +843,7 @@ index 0000000..acaf8c5
 +}
 diff --git a/fs/squashfs/decompressor.c b/fs/squashfs/decompressor.c
 new file mode 100644
-index 0000000..2fbcf49
+index 0000000..3158669
 --- /dev/null
 +++ b/fs/squashfs/decompressor.c
 @@ -0,0 +1,149 @@
@@ -887,11 +884,11 @@ index 0000000..2fbcf49
 +	NULL, NULL, NULL, NULL, LZMA_COMPRESSION, "lzma", 0
 +};
 +
-+#ifndef CONFIG_SQUASHFS_LZ4
++//#ifndef CONFIG_SQUASHFS_LZ4
 +static const struct squashfs_decompressor squashfs_lz4_comp_ops = {
 +	NULL, NULL, NULL, NULL, LZ4_COMPRESSION, "lz4", 0
 +};
-+#endif
++//#endif
 +
 +#ifndef CONFIG_SQUASHFS_LZO
 +static const struct squashfs_decompressor squashfs_lzo_comp_ops = {
@@ -899,11 +896,11 @@ index 0000000..2fbcf49
 +};
 +#endif
 +
-+#ifndef CONFIG_SQUASHFS_XZ
++//#ifndef CONFIG_SQUASHFS_XZ
 +static const struct squashfs_decompressor squashfs_xz_comp_ops = {
 +	NULL, NULL, NULL, NULL, XZ_COMPRESSION, "xz", 0
 +};
-+#endif
++//#endif
 +
 +#ifndef CONFIG_SQUASHFS_ZLIB
 +static const struct squashfs_decompressor squashfs_zlib_comp_ops = {
@@ -911,11 +908,11 @@ index 0000000..2fbcf49
 +};
 +#endif
 +
-+#ifndef CONFIG_SQUASHFS_ZSTD
++//#ifndef CONFIG_SQUASHFS_ZSTD
 +static const struct squashfs_decompressor squashfs_zstd_comp_ops = {
 +	NULL, NULL, NULL, NULL, ZSTD_COMPRESSION, "zstd", 0
 +};
-+#endif
++//#endif
 +
 +static const struct squashfs_decompressor squashfs_unknown_comp_ops = {
 +	NULL, NULL, NULL, NULL, 0, "unknown", 0
@@ -1001,10 +998,10 @@ index 0000000..2fbcf49
 +}
 diff --git a/fs/squashfs/decompressor.h b/fs/squashfs/decompressor.h
 new file mode 100644
-index 0000000..c5df6fe
+index 0000000..5e3b143
 --- /dev/null
 +++ b/fs/squashfs/decompressor.h
-@@ -0,0 +1,61 @@
+@@ -0,0 +1,65 @@
 +#ifndef DECOMPRESSOR_H
 +#define DECOMPRESSOR_H
 +/*
@@ -1045,12 +1042,14 @@ index 0000000..c5df6fe
 +		msblk->decompressor->comp_opts(msblk, buff, length) : NULL;
 +}
 +
++#if 0
 +#ifdef CONFIG_SQUASHFS_XZ
 +extern const struct squashfs_decompressor squashfs_xz_comp_ops;
 +#endif
 +
 +#ifdef CONFIG_SQUASHFS_LZ4
 +extern const struct squashfs_decompressor squashfs_lz4_comp_ops;
++#endif
 +#endif
 +
 +#ifdef CONFIG_SQUASHFS_LZO
@@ -1061,8 +1060,10 @@ index 0000000..c5df6fe
 +extern const struct squashfs_decompressor squashfs_zlib_comp_ops;
 +#endif
 +
++#if 0
 +#ifdef CONFIG_SQUASHFS_ZSTD
 +extern const struct squashfs_decompressor squashfs_zstd_comp_ops;
++#endif
 +#endif
 +
 +#endif
@@ -2402,10 +2403,10 @@ index 0000000..b1eeec7
 +};
 diff --git a/fs/squashfs/lzo_wrapper.c b/fs/squashfs/lzo_wrapper.c
 new file mode 100644
-index 0000000..e0cbe01
+index 0000000..9736361
 --- /dev/null
 +++ b/fs/squashfs/lzo_wrapper.c
-@@ -0,0 +1,129 @@
+@@ -0,0 +1,128 @@
 +/*
 + * Squashfs - a compressed read only filesystem for Linux
 + *
@@ -2429,11 +2430,10 @@ index 0000000..e0cbe01
 + * lzo_wrapper.c
 + */
 +
-+#include <common.h>
-+#include <linux/mutex.h>
-+#include <lzo.h>
-+#include <types.h>
++#include <linux/compat.h>
++#include <linux/lzo.h>
 +
++#include "squashfs_compat.h"
 +#include "squashfs_fs.h"
 +#include "squashfs_fs_sb.h"
 +#include "squashfs.h"
@@ -3052,10 +3052,10 @@ index 0000000..08f4356
 +#endif
 diff --git a/fs/squashfs/squashfs.c b/fs/squashfs/squashfs.c
 new file mode 100644
-index 0000000..20eeb31
+index 0000000..1148d1b
 --- /dev/null
 +++ b/fs/squashfs/squashfs.c
-@@ -0,0 +1,392 @@
+@@ -0,0 +1,393 @@
 +#include <linux/compat.h>
 +
 +#include <common.h>
@@ -3092,11 +3092,12 @@ index 0000000..20eeb31
 +		return NULL;
 +
 +	sector = address >> cur_dev->log2blksz;
-+	byte_offset = address % cur_dev->blksz;
-+
-+	if (!fs_devread(cur_dev, &cur_part_info, sector, byte_offset,
-+		byte_len, buf))
++	if (blk_dread(cur_dev, cur_part_info.start + sector,
++	    byte_len >> cur_dev->log2blksz,
++	    buf) != byte_len >> cur_dev->log2blksz) {
++		printf(" ** %s read error - block\n", __func__);
 +		return NULL;
++	}
 +
 +	return buf;
 +}
@@ -3579,10 +3580,10 @@ index 0000000..b7ba8a1
 +extern const struct inode_operations squashfs_symlink_inode_ops;
 diff --git a/fs/squashfs/squashfs_compat.h b/fs/squashfs/squashfs_compat.h
 new file mode 100644
-index 0000000..596a089
+index 0000000..70f92a5
 --- /dev/null
 +++ b/fs/squashfs/squashfs_compat.h
-@@ -0,0 +1,590 @@
+@@ -0,0 +1,589 @@
 +#ifndef SQUASHFS_COMPAT_H
 +#define SQUASHFS_COMPAT_H
 +
@@ -3604,7 +3605,6 @@ index 0000000..596a089
 + *
 + * squashfs.h
 + */
-+
 +#include <asm/atomic.h>
 +#include <asm-generic/atomic-long.h>
 +#include <linux/ctype.h>
@@ -4175,10 +4175,10 @@ index 0000000..596a089
 +#endif // SQUASHFS_COMPAT_H
 diff --git a/fs/squashfs/squashfs_fs.h b/fs/squashfs/squashfs_fs.h
 new file mode 100644
-index 0000000..57ba65d
+index 0000000..5d7235f
 --- /dev/null
 +++ b/fs/squashfs/squashfs_fs.h
-@@ -0,0 +1,456 @@
+@@ -0,0 +1,458 @@
 +#ifndef SQUASHFS_FS
 +#define SQUASHFS_FS
 +/*
@@ -4213,8 +4213,10 @@ index 0000000..57ba65d
 +/* default size of block device I/O */
 +#ifdef CONFIG_SQUASHFS_4K_DEVBLK_SIZE
 +#define SQUASHFS_DEVBLK_SIZE 4096
++#define SQUASHFS_DEVBLK_SIZE_LOG 12
 +#else
 +#define SQUASHFS_DEVBLK_SIZE 1024
++#define SQUASHFS_DEVBLK_SIZE_LOG 10
 +#endif
 +
 +#define SQUASHFS_FILE_MAX_SIZE		1048576
@@ -4777,7 +4779,7 @@ index 0000000..ecfbc97
 +#endif
 diff --git a/fs/squashfs/super.c b/fs/squashfs/super.c
 new file mode 100644
-index 0000000..b8fb986
+index 0000000..2545db0
 --- /dev/null
 +++ b/fs/squashfs/super.c
 @@ -0,0 +1,343 @@
@@ -4901,8 +4903,8 @@ index 0000000..b8fb986
 +	}
 +	msblk = sb->s_fs_info;
 +
-+	msblk->devblksize = 1024;
-+	msblk->devblksize_log2 = ffz(~msblk->devblksize);
++	msblk->devblksize = SQUASHFS_DEVBLK_SIZE;
++	msblk->devblksize_log2 = SQUASHFS_DEVBLK_SIZE_LOG;
 +
 +	mutex_init(&msblk->meta_index_mutex);
 +
@@ -5608,10 +5610,10 @@ index 0000000..86740ed
 +	.supported = 1
 +};
 diff --git a/include/fs.h b/include/fs.h
-index 32fc480..b87f0b1 100644
+index 163da10..54007ef 100644
 --- a/include/fs.h
 +++ b/include/fs.h
-@@ -14,6 +14,7 @@
+@@ -13,6 +13,7 @@
  #define FS_TYPE_SANDBOX	3
  #define FS_TYPE_UBIFS	4
  #define FS_TYPE_BTRFS	5
@@ -5621,7 +5623,7 @@ index 32fc480..b87f0b1 100644
   * Tell the fs layer which block device an partition to use for future
 diff --git a/include/squashfs.h b/include/squashfs.h
 new file mode 100644
-index 0000000..be54b10
+index 0000000..be54b10a
 --- /dev/null
 +++ b/include/squashfs.h
 @@ -0,0 +1,22 @@
