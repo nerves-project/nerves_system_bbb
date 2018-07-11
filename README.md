@@ -145,13 +145,43 @@ directory for the script that extracts the patches from the Debian releases.
 
 ## Device tree overlays
 
-Most pins on the BBB's headers are configurable via the device tree.
+Most pins on the BBB's headers are configurable via a mechanism called the
+device tree. The device tree is made up of device tree files and overlay files
+that get compiled down into one or more `.dtb` or `.dtbo` files. The files tell
+Linux what drivers to load and what parameters to use for things that it can't
+figure out by itself.
+
+There are two strategies for dealing with the device tree:
+
+1. Modify the device tree files for an existing board to make your own
+2. Load device tree overlay files
+
+Upstream BBB encourages the second option since it can be easier. The tradeoff
+is that if anything goes wrong or your hardware doesn't match their assumptions,
+it's a little harder to debug.
+
+The device tree files are loaded by U-Boot. Nerves installs all of the
+Beagleboard overlay files to `/lib/firmware` and configures U-Boot to closely
+match upstream. This means that most of the upstream documentation on device
+tree is usable. The difference is that instead of using `/boot/uEnv.txt` to
+customize the overlays, you need to set the variables in the U-Boot environment
+block. This can be done by running `cmd("fw_setenv <key> <value>")` from the IEx
+prompt or by adding the variables to the `fwup.conf` file.
+
+See
+[elinux.org/Beagleboard:BeagleBoneBlack_Debian](https://elinux.org/Beagleboard:BeagleBoneBlack_Debian#U-Boot_.2Fboot.2FuEnv.txt_configuration)
+for documentation on the variables.
 
 ### Universal I/O
 
-Support for loading device tree overlays at runtime had been deprecated in Linux.
-See [here](https://elinux.org/Beagleboard:BeagleBoneBlack_Debian#U-Boot_Overlays)
-for more details.
+The BBB's Universal device tree overlay lets you configure pins at runtime. This
+system enables the universal overlay by default. See the
+`enable_uboot_cape_universal` setting in the default `fwup.conf` file.
+
+See
+[beaglebone-universal-io](https://github.com/cdsteinkuehler/beaglebone-universal-io)
+for documentation. You'll see references to an RCN-built kernel. RCN is the
+initials for Robert Nelson and we use his kernel patches.
 
 ### ADCs
 
@@ -225,12 +255,12 @@ reinsert the USB dongle to generate new log messages if you don't see them.
 ## Beaglebone Green WiFi
 
 Initial support for the BBGW's onboard wireless module is available. To try it
-out, run (assuming you have Nerves.InterimWiFi in your image):
+out, run (assuming you have Nerves.Network in your image):
 
 ```elixir
 :os.cmd('modprobe wl18xx')
 :os.cmd('modprobe wlcore-sdio')
-Nerves.InterimWiFi.setup "wlan0", ssid: "xxx", key_mgmt: :"WPA-PSK", psk: "yyy"
+Nerves.Network.setup "wlan0", ssid: "xxx", key_mgmt: :"WPA-PSK", psk: "yyy"
 ```
 
 Be aware that this Nerves system does not configure the MAC address. The result
