@@ -1,0 +1,51 @@
+From fb17a037148873e548797941988f336243ecd8c0 Mon Sep 17 00:00:00 2001
+From: Frank Hunleth <fhunleth@troodon-software.com>
+Date: Wed, 11 Jul 2018 10:40:24 -0400
+Subject: [PATCH] Move cape detection to save environment
+
+The U-boot environment gets trampled on when restoring it from eMMC.
+Since proper operation depends on the cape detection's environment
+variable settings carrying forward to the boot scripts, this moves the
+code to after the U-boot environment block is loaded.
+
+It is unknown whether any code in between the first init and the late
+init does anything based on cape detection. If it does, then this patch
+breaks that code.
+---
+ board/ti/am335x/board.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
+
+diff --git a/board/ti/am335x/board.c b/board/ti/am335x/board.c
+index f4840d2..7dca157 100644
+--- a/board/ti/am335x/board.c
++++ b/board/ti/am335x/board.c
+@@ -1204,14 +1204,6 @@ int board_init(void)
+ 	}
+ #endif
+ 
+-#ifdef CONFIG_ENV_VARS_UBOOT_RUNTIME_CONFIG
+-#ifdef CONFIG_TI_I2C_BOARD_DETECT
+-	if (!board_is_pb() && !board_is_beaglelogic()) {
+-		do_cape_detect();
+-	}
+-#endif
+-#endif
+-
+ 	return 0;
+ }
+ 
+@@ -1317,6 +1309,11 @@ int board_late_init(void)
+ 			env_set("serial#", board_serial);
+ 	}
+ 
++#ifdef CONFIG_TI_I2C_BOARD_DETECT
++	if (!board_is_pb() && !board_is_beaglelogic()) {
++		do_cape_detect();
++	}
++#endif
+ 	return 0;
+ }
+ #endif
+-- 
+2.7.4
+
