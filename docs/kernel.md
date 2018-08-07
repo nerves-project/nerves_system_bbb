@@ -101,6 +101,8 @@ CONFIG_NLS_UTF8=y
 
 ## ElixirALE
 
+I2C, SPI, and GPIO support in user-land.
+
 ```config
 CONFIG_GPIO_SYSFS=y
 CONFIG_I2C_CHARDEV=y
@@ -111,6 +113,9 @@ CONFIG_SPI_SPIDEV=y
 
 ## Watchdog
 
+Nerves updated Erlang's heart process to pet the hardware watchdog. This
+provides an additional level of protection against VM (or other) hangs.
+
 ```config
 CONFIG_WATCHDOG=y
 CONFIG_WATCHDOG_NOWAYOUT=y
@@ -119,6 +124,8 @@ CONFIG_OMAP_WATCHDOG=y
 ```
 
 ## nerves_led
+
+This is needed by [nerves_leds](https://github.com/nerves-project/nerves_leds/)
 
 ```config
 CONFIG_NEW_LEDS=y
@@ -140,6 +147,9 @@ CONFIG_LEDS_TRIGGER_TRANSIENT=y
 ```
 
 ## Ethernet
+
+Most of the Beaglebones have a wired network interface. This enables both it and
+its PHY driver.
 
 ```config
 CONFIG_NETDEVICES=y
@@ -192,15 +202,58 @@ CONFIG_WL_TI=y
 CONFIG_WL12XX=m
 CONFIG_WL18XX=m
 CONFIG_WLCORE_SDIO=m
+CONFIG_STAGING=y
+CONFIG_R8712U=m
 ```
 
 ## AM335x ADCs
 
 ```config
+CONFIG_MFD_TI_AM335X_TSCADC=y
+CONFIG_IIO=y
+CONFIG_TI_AM335X_ADC=y
+```
 
+### Power and thermal
+
+```config
+CONFIG_POWER_AVS=y
+CONFIG_POWER_RESET=y
+CONFIG_POWER_RESET_GPIO=y
+CONFIG_POWER_RESET_GPIO_RESTART=y
+CONFIG_POWER_RESET_RESTART=y
+CONFIG_POWER_RESET_SYSCON=y
+CONFIG_POWER_RESET_SYSCON_POWEROFF=y
+CONFIG_THERMAL=y
+CONFIG_THERMAL_GOV_FAIR_SHARE=y
+CONFIG_THERMAL_GOV_BANG_BANG=y
+CONFIG_CPU_THERMAL=y
+CONFIG_CLOCK_THERMAL=y
+CONFIG_TI_SOC_THERMAL=y
+CONFIG_TI_THERMAL=y
+CONFIG_REGULATOR_GPIO=y
+CONFIG_REGULATOR_PBIAS=y
+CONFIG_REGULATOR_TI_ABB=y
+CONFIG_REGULATOR_TPS65217=y
+```
+
+### PWM
+
+The AM335x parts have some interesting PWM capabilities.
+
+```config
+CONFIG_PWM=y
+CONFIG_PWM_OMAP_DMTIMER=y
+CONFIG_PWM_TIECAP=y
+CONFIG_PWM_TIEHRPWM=y
 ```
 
 ## USB
+
+The Beaglebones have both a host-only USB interface and a on-the-go (host or
+gadget) USB interface. The latter interface is used in the default image to
+provide network and console access. This makes it really easy for beginners to
+use PocketBeagles and the like since they only need one cable.
 
 ```config
 CONFIG_USB=y
@@ -222,6 +275,19 @@ CONFIG_USB_CDC_COMPOSITE=y
 ```
 
 ## Serial ports
+
+Depending on the device tree setup, there can be 6 UARTs.
+
+```config
+# CONFIG_LEGACY_PTYS is not set
+CONFIG_SERIAL_8250=y
+# CONFIG_SERIAL_8250_DEPRECATED_OPTIONS is not set
+CONFIG_SERIAL_8250_CONSOLE=y
+CONFIG_SERIAL_8250_NR_UARTS=6
+CONFIG_SERIAL_8250_RUNTIME_UARTS=6
+CONFIG_SERIAL_8250_OMAP=y
+CONFIG_SERIAL_OF_PLATFORM=y
+```
 
 ## Remote control support
 
