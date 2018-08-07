@@ -10,7 +10,7 @@ defmodule NervesSystemBbb.MixProject do
     [
       app: @app,
       version: @version,
-      elixir: "~> 1.4",
+      elixir: "~> 1.6",
       compilers: Mix.compilers() ++ [:nerves_package],
       nerves_package: nerves_package(),
       description: description(),
