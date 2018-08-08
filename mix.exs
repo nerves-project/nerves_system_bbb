@@ -84,7 +84,7 @@ defmodule NervesSystemBbb.MixProject do
       "post-build.sh",
       "uboot",
       "uboot-script.cmd",
-      "bbb-busybox.config",
+      "busybox.fragment",
       "linux"
     ]
   end
