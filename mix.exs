@@ -72,20 +72,22 @@ defmodule NervesSystemBbb.MixProject do
 
   defp package_files do
     [
+      "fwup_include",
+      "linux",
+      "rootfs_overlay",
+      "uboot",
+      "busybox.fragment",
+      "CHANGELOG.md",
+      "fwup-revert.conf",
+      "fwup.conf",
       "LICENSE",
       "mix.exs",
       "nerves_defconfig",
-      "README.md",
-      "VERSION",
-      "rootfs_overlay",
-      "fwup.conf",
-      "fwup-revert.conf",
-      "post-createfs.sh",
       "post-build.sh",
-      "uboot",
+      "post-createfs.sh",
+      "README.md",
       "uboot-script.cmd",
-      "busybox.fragment",
-      "linux"
+      "VERSION"
     ]
   end
 
