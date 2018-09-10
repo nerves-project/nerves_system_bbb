@@ -86,7 +86,6 @@ defmodule NervesSystemBbb.MixProject do
       "post-build.sh",
       "post-createfs.sh",
       "README.md",
-      "uboot-script.cmd",
       "VERSION"
     ]
   end
