@@ -15,7 +15,7 @@ and [PocketBeagle](https://beagleboard.org/pocket).
 | CPU                  | 1 GHz ARM Cortex-A8             |
 | Memory               | 512 MB DRAM                     |
 | Storage              | 4 GB eMMC Flash and MicroSD     |
-| Linux kernel         | 4.4 w/ BBB patches              |
+| Linux kernel         | 4.14 w/ BBB patches             |
 | IEx terminal         | ttyGS0 via the USB              |
 | GPIO, I2C, SPI       | Yes - Elixir ALE                |
 | ADC                  | Yes                             |
@@ -129,73 +129,78 @@ the application partition so reformatting the application partition will not
 lose the serial number or any other data stored in this block.
 
 Additional key value pairs can be provisioned by overriding the default provisioning.conf
-file location by setting the environment variable 
+file location by setting the environment variable
 `NERVES_PROVISIONING=/path/to/provisioning.conf`. The default provisioning.conf
 will set the `nerves_serial_number`, if you override the location to this file,
 you will be responsible for setting this yourself.
 
-## Linux versions
+## Linux and U-Boot versions
 
 The BeagleBone Black has many options for Linux that vary by kernel version and
 patch set. Nerves tracks those maintained by Robert Nelson at
-[eewiki.net](https://eewiki.net/display/linuxonarm/BeagleBone+Black).  His patch
-sets have `-rt` and `-ti`/`-bone` options. The `-rt` for real-time actually
-refers to `CONFIG_PREEMPT` and a couple other real-time options being configured
-in the Linux kernel. Nerves uses those options as well. Nerves follows the `-ti`
-patch set. See `nerves_system_br/boards/bbb` for the actual patches.
+[eewiki.net](https://eewiki.net/display/linuxonarm/BeagleBone+Black).
 
-Be aware that if you have been using Linux kernel 3.8 on the BeagleBone, that
-there have been device tree overlay and PRU updates. File paths have changed for
-inserting device tree overlays.
+Nerves also integrates the BeagleBone Black's U-boot patches to support device
+tree overlays. Support mirrors the BeagleBone docs with the exception that to
+set U-boot environment variables, See the section below for more information.
 
 ## Device tree overlays
 
-Most pins on the BBB's headers are configurable via the device tree.
-Configuration can be done at runtime via the [Universal
-I/O](https://github.com/cdsteinkuehler/beaglebone-universal-io) device tree
-overlays. These overlays are included in the kernel configuration for Nerves so
-you do not need to compile that project. Additionally, the `config-pin` script
-is available in `/usr/bin` on the target. It has minor modifications to run on
-Nerves.
+Most pins on the BBB's headers are configurable via a mechanism called the
+device tree. The device tree is made up of device tree files and overlay files
+that get compiled down into one or more `.dtb` or `.dtbo` files. The files tell
+Linux what drivers to load and what parameters to use for things that it can't
+figure out by itself.
+
+There are two strategies for dealing with the device tree:
+
+1. Modify the device tree files for an existing board to make your own
+2. Load device tree overlay files
+
+Upstream BBB encourages the second option since it can be easier. The tradeoff
+is that if anything goes wrong or your hardware doesn't match their assumptions,
+it's a little harder to debug.
+
+The device tree files are loaded by U-Boot. Nerves installs all of the
+Beagleboard overlay files to `/lib/firmware` and configures U-Boot to closely
+match upstream. This means that most of the upstream documentation on device
+tree is usable. The difference is that instead of using `/boot/uEnv.txt` to
+customize the overlays, you need to set the variables in the U-Boot environment
+block. This can be done by running `cmd("fw_setenv <key> <value>")` from the IEx
+prompt or by adding the variables to the `fwup.conf` file.
+
+See
+[elinux.org/Beagleboard:BeagleBoneBlack_Debian](https://elinux.org/Beagleboard:BeagleBoneBlack_Debian#U-Boot_.2Fboot.2FuEnv.txt_configuration)
+for documentation on the variables.
 
 ### Universal I/O
 
-The universal I/O overlays can be loaded manually or by using the `config-pin`
-shell script:
+The BBB's Universal device tree overlay lets you configure pins at runtime. This
+system enables the universal overlay by default. See the
+`enable_uboot_cape_universal` setting in the default `fwup.conf` file.
 
-```elixir
-iex(demo@nerves-0099)> :os.cmd('config-pin overlay cape-universaln')
-'Loading cape-universaln overlay\n'
-iex(demo@nerves-0099)> :os.cmd('config-pin -i P9_16') |> IO.puts
-Pin name: P9_16
-Function if no cape loaded: gpio
-Function if cape loaded: default gpio gpio_pu gpio_pd pwm
-Function information: gpio1_19 default gpio1_19 gpio1_19 gpio1_19 ehrpwm1B
-Cape: cape-universala cape-universal cape-universaln
-Kernel GPIO id: 51
-PRU GPIO id: 83
-
-:ok
-iex(demo@nerves-0099)> :os.cmd('config-pin P9_16 pwm')
-```
+See
+[beaglebone-universal-io](https://github.com/cdsteinkuehler/beaglebone-universal-io)
+for documentation. You'll see references to an RCN-built kernel. RCN is the
+initials for Robert Nelson and we use his kernel patches.
 
 ### ADCs
 
 The following example shows how to read values from the 7 ADC inputs in Elixir.
+You will first need to load "BB-ADC" device tree overlay using the guide described
+above.
 
 ```elixir
-iex(demo@nerves-0099)> File.write("/sys/devices/platform/bone_capemgr/slots","BB-ADC")
-:ok
-iex(demo@nerves-0099)> ls "/sys/bus/iio/devices/iio:device0"
+iex(nerves@nerves-0014.local)> ls "/sys/bus/iio/devices/iio:device0"
 buffer              dev                 in_voltage0_raw     in_voltage1_raw
 in_voltage2_raw     in_voltage3_raw     in_voltage4_raw     in_voltage5_raw
 in_voltage6_raw     name                of_node             power
 scan_elements       subsystem           uevent
-iex(demo@nerves-0099)> File.read("/sys/bus/iio/devices/iio:device0/in_voltage0_raw")
+iex(nerves@nerves-0014.local)> File.read("/sys/bus/iio/devices/iio:device0/in_voltage0_raw")
 {:ok, "3891\n"}
-iex(demo@nerves-0099)> File.read("/sys/bus/iio/devices/iio:device0/in_voltage0_raw")
+iex(nerves@nerves-0014.local)> File.read("/sys/bus/iio/devices/iio:device0/in_voltage0_raw")
 {:ok, "3890\n"}
-iex(demo@nerves-0099)> File.read("/sys/bus/iio/devices/iio:device0/in_voltage0_raw")
+iex(nerves@nerves-0014.local)> File.read("/sys/bus/iio/devices/iio:device0/in_voltage0_raw")
 {:ok, "3891\n"}
 ```
 
@@ -203,49 +208,35 @@ iex(demo@nerves-0099)> File.read("/sys/bus/iio/devices/iio:device0/in_voltage0_r
 
 The following examples shows how to get SPI0 functional in Elixir.
 
-Load the overlay, configure the pins, and load the device drivers:
-
-> Note: The order of the above stops is important. The overlay must be loaded and the pins configured before writing "BB-SPIDEV0".
-
-```console
-iex(demo@nerves-0099)1> :os.cmd('config-pin overlay cape-universaln')
-'Loading cape-universaln overlay\n'
-iex(demo@nerves-0099)2> [17,18,21,22] |> Enum.each(&(:os.cmd('config-pin -a  P9_#{&1} spi')))
-:ok
-iex(demo@nerves-0099)3> File.write("/sys/devices/platform/bone_capemgr/slots","BB-SPIDEV0")
-{:error, :eexist}
-```
+Load the "BB-SPIDEV0" device tree overlay using the guide described above.
 
 Verify that the device drivers are loaded and read spi0 transfers:
 
-```console
-iex(demo@nerves-0099)4> ls "/dev"
+```elixir
+iex(nerves@nerves-0014.local)> ls "/dev"
   ...
         spidev1.0              spidev1.1              spidev2.0              spidev2.1
   ...
-iex(demo@nerves-0099)5> File.read "/sys/bus/spi/devices/spi1.0/statistics/transfers"
+iex(nerves@nerves-0014.local)> File.read "/sys/bus/spi/devices/spi1.0/statistics/transfers"
 {:ok, "0"}
 ```
 
-Verify that the pins are configured:
+If you have included [ElixirAle](https://github.com/fhunleth/elixir_ale) as a
+dependency, you can start it now and test a transfer:
 
-```console
-iex(demo@nerves-0099)6> [17,18,21,22] |> Enum.map(&(:os.cmd('config-pin -q  P9_#{&1} spi')))
-['P9_17 Mode: spi\n', 'P9_18 Mode: spi\n', 'P9_21 Mode: spi\n', 'P9_22 Mode: spi\n']
-```
+> The example below should work without any additional hardware connected to the
+> BBB. If you have SPI hardware connected to the BBB, your returned binary might
+> be different.
 
-If you have included [ElixirAle](https://github.com/fhunleth/elixir_ale) as a dependency, you can start it now and test a transfer:
-
-> The example below should work without any additional hardware connected to the BBB. If you have SPI hardware connected to the BBB, your returned binary might be different.
-
-```console
-iex(demo@nerves-0099)7> Spi.start_link "spidev1.0", [], name: :spi0
-{:ok, #PID<0.181.0>}
-iex(demo@nerves-0099)8> Spi.transfer :spi0, <<1,2,3,4>>
+```elixir
+iex(nerves@nerves-0014.local)> ElixirALE.SPI.start_link("spidev1.0", [], name: :spi0)
+{:ok, #PID<0.810.0>}
+iex(nerves@nerves-0014.local)> ElixirALE.SPI.transfer(:spi0, <<1,2,3,4>>)
 <<255, 255, 255, 255>>
 ```
 
-> Note: If you get back all 0's, then you have likely have not configured the overlay pins correctly.
+> Note: If you get back all 0's, then you have likely have not configured the
+> overlay pins correctly.
 
 ## Supported USB WiFi devices
 
@@ -269,12 +260,12 @@ reinsert the USB dongle to generate new log messages if you don't see them.
 ## Beaglebone Green WiFi
 
 Initial support for the BBGW's onboard wireless module is available. To try it
-out, run (assuming you have Nerves.InterimWiFi in your image):
+out, run (assuming you have Nerves.Network in your image):
 
 ```elixir
 :os.cmd('modprobe wl18xx')
 :os.cmd('modprobe wlcore-sdio')
-Nerves.InterimWiFi.setup "wlan0", ssid: "xxx", key_mgmt: :"WPA-PSK", psk: "yyy"
+Nerves.Network.setup "wlan0", ssid: "xxx", key_mgmt: :"WPA-PSK", psk: "yyy"
 ```
 
 Be aware that this Nerves system does not configure the MAC address. The result
