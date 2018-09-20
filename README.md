@@ -15,7 +15,7 @@ and [PocketBeagle](https://beagleboard.org/pocket).
 | CPU                  | 1 GHz ARM Cortex-A8             |
 | Memory               | 512 MB DRAM                     |
 | Storage              | 4 GB eMMC Flash and MicroSD     |
-| Linux kernel         | 4.4 w/ BBB patches              |
+| Linux kernel         | 4.14 w/ BBB patches             |
 | IEx terminal         | ttyGS0 via the USB              |
 | GPIO, I2C, SPI       | Yes - Elixir ALE                |
 | ADC                  | Yes                             |
@@ -129,19 +129,20 @@ the application partition so reformatting the application partition will not
 lose the serial number or any other data stored in this block.
 
 Additional key value pairs can be provisioned by overriding the default provisioning.conf
-file location by setting the environment variable 
+file location by setting the environment variable
 `NERVES_PROVISIONING=/path/to/provisioning.conf`. The default provisioning.conf
 will set the `nerves_serial_number`, if you override the location to this file,
 you will be responsible for setting this yourself.
 
-## Linux versions
+## Linux and U-Boot versions
 
 The BeagleBone Black has many options for Linux that vary by kernel version and
 patch set. Nerves tracks those maintained by Robert Nelson at
-[eewiki.net](https://eewiki.net/display/linuxonarm/BeagleBone+Black).  His patch
-sets have `-rt` and `-ti`/`-bone` options. We're currently following the -bone
-options to more closely mirror the official Debian builds. See the `linux`
-directory for the script that extracts the patches from the Debian releases.
+[eewiki.net](https://eewiki.net/display/linuxonarm/BeagleBone+Black).
+
+Nerves also integrates the BeagleBone Black's U-boot patches to support device
+tree overlays. Support mirrors the BeagleBone docs with the exception that to
+set U-boot environment variables, See the section below for more information.
 
 ## Device tree overlays
 
@@ -190,16 +191,16 @@ You will first need to load "BB-ADC" device tree overlay using the guide describ
 above.
 
 ```elixir
-iex(demo@nerves-0099)> ls "/sys/bus/iio/devices/iio:device0"
+iex(nerves@nerves-0014.local)> ls "/sys/bus/iio/devices/iio:device0"
 buffer              dev                 in_voltage0_raw     in_voltage1_raw
 in_voltage2_raw     in_voltage3_raw     in_voltage4_raw     in_voltage5_raw
 in_voltage6_raw     name                of_node             power
 scan_elements       subsystem           uevent
-iex(demo@nerves-0099)> File.read("/sys/bus/iio/devices/iio:device0/in_voltage0_raw")
+iex(nerves@nerves-0014.local)> File.read("/sys/bus/iio/devices/iio:device0/in_voltage0_raw")
 {:ok, "3891\n"}
-iex(demo@nerves-0099)> File.read("/sys/bus/iio/devices/iio:device0/in_voltage0_raw")
+iex(nerves@nerves-0014.local)> File.read("/sys/bus/iio/devices/iio:device0/in_voltage0_raw")
 {:ok, "3890\n"}
-iex(demo@nerves-0099)> File.read("/sys/bus/iio/devices/iio:device0/in_voltage0_raw")
+iex(nerves@nerves-0014.local)> File.read("/sys/bus/iio/devices/iio:device0/in_voltage0_raw")
 {:ok, "3891\n"}
 ```
 
@@ -211,27 +212,31 @@ Load the "BB-SPIDEV0" device tree overlay using the guide described above.
 
 Verify that the device drivers are loaded and read spi0 transfers:
 
-```console
-iex(demo@nerves-0099)4> ls "/dev"
+```elixir
+iex(nerves@nerves-0014.local)> ls "/dev"
   ...
         spidev1.0              spidev1.1              spidev2.0              spidev2.1
   ...
-iex(demo@nerves-0099)5> File.read "/sys/bus/spi/devices/spi1.0/statistics/transfers"
+iex(nerves@nerves-0014.local)> File.read "/sys/bus/spi/devices/spi1.0/statistics/transfers"
 {:ok, "0"}
 ```
 
-If you have included [ElixirAle](https://github.com/fhunleth/elixir_ale) as a dependency, you can start it now and test a transfer:
+If you have included [ElixirAle](https://github.com/fhunleth/elixir_ale) as a
+dependency, you can start it now and test a transfer:
 
-> The example below should work without any additional hardware connected to the BBB. If you have SPI hardware connected to the BBB, your returned binary might be different.
+> The example below should work without any additional hardware connected to the
+> BBB. If you have SPI hardware connected to the BBB, your returned binary might
+> be different.
 
-```console
-iex(demo@nerves-0099)7> Spi.start_link "spidev1.0", [], name: :spi0
-{:ok, #PID<0.181.0>}
-iex(demo@nerves-0099)8> Spi.transfer :spi0, <<1,2,3,4>>
+```elixir
+iex(nerves@nerves-0014.local)> ElixirALE.SPI.start_link("spidev1.0", [], name: :spi0)
+{:ok, #PID<0.810.0>}
+iex(nerves@nerves-0014.local)> ElixirALE.SPI.transfer(:spi0, <<1,2,3,4>>)
 <<255, 255, 255, 255>>
 ```
 
-> Note: If you get back all 0's, then you have likely have not configured the overlay pins correctly.
+> Note: If you get back all 0's, then you have likely have not configured the
+> overlay pins correctly.
 
 ## Supported USB WiFi devices
 
