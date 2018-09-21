@@ -1,4 +1,4 @@
-From fb17a037148873e548797941988f336243ecd8c0 Mon Sep 17 00:00:00 2001
+From cd7df1bc7f7d8053b82ad43152cdcaada2a28713 Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 11 Jul 2018 10:40:24 -0400
 Subject: [PATCH] Move cape detection to save environment
@@ -12,40 +12,29 @@ It is unknown whether any code in between the first init and the late
 init does anything based on cape detection. If it does, then this patch
 breaks that code.
 ---
- board/ti/am335x/board.c | 13 +++++--------
- 1 file changed, 5 insertions(+), 8 deletions(-)
+ board/ti/am335x/board.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
 diff --git a/board/ti/am335x/board.c b/board/ti/am335x/board.c
-index f4840d2..7dca157 100644
+index e2ee1fc..79c21af 100644
 --- a/board/ti/am335x/board.c
 +++ b/board/ti/am335x/board.c
-@@ -1204,14 +1204,6 @@ int board_init(void)
+@@ -1309,12 +1309,10 @@ int board_late_init(void)
+ 			env_set("serial#", board_serial);
  	}
- #endif
  
 -#ifdef CONFIG_ENV_VARS_UBOOT_RUNTIME_CONFIG
--#ifdef CONFIG_TI_I2C_BOARD_DETECT
+ #ifdef CONFIG_TI_I2C_BOARD_DETECT
 -	if (!board_is_pb() && !board_is_beaglelogic()) {
 -		do_cape_detect();
 -	}
 -#endif
--#endif
--
- 	return 0;
- }
- 
-@@ -1317,6 +1309,11 @@ int board_late_init(void)
- 			env_set("serial#", board_serial);
- 	}
- 
-+#ifdef CONFIG_TI_I2C_BOARD_DETECT
-+	if (!board_is_pb() && !board_is_beaglelogic()) {
-+		do_cape_detect();
-+	}
-+#endif
- 	return 0;
- }
++        if (!board_is_pb() && !board_is_beaglelogic()) {
++                do_cape_detect();
++        }
  #endif
+ 
+ 	return 0;
 -- 
-2.7.4
+2.17.1
 
