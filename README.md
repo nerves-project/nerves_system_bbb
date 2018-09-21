@@ -242,10 +242,9 @@ iex(nerves@nerves-0014.local)> ElixirALE.SPI.transfer(:spi0, <<1,2,3,4>>)
 
 The base image includes drivers and firmware for the TI WiLink8 (`wl18xx`),
 Ralink RT53xx (`rt2800usb` driver) and RealTek RTL8712U (`r8712u` driver)
-devices. All WiFi drivers are compiled as modules. Currently, Nerves doesn't
-autoload the drivers, so you'll need to load them at the beginning of your
-application. For example, run `:os.cmd('modprobe wl18xx')` if you're using a
-BeagleBone Green Wireless.
+devices. All WiFi drivers are compiled as modules. Some drivers can be loaded
+automatically. If you have a Beaglebone Green or Beaglebone Black with built-in
+WiFi, see the next section.
 
 We are still working out which subset of all possible WiFi dongles to support in
 our images. At some point, we may have the option to support all dongles and
