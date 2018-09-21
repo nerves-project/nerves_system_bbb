@@ -83,6 +83,6 @@ update_kernel_patch() {
 #update_kernel_patch 4.4.9-ti-r25 4.4.9 0001-rcn-linux-4.4.9-ti.patch
 #update_kernel_patch 4.4.113-ti-r147 4.4.113 0001-rcn-linux-4.4.113-ti.patch
 #update_kernel_patch 4.9.58-ti-r72 4.9.58 0001-rcn-linux-4.9.58-ti.patch
-update_kernel_patch 4.14.68-bone16 4.14.68 0001-rcn-linux-4.14.68-bone16.patch
+update_kernel_patch 4.14.69-ti-r75 4.14.69 0001-rcn-linux-4.14.69-ti-r75.patch
 
 echo "Updated patches. Now rebuild the linux kernel."
