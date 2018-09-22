@@ -25,6 +25,7 @@ BR2_LINUX_KERNEL_CUSTOM_VERSION_VALUE="4.18.9"
 BR2_LINUX_KERNEL_PATCH="${NERVES_DEFCONFIG_DIR}/linux"
 BR2_LINUX_KERNEL_USE_CUSTOM_CONFIG=y
 BR2_LINUX_KERNEL_CUSTOM_CONFIG_FILE="${NERVES_DEFCONFIG_DIR}/linux/linux-4.18.9.defconfig"
+BR2_LINUX_KERNEL_XZ=y
 BR2_LINUX_KERNEL_DTS_SUPPORT=y
 BR2_LINUX_KERNEL_INTREE_DTS_NAME="am335x-boneblack am335x-bonegreen am335x-bonegreen-wireless am335x-boneblack-wireless am335x-pocketbeagle am335x-boneblack-uboot-univ am335x-bonegreen-wireless-uboot-univ am335x-bone-uboot-univ"
 BR2_LINUX_KERNEL_INSTALL_TARGET=y
