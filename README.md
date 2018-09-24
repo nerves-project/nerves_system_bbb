@@ -24,6 +24,7 @@ and [PocketBeagle](https://beagleboard.org/pocket).
 | Camera               | None                            |
 | Ethernet             | Yes                             |
 | WiFi                 | Beaglebone Green Wireless (wl18xx driver). Other requires USB WiFi dongle/driver |
+| HW Watchdog          | AM335x watchdog enabled on boot. Be sure to enable `heart` in your vm.args or the device will reboot |
 
 ## Using
 
