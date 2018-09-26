@@ -1,6 +1,35 @@
 # Changelog
 
-## v2.0.0-dev
+## v2.0.0-rc.0
+
+This is a backwards incompatible update to `nerves_system_bbb`. Over-the-air
+updates to existing devices will not work. If you're a production user of
+`nerves_system_bbb`, please consider supporting efforts to maintain a v1.4.0
+branch.
+
+The v2.0.0 support adds the following:
+
+1. Device tree overlays are applied by U-Boot now. Support in Nerves is nearly
+   identical to Beagleboard.org's Debian distribution. This fixes significant
+   issues in v1.4.0 and before ever since upstream moved from loading device
+   tree overlays in Linux to U-Boot.
+2. Support for automatic failback of bad new builds. If enabled, your Nerves
+   application will need to mark a software update as good (for example, it can
+   contact a server) or else the next reboot will revert.
+3. The application partition uses F2FS rather than EXT4. This noticeably
+   improves startup time on the first boot and has some less obvious advantages
+   from being a Flash-aware file system.
+4. The hardware watchdog is enabled at boot. Your application must enable
+   `heart` now.
+5. The U-Boot environment was increased in size to 128 KB. This was required for
+   the new device tree overlay support and unfortunately makes migrating devices
+   from v1.4.0 not possible without significant work.
+
+
+* Updated dependencies
+  * [nerves_system_br v1.5.2](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.5.2)
+  * Linux 4.18.9 + The Beagleboard Debian kernel patches
+  * Erlang 21.0.9
 
 ## v1.4.0
 
