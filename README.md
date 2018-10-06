@@ -239,6 +239,19 @@ iex(nerves@nerves-0014.local)> ElixirALE.SPI.transfer(:spi0, <<1,2,3,4>>)
 > Note: If you get back all 0's, then you have likely have not configured the
 > overlay pins correctly.
 
+## PRUS
+
+The PRUs are controlled via `uio`. Two kernel modules are needed for them to work.
+
+```elixir
+iex> :os.cmd('modprobe uio uio_pruss')
+iex> ls "/sys/class/uio"
+uio0     uio1     uio2     uio3     uio4     uio5     uio6     uio7
+```
+
+Check the beaglebone [am335x_pru_package](https://github.com/beagleboard/am335x_pru_package/)
+repository for samples on how to interface PRUs.
+
 ## Supported USB WiFi devices
 
 The base image includes drivers and firmware for the TI WiLink8 (`wl18xx`),
