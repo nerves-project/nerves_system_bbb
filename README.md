@@ -103,7 +103,7 @@ Keys used by this system are:
 
 Key                    | Example Value     | Description
 :--------------------- | :---------------- | :----------
-`nerves_serial_number` | "1234578"`        | By default, this string is used to create unique hostnames and Erlang node names. If unset, it defaults to part of the BBB's serial number.
+`nerves_serial_number` | `"12345678"`       | By default, this string is used to create unique hostnames and Erlang node names. If unset, it defaults to part of the BBB's serial number.
 
 The normal procedure would be to set these keys once in manufacturing or before
 deployment and then leave them alone.
@@ -112,7 +112,7 @@ For example, to provision a serial number on a running device, run the following
 and reboot:
 
 ```elixir
-iex> cmd("fw_setenv nerves_serial_number 1234")
+iex> cmd("fw_setenv nerves_serial_number 12345678")
 ```
 
 This system supports setting the serial number offline. To do this, set the
@@ -120,7 +120,7 @@ This system supports setting the serial number offline. To do this, set the
 programming MicroSD cards using `fwup`, the commandline is:
 
 ```sh
-sudo NERVES_SERIAL_NUMBER=1234 fwup path_to_firmware.fw
+sudo NERVES_SERIAL_NUMBER=12345678 fwup path_to_firmware.fw
 ```
 
 Serial numbers are stored on the MicroSD card so if the MicroSD card is
