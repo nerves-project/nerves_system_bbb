@@ -63,7 +63,6 @@ defmodule NervesSystemBbb.MixProject do
 
   defp package do
     [
-      maintainers: ["Frank Hunleth", "Justin Schneck"],
       files: package_files(),
       licenses: ["Apache 2.0"],
       links: %{"Github" => "https://github.com/nerves-project/#{@app}"}
