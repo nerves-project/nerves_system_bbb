@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.0.0
+
+* Enhancements
+  * Enable `AM335X-PRU-UIO-00A0` device tree overlay for PRU support.
+    See the [README.md](https://github.com/nerves-project/nerves_system_bbb/README.md#prus) for more information.
+* Updated dependencies
+  * [nerves_system_br v1.5.3](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.5.3)
+
 ## v2.0.0-rc.0
 
 This is a backwards incompatible update to `nerves_system_bbb`. Over-the-air
