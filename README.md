@@ -17,7 +17,7 @@ and [PocketBeagle](https://beagleboard.org/pocket).
 | Storage              | 4 GB eMMC Flash and MicroSD     |
 | Linux kernel         | 4.14 w/ BBB patches             |
 | IEx terminal         | ttyGS0 via the USB              |
-| GPIO, I2C, SPI       | Yes - Elixir ALE                |
+| GPIO, I2C, SPI       | Yes - [Elixir Circuits](https://github.com/elixir-circuits) |
 | ADC                  | Yes                             |
 | PWM                  | Yes, but no Elixir support      |
 | UART                 | ttyS0 + more via device tree overlay  |
