@@ -1,5 +1,18 @@
 # Changelog
 
+## v2.1.1
+
+* Updated dependencies
+  * [nerves_system_br v1.6.5](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.6.5)
+  * Erlang 21.2.2
+  * boardid 1.5.2
+  * erlinit 1.4.9
+  * OpenSSL 1.1.1a
+  * Linux 4.19.10 with the Beagleboard Debian kernel patches
+
+* Enhancements
+  * Moved boardid config from inside erlinit.config to /etc/boardid.config
+
 ## v2.1.0
 
 This pulls in a pending patch in Buildroot to update the version of
