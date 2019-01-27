@@ -26,7 +26,7 @@ defmodule NervesSystemBbb.MixProject do
   end
 
   defp bootstrap(args) do
-    System.put_env("MIX_TARGET", "bbb")
+    set_target()
     Application.start(:nerves_bootstrap)
     Mix.Task.run("loadconfig", args)
   end
@@ -100,6 +100,14 @@ defmodule NervesSystemBbb.MixProject do
       [make_args: ["BR2_PRIMARY_SITE=#{primary_site}"]]
     else
       []
+    end
+  end
+
+  defp set_target() do
+    if function_exported?(Mix, :target, 1) do
+      apply(Mix, :target, [:target])
+    else
+      System.put_env("MIX_TARGET", "target")
     end
   end
 end
