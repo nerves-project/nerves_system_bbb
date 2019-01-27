@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Retreive the URL of the location for artifacts beginning with the path
+# Retrieve the URL of the location for artifacts beginning with the path
 
 # Example:
 # primary-site.sh dl
