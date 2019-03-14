@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.2.0
+
+ * Updated dependencies
+  * [nerves_system_br v1.7.0](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.7.0)
+  * Erlang 21.2.7
+  * Linux 4.19.26 with the Beagleboard Debian kernel patches
+
 ## v2.1.3
 
  * Updated dependencies
