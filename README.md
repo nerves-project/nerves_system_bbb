@@ -222,7 +222,7 @@ iex(nerves@nerves-0014.local)> File.read "/sys/bus/spi/devices/spi1.0/statistics
 {:ok, "0"}
 ```
 
-If you have included [ElixirAle](https://github.com/fhunleth/elixir_ale) as a
+If you have included [circuits_spi](https://github.com/elixir-circuits/circuits_spi) as a
 dependency, you can start it now and test a transfer:
 
 > The example below should work without any additional hardware connected to the
@@ -230,9 +230,9 @@ dependency, you can start it now and test a transfer:
 > be different.
 
 ```elixir
-iex(nerves@nerves-0014.local)> ElixirALE.SPI.start_link("spidev1.0", [], name: :spi0)
-{:ok, #PID<0.810.0>}
-iex(nerves@nerves-0014.local)> ElixirALE.SPI.transfer(:spi0, <<1,2,3,4>>)
+iex(nerves@nerves-0014.local)> {:ok, ref} = Circuits.SPI.open("spidev0.0")
+{:ok, #Reference<...>}
+iex(nerves@nerves-0014.local)> Circuits.SPI.transfer(ref, <<1,2,3,4>>)
 <<255, 255, 255, 255>>
 ```
 
