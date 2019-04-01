@@ -1,5 +1,19 @@
 # Changelog
 
+## v2.2.1
+
+* Bug fixes
+  * Re-enabled Ralink rt2800usb WiFi driver.
+
+* Improvements
+  * Bump C compiler options to `-O2` from `-Os`. This provides a small, but
+    measurable performance improvement (500ms at boot in a trivial project
+    tested on [nerves_system_rpi0](https://github.com/nerves-project/nerves_system_rpi0)).
+  * Added r8712u.ko WiFi driver.
+
+* Updated dependencies
+  * [nerves_system_br v1.7.1](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.7.1)
+
 ## v2.2.0
 
  * Updated dependencies
