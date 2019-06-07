@@ -284,6 +284,20 @@ Nerves.Network.setup "wlan0", ssid: "xxx", key_mgmt: :"WPA-PSK", psk: "yyy"
 Be aware that this Nerves system does not configure the MAC address. The result
 is that only one BBGW may exist on the WiFi network at a time.
 
+## Bluetooth
+
+The Beaglebone boards with built-in WiFi support use the WiLink8 WL1835 module.
+This is a combo WiFi/Bluetooth module. Bluetooth is not well supported in
+Nerves. However, Nerves is built on Linux so you can enable and use `bluez`.
+Another option is to use [harald](https://hex.pm/packages/harald) which can
+communicate with the module using low level Bluetooth HCI commands.
+
+The WL1835 requires initialization before first use. This is done via a "BTS"
+file. The `TIInit_11.8.32.bts` file is included in this system under
+`lib/firmware/ti-connectivity`. The Bluetooth kernel modules know how to load it
+automatically. If you're using `harald`, you will need to load it yourself. The
+source of the "BTS" file is http://www.ti.com/tool/wl18xx-bt-sp.
+
 ## Installation
 
 If you're new to Nerves, check out the
