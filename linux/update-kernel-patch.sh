@@ -25,12 +25,8 @@ update_kernel_patch() {
   local KERNEL_URL
 
   case $KERNEL_VERSION in
-      3*)
-          RCN_PATCH_URL=http://rcn-ee.net/deb/sid-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_XZ
-          KERNEL_URL=https://www.kernel.org/pub/linux/kernel/v3.x/$KERNEL_TARBALL
-          ;;
       4*)
-          RCN_PATCH_URL=http://rcn-ee.net/deb/stretch-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_XZ
+          RCN_PATCH_URL=http://rcn-ee.net/deb/buster-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_XZ
           KERNEL_URL=https://www.kernel.org/pub/linux/kernel/v4.x/$KERNEL_TARBALL
           ;;
       *)
@@ -86,6 +82,6 @@ update_kernel_patch() {
 #update_kernel_patch 4.14.69-ti-r75 4.14.69 0001-rcn-linux-4.14.69-ti-r75.patch
 #update_kernel_patch 4.18.9-bone9 4.18.9 0001-rcn-linux-4.18.9-bone9.patch
 #update_kernel_patch 4.19.10-bone14 4.19.10 0001-rcn-linux-4.19.10-bone14.patch
-update_kernel_patch 4.19.26-bone26 4.19.26 0001-rcn-linux-4.19.26-bone26.patch
+update_kernel_patch 4.19.37-bone33 4.19.37 0001-rcn-linux-4.19.37-bone33.patch
 
 echo "Updated patches. Now rebuild the linux kernel."
