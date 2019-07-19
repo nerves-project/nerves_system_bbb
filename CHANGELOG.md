@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.3.1
+
+* Enhancements
+  * Enable source-based routing in the Linux kernel to support [vintage_net](https://github.com/nerves-networking/vintage_net)
+  * Enable pstore, an in-memory buffer that can capture logs, kernel
+    oops and other information when unexpected reboots. The buffer can be
+    recovered on the next boot where it can be inspected.
+
+* Updated dependencies
+  * [nerves_system_br v1.8.4](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.8.4)
+
 ## v2.3.0
 
 This release
