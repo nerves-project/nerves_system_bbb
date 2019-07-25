@@ -168,7 +168,19 @@ match upstream. This means that most of the upstream documentation on device
 tree is usable. The difference is that instead of using `/boot/uEnv.txt` to
 customize the overlays, you need to set the variables in the U-Boot environment
 block. This can be done by running `cmd("fw_setenv <key> <value>")` from the IEx
-prompt or by adding the variables to the `fwup.conf` file.
+prompt or by adding the variables to the `fwup_include/provisioning.conf` file.
+
+For example, at the IEx prompt:
+
+```elixir
+cmd("fw_setenv uboot_overlay_addr7 /lib/firmware/BB-UART1-00A0.dtbo")
+```
+
+Or by updating the configuration file:
+
+```
+uboot_setenv(uboot-env, "uboot_overlay_addr7", "/lib/firmware/BB-UART1-00A0.dtbo")
+```
 
 See
 [elinux.org/Beagleboard:BeagleBoneBlack_Debian](https://elinux.org/Beagleboard:BeagleBoneBlack_Debian#U-Boot_.2Fboot.2FuEnv.txt_configuration)
@@ -178,7 +190,7 @@ for documentation on the variables.
 
 The BBB's Universal device tree overlay lets you configure pins at runtime. This
 system enables the universal overlay by default. See the
-`enable_uboot_cape_universal` setting in the default `fwup.conf` file.
+`enable_uboot_cape_universal` setting in the default `fwup_include/provisioning.conf` file.
 
 See
 [beaglebone-universal-io](https://github.com/cdsteinkuehler/beaglebone-universal-io)
