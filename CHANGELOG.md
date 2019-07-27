@@ -1,5 +1,19 @@
 # Changelog
 
+## v2.3.2
+
+This release fixes an issue where the MAC address for the wired Ethernet port on
+many BeagleBone-based boards was not being set. Unfortunately, the fix is with
+the U-Boot bootloader configuration and this is not updated when applying
+updates over-the-air. Fresh firmware installs will apply the fix, so if you're
+burning MicroSD cards, you're fine. It is possible to fix the wired Ethernet MAC
+address issue in the field if necessary. Please post to our support channels if
+you need to do this and are not sure.
+
+* Updated dependencies
+  * [nerves_system_br v1.8.5](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.8.5)
+  * Linux 4.19.50
+
 ## v2.3.1
 
 * Enhancements
