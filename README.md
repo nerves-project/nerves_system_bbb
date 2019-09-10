@@ -1,3 +1,7 @@
+# Modified for ConfigGS
+
+This repo is a modified version of the bbb system using configfs instead of precompiled usb gadget kernel modules. Original README follows:
+
 # Generic BeagleBone Support
 
 [![CircleCI](https://circleci.com/gh/nerves-project/nerves_system_bbb.svg?style=svg)](https://circleci.com/gh/nerves-project/nerves_system_bbb)

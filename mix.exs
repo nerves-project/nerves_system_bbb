@@ -1,7 +1,7 @@
-defmodule NervesSystemBbbHid.MixProject do
+defmodule NervesSystemBbbConfigFS.MixProject do
   use Mix.Project
 
-  @app :nerves_system_bbb_hid
+  @app :nerves_system_bbb_configfs
   @version Path.join(__DIR__, "VERSION")
            |> File.read!()
            |> String.trim()
