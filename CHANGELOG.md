@@ -1,5 +1,15 @@
 # Changelog
 
+## v2.4.1
+
+This release pulls in security and bug fix updates from `nerves_system_br`.
+Erlang/OTP is now at 22.1.1.
+
+* Updated dependencies
+  * [nerves_system_br v1.9.4](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.9.4)
+  * bborg-overlays - update to latest to pull in device tree overlay fixes and
+    additions from upstream
+
 ## v2.4.0
 
 This release updates Buildroot to 2019.08 with security and bug fix updates
