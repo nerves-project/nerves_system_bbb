@@ -1,5 +1,17 @@
 # Changelog
 
+## v2.5.0
+
+This release updates Buildroot to 2019.11 with security and bug fix updates
+across Linux packages. Enables dnsd, udhcpd and ifconfig in the default 
+Busybox configuration to support `vintage_net` and `vintage_net_wizard`. 
+See the `nerves_system_br` notes for details.
+
+* Updated dependencies
+  * [nerves_system_br v1.10.0](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.10.0)
+  * Erlang 22.1.8
+  * Linux 4.19.72 with the Beagleboard Debian kernel patches
+
 ## v2.4.2
 
 This release updates Buildroot to 2019.08.2 with security and bug fix updates
