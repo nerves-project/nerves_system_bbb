@@ -16,11 +16,11 @@ and [PocketBeagle](https://beagleboard.org/pocket).
 | Memory               | 512 MB DRAM                     |
 | Storage              | 4 GB eMMC Flash and MicroSD     |
 | Linux kernel         | 4.19 w/ BBB patches             |
-| IEx terminal         | ttyGS0 via the USB              |
+| IEx terminal         | UART `ttyS0`                    |
 | GPIO, I2C, SPI       | Yes - [Elixir Circuits](https://github.com/elixir-circuits) |
 | ADC                  | Yes                             |
 | PWM                  | Yes, but no Elixir support      |
-| UART                 | ttyS0 + more via device tree overlay  |
+| UART                 | ttyS0 + more via device tree overlay |
 | Camera               | None                            |
 | Ethernet             | Yes                             |
 | WiFi                 | Beaglebone Green Wireless (wl18xx driver). Other requires USB WiFi dongle/driver |
@@ -74,14 +74,8 @@ printed repeatedly on the console port.
 
 ## Console access
 
-The console is configured to output to `ttyGS0` by default. This is output
-through a USB cable connected to the BeagleBone's OTG USB port. It will show up
-on the connected computer as a virtual serial port.
-
-It is also possible to configure the IEx prompt through the 6 pin header on the
+The console is configured to output to the 6 pin header on the
 BeagleBone that's labeled J1. A 3.3V FTDI cable is needed to access the output.
-To use this output, override the default `erlinit.config` and specify that the
-output should go to `ttyS0`.
 
 The HDMI output has been disabled via device tree to free up pins on the GPIO
 header. If you would like console access via HDMI, you will need to enable HDMI
