@@ -1,5 +1,22 @@
 # Changelog
 
+## v2.5.2
+
+* Fixes
+  * This fixes a regression on OSX where the USB gadget Ethernet would
+    incorrectly try to go into RNDIS mode and not work. Gadget Ethernet works
+    with this fix on Linux and OSX. It also works on Windows with a driver
+    installed. See the README.md for details.
+  * The USB driver uses PIO mode again. It had mistakenly been switched to DMA
+    mode. DMA mode works for a lot of USB devices, but not all and it's not what
+    Debian does. See [PR
+    138](https://github.com/nerves-project/nerves_system_bbb/pull/138) for more
+    information.
+
+* Updated dependencies
+  * [nerves_system_br v1.10.2](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.10.2)
+  * Erlang 22.2.4
+
 ## v2.5.1
 
 This release changes the behavior of the gadget port. The gadget driver has been changed to use g_ether. This
