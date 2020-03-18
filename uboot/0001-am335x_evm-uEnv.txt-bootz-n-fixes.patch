@@ -1,4 +1,4 @@
-From ed17dca5c434755e53ac6bc3f8df345c2dc83948 Mon Sep 17 00:00:00 2001
+From bcba9c297a169cf301f28f3f5f0b998dbe32b440 Mon Sep 17 00:00:00 2001
 From: Robert Nelson <robertcnelson@gmail.com>
 Date: Wed, 20 Jun 2018 15:39:57 -0500
 Subject: [PATCH] am335x_evm: uEnv.txt, bootz, n fixes
@@ -1150,5 +1150,5 @@ index 785fc15..110c426 100644
  				"if test ${boot_fdt} = try; then " \
  					"bootz; " \
 -- 
-2.17.1
+2.20.1
 

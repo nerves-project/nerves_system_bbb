@@ -1,4 +1,4 @@
-From fb91a726cde095e6d54e86ba36efcd29a4a5f5f9 Mon Sep 17 00:00:00 2001
+From 00ec2a54f729d1a464afc6a95f6b516e50419293 Mon Sep 17 00:00:00 2001
 From: Robert Nelson <robertcnelson@gmail.com>
 Date: Tue, 14 Aug 2018 21:00:21 -0500
 Subject: [PATCH] U-Boot: BeagleBone Cape Manager
@@ -942,5 +942,5 @@ index 110c426..d6bbe3e 100644
  		"ums 0 ${devtype} 1;\0" \
  	"envboot=mmc dev ${mmcdev}; " \
 -- 
-2.17.1
+2.20.1
 

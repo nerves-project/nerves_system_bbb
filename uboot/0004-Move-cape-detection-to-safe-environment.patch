@@ -1,7 +1,7 @@
-From cd7df1bc7f7d8053b82ad43152cdcaada2a28713 Mon Sep 17 00:00:00 2001
+From fb19ca14057ec382df14e06ffcbbede22b6e257d Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Wed, 11 Jul 2018 10:40:24 -0400
-Subject: [PATCH] Move cape detection to save environment
+Subject: [PATCH] Move cape detection to safe environment
 
 The U-boot environment gets trampled on when restoring it from eMMC.
 Since proper operation depends on the cape detection's environment
@@ -36,5 +36,5 @@ index e2ee1fc..79c21af 100644
  
  	return 0;
 -- 
-2.17.1
+2.20.1
 

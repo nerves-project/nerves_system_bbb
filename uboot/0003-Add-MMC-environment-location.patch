@@ -1,4 +1,4 @@
-From 7065382e1fdde6fdb92597697cae86100e84123c Mon Sep 17 00:00:00 2001
+From f58ea82894e83370c5f6e3d3d3e3304ec85f366c Mon Sep 17 00:00:00 2001
 From: Frank Hunleth <fhunleth@troodon-software.com>
 Date: Sun, 3 Jun 2018 11:33:53 -0400
 Subject: [PATCH] Add MMC environment location
@@ -24,5 +24,5 @@ index e55736e..7c8e836 100644
  
  /* SPI flash. */
 -- 
-2.17.1
+2.20.1
 
