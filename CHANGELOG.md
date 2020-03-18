@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.6.0
+
+This release updates Buildroot to 2020.02 and upgrades gcc from 8.3 to 9.2.
+While this is a minor version bump due to the Buildroot release update, barring
+advanced usage of Nerves, this is a straightforward update from v2.5.2.
+
+* Updated dependencies
+  * [nerves_system_br v1.11.0](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.11.0)
+  * linux 4.19.103 with Beagleboard kernel patches(bone40)
+  * Erlang 22.2.8
+
 ## v2.5.2
 
 * Fixes
