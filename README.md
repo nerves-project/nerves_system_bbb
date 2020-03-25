@@ -37,13 +37,6 @@ If you need custom modifications to this system for your device, clone this
 repository and update as described in [Making custom
 systems](https://hexdocs.pm/nerves/systems.html#customizing-your-own-nerves-system)
 
-If you're new to Nerves, check out the
-[nerves_init_gadget](https://github.com/nerves-project/nerves_init_gadget)
-project for creating a starter project. It will get you started with the basics
-like bringing up networking, initializing the writable application data
-partition, and enabling ssh-based firmware updates.  It's easiest to begin by
-using the wired Ethernet interface 'eth0' and DHCP.
-
 ## Preparing your BeagleBone
 
 If your BeagleBone has eMMC (the PocketBeagle doesn't), it will be configured to
@@ -303,15 +296,5 @@ file. The `TIInit_11.8.32.bts` file is included in this system under
 `lib/firmware/ti-connectivity`. The Bluetooth kernel modules know how to load it
 automatically. If you're using `harald`, you will need to load it yourself. The
 source of the "BTS" file is http://www.ti.com/tool/wl18xx-bt-sp.
-
-## Installation
-
-If you're new to Nerves, check out the
-[nerves_init_gadget](https://github.com/fhunleth/nerves_init_gadget) project for
-creating a starter project for the Beaglebone boards. The instructions are
-basically the same for the Raspberry Pi Zero or Zero W except you should `export
-MIX_TARGET=bbb` so that the appropriate `mix` targets get run. It will get you
-started with the basics like bringing up the virtual Ethernet interface,
-initializing the application partition, and enabling ssh-based firmware updates.
 
 [Image credit](#fritzing): This image is from the [Fritzing](http://fritzing.org/home/) parts library.
