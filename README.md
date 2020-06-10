@@ -308,8 +308,8 @@ to. The device tree blob can be found in `/lib/firmware`.
 Choose one of the following:
 
 ```text
-uboot_setenv(uboot-env, "uboot_overlay_addr4", "/lib/firmware/i2c1-clock-frequency-100khz.dtb")
-uboot_setenv(uboot-env, "uboot_overlay_addr5", "/lib/firmware/i2c2-clock-frequency-100khz.dtb")
+uboot_setenv(uboot-env, "uboot_overlay_addr4", "/lib/firmware/i2c1-clock-frequency-100khz.dtbo")
+uboot_setenv(uboot-env, "uboot_overlay_addr5", "/lib/firmware/i2c2-clock-frequency-100khz.dtbo")
 ```
 
 You can configure your project to enable these device tree overlays by copying the
