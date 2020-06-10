@@ -298,3 +298,26 @@ automatically. If you're using `harald`, you will need to load it yourself. The
 source of the "BTS" file is http://www.ti.com/tool/wl18xx-bt-sp.
 
 [Image credit](#fritzing): This image is from the [Fritzing](http://fritzing.org/home/) parts library.
+
+## NervesKey
+
+Using NervesKey on an I2C bus requires the bus speed to be lowered. This can be
+done using uboot overlays specific to the I2C bus that NervesKey is attached
+to. The device tree blob can be found in `/lib/firmware`.
+
+Choose one of the following:
+
+```text
+uboot_setenv(uboot-env, "uboot_overlay_addr4", "/lib/firmware/i2c1-clock-frequency-100khz.dtb")
+uboot_setenv(uboot-env, "uboot_overlay_addr5", "/lib/firmware/i2c2-clock-frequency-100khz.dtb")
+```
+
+You can configure your project to enable these device tree overlays by copying the
+`fwup_include/provisioning.conf` file to your project, updating the file to
+enable the uboot overlay for your NervesKey i2c bus, and by adding the following
+to your Mix Application configuration:
+
+```elixir
+config :nerves, :firmware,
+  provisioning: "project/relative/path/to/provisioning.conf"
+```
