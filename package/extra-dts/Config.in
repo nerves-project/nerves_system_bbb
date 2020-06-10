@@ -1,0 +1,5 @@
+menuconfig BR2_PACKAGE_EXTRA_DTS
+	bool "extra-dts"
+	select BR2_PACKAGE_HOST_DTC
+	help
+	  Extra DTS files that may be useful on Nerves systems.
