@@ -73,16 +73,6 @@ update_kernel_patch() {
 # NOTE: The -rt vs. no -rt on RCN's site indicates a difference in
 #       the defconfigs. The patches are the same.
 
-#update_kernel_patch 3.8.13-bone79 3.8.13 0001-rcn-linux-kernel-3.8.patch
-#update_kernel_patch 4.1.23-ti-r60 4.1.23 0001-rcn-linux-4.1.23-ti.patch
-#update_kernel_patch 4.4.9-bone10 4.4.9 0001-rcn-linux-4.4.9-bone.patch
-#update_kernel_patch 4.4.9-ti-r25 4.4.9 0001-rcn-linux-4.4.9-ti.patch
-#update_kernel_patch 4.4.113-ti-r147 4.4.113 0001-rcn-linux-4.4.113-ti.patch
-#update_kernel_patch 4.9.58-ti-r72 4.9.58 0001-rcn-linux-4.9.58-ti.patch
-#update_kernel_patch 4.14.69-ti-r75 4.14.69 0001-rcn-linux-4.14.69-ti-r75.patch
-#update_kernel_patch 4.18.9-bone9 4.18.9 0001-rcn-linux-4.18.9-bone9.patch
-#update_kernel_patch 4.19.10-bone14 4.19.10 0001-rcn-linux-4.19.10-bone14.patch
-#update_kernel_patch 4.19.72-bone40 4.19.72 0001-rcn-linux-4.19.72-bone40.patch
-update_kernel_patch 4.19.103-bone48 4.19.103 0001-rcn-linux-4.19.103-bone48.patch
+update_kernel_patch 4.19.120-bone50 4.19.120 0001-rcn-linux-4.19.120-bone50.patch
 
 echo "Updated patches. Now rebuild the linux kernel."
