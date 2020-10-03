@@ -25,8 +25,12 @@ update_kernel_patch() {
   local KERNEL_URL
 
   case $KERNEL_VERSION in
+      5*)
+          RCN_PATCH_URL=http://rcn-ee.net/deb/bullseye-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_XZ
+          KERNEL_URL=https://www.kernel.org/pub/linux/kernel/v5.x/$KERNEL_TARBALL
+          ;;
       4*)
-          RCN_PATCH_URL=http://rcn-ee.net/deb/buster-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_XZ
+          RCN_PATCH_URL=http://rcn-ee.net/deb/bullseye-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_XZ
           KERNEL_URL=https://www.kernel.org/pub/linux/kernel/v4.x/$KERNEL_TARBALL
           ;;
       *)
@@ -70,9 +74,7 @@ update_kernel_patch() {
   return 0
 }
 
-# NOTE: The -rt vs. no -rt on RCN's site indicates a difference in
-#       the defconfigs. The patches are the same.
-
-update_kernel_patch 4.19.120-bone50 4.19.120 0001-rcn-linux-4.19.120-bone50.patch
+#update_kernel_patch 4.19.120-bone50 4.19.120 0001-rcn-linux-4.19.120-bone50.patch
+update_kernel_patch 5.4.52-bone31 5.4.52 0001-rcn-linux-5.4.52-bone31.patch
 
 echo "Updated patches. Now rebuild the linux kernel."
