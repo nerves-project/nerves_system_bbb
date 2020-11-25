@@ -1,5 +1,21 @@
 # Changelog
 
+## v2.8.1
+
+The main change in this release is to bump the Linux kernel to 5.4.
+If you have based a custom system off of this one, please inspect the
+`linux-5.4.defconfig` for changes. There were only a few changes, but
+if you are modifying the kernel configuration, please review first.
+
+* Updated dependencies
+  * [nerves_system_br: bump to v1.13.4](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.13.4)
+  * [Erlang/OTP 23.1.4](https://erlang.org/download/OTP-23.1.4.README)
+  * [boardid 1.10.0](https://github.com/nerves-project/boardid/releases/tag/v1.10.0)
+
+* Improvements
+  * Enabled reproducible builds in Buildroot to remove some timestamp and build
+    path differences in firmware images. This helps delta firmware updates.
+
 ## v2.8.0
 
 This release updates to [Buildroot
