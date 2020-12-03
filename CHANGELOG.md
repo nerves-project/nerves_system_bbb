@@ -1,5 +1,14 @@
 # Changelog
 
+## v2.8.2
+
+This release includes a patch release update to [Buildroot
+2020.08.2](http://lists.busybox.net/pipermail/buildroot/2020-November/296830.html).
+
+* Updated dependencies
+  * [nerves_system_br: bump to v1.13.5](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.13.5)
+  * [erlinit 1.9.0](https://github.com/nerves-project/erlinit/releases/tag/v1.9.0)
+
 ## v2.8.1
 
 The main change in this release is to bump the Linux kernel to 5.4.
