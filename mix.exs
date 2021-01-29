@@ -43,6 +43,15 @@ defmodule NervesSystemBbb.MixProject do
       platform_config: [
         defconfig: "nerves_defconfig"
       ],
+      # The :env key is an optional experimental feature for adding environment
+      # variables to the crosscompile environment. These are intended for
+      # llvm-based tooling that may need more precise processor information.
+      env: [
+        {"TARGET_ARCH", "arm"},
+        {"TARGET_CPU", "cortex_a8"},
+        {"TARGET_OS", "linux"},
+        {"TARGET_ABI", "gnueabihf"}
+      ],
       checksum: package_files()
     ]
   end
