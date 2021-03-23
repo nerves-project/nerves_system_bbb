@@ -1,0 +1,7 @@
+  config BR2_PACKAGE_BBORG_OVERLAYS_ZOLA
+	bool "bb.org-overlays-zola"
+	select BR2_PACKAGE_HOST_DTC
+	help
+	  Device Tree Overlays for bb.org boards
+
+	  https://github.com/trumary/bb.org-overlays
