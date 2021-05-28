@@ -1,8 +1,8 @@
-defmodule NervesSystemBbb.MixProject do
+defmodule NervesSystemC2.MixProject do
   use Mix.Project
 
-  @github_organization "LynnL4"
-  @app :nerves_system_bbb
+  @github_organization "OffgridElectric"
+  @app :nerves_system_c2
   @source_url "https://github.com/#{@github_organization}/#{@app}"
   @version Path.join(__DIR__, "VERSION")
            |> File.read!()
@@ -74,7 +74,7 @@ defmodule NervesSystemBbb.MixProject do
 
   defp description do
     """
-    Nerves System - BeagleBone Black, BeagleBone Green, PocketBeagle and more
+    Nerves System - C2 board
     """
   end
 
