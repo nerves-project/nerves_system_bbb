@@ -1,4 +1,8 @@
-# Generic BeagleBone Support
+# Zola C2 support
+
+Based on
+* https://github.com/LynnL4/nerves_system_bbb
+* https://github.com/nerves-project/nerves_system_bbb
 
 [![CircleCI](https://circleci.com/gh/nerves-project/nerves_system_bbb.svg?style=svg)](https://circleci.com/gh/nerves-project/nerves_system_bbb)
 [![Hex version](https://img.shields.io/hexpm/v/nerves_system_bbb.svg "Hex version")](https://hex.pm/packages/nerves_system_bbb)
