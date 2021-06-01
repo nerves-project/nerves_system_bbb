@@ -5,7 +5,7 @@ use Mix.Config
 platform = "bbb"
 arch = "arm"
 
-app_part_devparth = "/dev/mmcblk0p4"
+app_part_devparth = "/dev/mmcblk1p4"
 
 # Environment specific configuration
 #  Nerves Project test farm configuration
