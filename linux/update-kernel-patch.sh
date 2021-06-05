@@ -75,6 +75,7 @@ update_kernel_patch() {
 }
 
 #update_kernel_patch 4.19.120-bone50 4.19.120 0001-rcn-linux-4.19.120-bone50.patch
-update_kernel_patch 5.4.52-bone31 5.4.52 0001-rcn-linux-5.4.52-bone31.patch
+#update_kernel_patch 5.4.52-bone31 5.4.52 0001-rcn-linux-5.4.52-bone31.patch
+update_kernel_patch 5.10.35-bone38 5.10.35 0001-rcn-linux-5.10.35-bone38.patch
 
 echo "Updated patches. Now rebuild the linux kernel."
