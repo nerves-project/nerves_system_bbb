@@ -1,0 +1,5 @@
+# From https://nodejs.org/dist/v14.17.1/SHASUMS256.txt
+sha256  05784d934f93b6b7a22c2cf170ba88f3c647b85fb9953e178d6be7d692387609  node-v14.17.1-linux-armv7l.tar.xz
+
+# Hash for license file
+sha256  b85d503ce644bad3849a4d53a99c332845cde94394c8ebba5f0345dc1f696086  LICENSE

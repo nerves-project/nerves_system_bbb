@@ -2,3 +2,9 @@
 
 source "$NERVES_DEFCONFIG_DIR/package/extra-dts/Config.in"
 source "$NERVES_DEFCONFIG_DIR/package/bborg-overlays-zola/Config.in"
+
+menu "Custom Packages"
+
+source "$NERVES_DEFCONFIG_DIR/package/nodejs-prebuilt/Config.in"
+
+endmenu
