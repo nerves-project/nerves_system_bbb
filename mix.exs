@@ -122,10 +122,14 @@ defmodule NervesSystemBbb.MixProject do
   end
 
   defp build_runner_opts() do
-    if primary_site = System.get_env("BR2_PRIMARY_SITE") do
-      [make_args: ["BR2_PRIMARY_SITE=#{primary_site}"]]
-    else
-      []
+    # Download source files first to get download errors right away.
+    [make_args: primary_site() ++ ["source", "all"]]
+  end
+
+  defp primary_site() do
+    case System.get_env("BR2_PRIMARY_SITE") do
+      nil -> []
+      primary_site -> ["BR2_PRIMARY_SITE=#{primary_site}"]
     end
   end
 
