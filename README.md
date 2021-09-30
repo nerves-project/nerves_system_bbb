@@ -35,7 +35,7 @@ for more information.
 
 If you need custom modifications to this system for your device, clone this
 repository and update as described in [Making custom
-systems](https://hexdocs.pm/nerves/systems.html#customizing-your-own-nerves-system)
+systems](https://hexdocs.pm/nerves/customizing-systems.html).
 
 ## Preparing your BeagleBone
 
@@ -116,8 +116,8 @@ in a U-boot environment block. This is a special region that is separate from
 the application partition so reformatting the application partition will not
 lose the serial number or any other data stored in this block.
 
-Additional key value pairs can be provisioned by overriding the default provisioning.conf
-file location by setting the environment variable
+Additional key value pairs can be provisioned by overriding the default
+provisioning.conf file location by setting the environment variable
 `NERVES_PROVISIONING=/path/to/provisioning.conf`. The default provisioning.conf
 will set the `nerves_serial_number`, if you override the location to this file,
 you will be responsible for setting this yourself.
