@@ -35,6 +35,7 @@ BR2_LINUX_KERNEL_XZ=y
 BR2_LINUX_KERNEL_DTS_SUPPORT=y
 BR2_LINUX_KERNEL_INTREE_DTS_NAME="am335x-boneblack am335x-bonegreen am335x-bonegreen-wireless am335x-boneblack-wireless am335x-pocketbeagle am335x-boneblack-uboot-univ am335x-bonegreen-wireless-uboot-univ am335x-bone-uboot-univ"
 BR2_LINUX_KERNEL_INSTALL_TARGET=y
+BR2_LINUX_KERNEL_NEEDS_HOST_OPENSSL=y
 BR2_PACKAGE_BUSYBOX_CONFIG="${BR2_EXTERNAL_NERVES_PATH}/board/nerves-common/busybox.config"
 BR2_PACKAGE_BUSYBOX_CONFIG_FRAGMENT_FILES="${NERVES_DEFCONFIG_DIR}/busybox.fragment"
 BR2_PACKAGE_F2FS_TOOLS=y
