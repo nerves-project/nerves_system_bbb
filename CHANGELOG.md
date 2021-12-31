@@ -12,6 +12,31 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
+## v2.13.0
+
+This release updates to Buildroot 2021.11, OTP 24.2, and Linux 5.10.64. If you
+have made a custom system, please review the `nerves_system_br` [release
+notes](https://github.com/nerves-project/nerves_system_br/blob/v1.18.2/CHANGELOG.md#v1180).
+Also, the previous release used Linux 5.4, so double check your Linux
+configuration to make sure that the update to Linux 5.10.64 doesn't disable
+something unexpected.
+
+* Updated dependencies
+  * [nerves_system_br v1.18.2](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.18.2)
+  * [Buildroot 2021.11](http://lists.busybox.net/pipermail/buildroot/2021-December/629911.html)
+  * [Erlang/OTP 24.2](https://erlang.org/download/OTP-24.2.README)
+  * Linux 5.10.65 with RCN's TI patches. This formerly was the Beagleboard org's
+    patch set. This should not affect most users.
+  * GCC 10.3
+
+* Improvements
+  * Support for the `dl.nerves-project.org` backup site. Due to a GitHub outage
+    in November, there was a 2 day period of failing builds since some packages
+    could not be downloaded. We implemented the backup site to prevent this in
+    the future. This update is in the `nerves_defconfig`.
+  * Use new build ORB on CircleCI. This ORB will shorten build times to fit in
+    CircleCI's new free tier limits. Please update if building your own systems.
+
 ## v2.12.3
 
 * Updated dependencies
