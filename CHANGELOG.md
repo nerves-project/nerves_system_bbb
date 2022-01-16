@@ -12,6 +12,15 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
+## v2.13.1
+
+* Updated dependencies
+  * [nerves_system_br v1.18.3](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.18.3)
+
+* Changes
+  * Programs that use OpenMP will run now. The OpenMP shared library
+    (`libgomp.so`) was supplied by the toolchain, but not copied.
+
 ## v2.13.0
 
 This release updates to Buildroot 2021.11, OTP 24.2, and Linux 5.10.64. If you
