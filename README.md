@@ -272,12 +272,12 @@ reinsert the USB dongle to generate new log messages if you don't see them.
 ## Beaglebone Green WiFi
 
 Initial support for the BBGW's onboard wireless module is available. To try it
-out, run (assuming you have Nerves.Network in your image):
+out, run (assuming you have VintageNet in your image):
 
 ```elixir
 :os.cmd('modprobe wl18xx')
-:os.cmd('modprobe wlcore-sdio')
-Nerves.Network.setup "wlan0", ssid: "xxx", key_mgmt: :"WPA-PSK", psk: "yyy"
+:os.cmd('modprobe wlcore_sdio')
+VintageNetWiFi.quick_configure("ssid", "password")
 ```
 
 Be aware that this Nerves system does not configure the MAC address. The result
