@@ -12,6 +12,32 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
+## v2.13.2
+
+This is a Buildroot and Erlang bug fix release that also adds support for
+additional AM335x-based boards. It should be a low risk upgrade from the
+previous release.
+
+* Updated dependencies
+  * [nerves_system_br v1.18.4](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.18.4)
+  * Linux 5.10.87
+
+* Changes
+  * Support the Beaglebone Blue (robotics-focused Beaglebone) and the AM3358 EVM
+    Starter Kit (dual Ethernet)
+  * Adjust PRU parameters to match TI configs. If you're using the PRUs, please
+    verify that the changes do not break your code.
+  * Reduce kernel timers from 250 Hz to 100 Hz resolution. 100 Hz is the value
+    used by the TI source and the value used by other official Nerves systems.
+  * When deriving the board serial number, fail back to the `/proc/cpuinfo`
+    contents before using the wired Ethernet MAC.
+  * Specify CPU-specific flags when compiling NIFs and ports. This fixes an
+    issue where some optimizations could not be enabled in NIFs even though it
+    should be possible to have them. E.g., ARM NEON support for CPUs that have
+    it.
+  * Build the Wireguard kernel driver. This is a small device driver that
+    enables a number of VPN-based use cases.
+
 ## v2.13.1
 
 * Updated dependencies
