@@ -12,6 +12,22 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
+## v2.13.3
+
+This is mostly a Buildroot and Erlang bug and security fix release. It should be
+a low risk upgrade from the previous release.
+
+* Changes
+  * Update the U-Boot bootloader to the 2021.10 release and pull in latest
+    upstream Beaglebone patch set. This adds support for the BBG Gateway. Since
+    the bootloader isn't normally updated, you'll need to re-flash the MicroSD
+    card to get this update. If your device already works, then there's no
+    reason to do this.
+
+* Updated dependencies
+  * [nerves_system_br v1.18.5](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.18.5)
+  * U-Boot 2021.10
+
 ## v2.13.2
 
 This is a Buildroot and Erlang bug fix release that also adds support for
