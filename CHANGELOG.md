@@ -12,7 +12,7 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
-## v2.14.0
+## v2.15.0
 
 This release updates to Buildroot 2022.05, Linux 5.15.44 (from Linux 5.10) and
 uses GCC 11.3 (from GCC 10.3). The Linux kernel upgrade could introduce a
