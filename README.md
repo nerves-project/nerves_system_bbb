@@ -15,7 +15,7 @@ and [PocketBeagle](https://beagleboard.org/pocket).
 | CPU                  | 1 GHz ARM Cortex-A8             |
 | Memory               | 512 MB DRAM                     |
 | Storage              | 4 GB eMMC Flash and MicroSD     |
-| Linux kernel         | 5.4 w/ BBB patches              |
+| Linux kernel         | 5.10 w/ BBB patches             |
 | IEx terminal         | UART `ttyS0`                    |
 | GPIO, I2C, SPI       | Yes - [Elixir Circuits](https://github.com/elixir-circuits) |
 | ADC                  | Yes                             |
