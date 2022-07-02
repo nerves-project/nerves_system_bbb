@@ -12,6 +12,13 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
+## v2.15.1
+
+This release reverts the upgrade to Linux 5.15.44. The Linux kernel is now at
+5.10.120. This fixes an issue where the numbering of `/dev/gpiochipN` changed.
+All code that identified GPIOs by number broke (pretty much everything using
+Circuits.GPIO).
+
 ## v2.15.0
 
 This release updates to Buildroot 2022.05, Linux 5.15.44 (from Linux 5.10) and
