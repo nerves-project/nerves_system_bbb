@@ -12,6 +12,12 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
+## v2.15.2
+
+* Updated dependencies
+  * [nerves_system_br v1.20.4](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.20.4)
+  * [Erlang/OTP 25.0.3](https://erlang.org/download/OTP-25.0.3.README)
+
 ## v2.15.1
 
 This release reverts the upgrade to Linux 5.15.44. The Linux kernel is now at
