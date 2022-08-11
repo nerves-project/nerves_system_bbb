@@ -1,4 +1,4 @@
-# BeagleBone Black Test Suite
+# C2 Test Suite
 
 Executes ExUnit tests on target hardware and reports results to the
 [Nerves test server](https://nerves-test-server.herokuapp.com/nerves-project/nerves_system_bbb)

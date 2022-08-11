@@ -15,7 +15,7 @@ workflows:
       - build-tools/get-br-dependencies:
           exec:
             <<: *exec
-          context: org-global
+          context: nerves-global
           filters:
             tags:
               only: /.*/
@@ -23,7 +23,7 @@ workflows:
           exec:
             <<: *exec
           resource-class: large
-          context: org-global
+          context: nerves-global
           requires:
             - build-tools/get-br-dependencies
           filters:
@@ -32,13 +32,13 @@ workflows:
       - build-tools/build-test:
           exec:
             <<: *exec
-          context: org-global
+          context: nerves-global
           requires:
             - build-tools/build-system
       - build-tools/deploy-system:
           exec:
             <<: *exec
-          context: org-global
+          context: nerves-global
           requires:
             - build-tools/build-system
           filters:
