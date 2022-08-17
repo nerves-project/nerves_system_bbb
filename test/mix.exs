@@ -54,12 +54,31 @@ defmodule Test.MixProject do
 
   defp aliases do
     [
-      remote_test: [&remote_test/1]
+      remote_test: [&remote_test/1],
+      remote_devtest: [&remote_devtest/1]
     ]
   end
 
   defp remote_test(args) do
-    Mix.shell().cmd("ssh #{test_device_ip(args)} 'Test.run()'")
+    Mix.shell().cmd("ssh #{test_device_ip(args)} 'Test.run([])'")
+  end
+
+  defp remote_devtest(args) do
+    path = "/tmp/test"
+    localdir = Path.absname(Path.join(__DIR__, "rel/test"))
+
+    batch = """
+    mkdir #{path}
+    cd #{path}
+    lcd #{localdir}
+    put -R *
+    exit
+    """
+
+    ip = test_device_ip(args)
+
+    Mix.shell().cmd("ssh #{ip} 'File.rm_rf(\"#{path}\")'; echo \"#{batch}\" | sftp -b - #{ip}", quiet: true)
+    Mix.shell().cmd("ssh #{ip} 'Test.run(path: \"#{path}\")'")
   end
 
   defp test_device_ip([ip]), do: ip
