@@ -34,12 +34,14 @@ defmodule Test.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:toolshed, "~> 0.2"},
       {:nerves_runtime, "~> 0.13"},
       {:zola_ca, github: "OffgridElectric/zola_ca"},
       {:nerves_system_bbb, path: "../", runtime: false, targets: @targets},
       {:shoehorn, "~> 0.8"},
       {:nerves_test_client, github: "OffgridElectric/nerves_test_client"},
-      {:nerves_key, "~> 1.1", targets: @targets}
+      {:nerves_key, "~> 1.1", targets: @targets},
+      {:nerves_runtime_shell, "~> 0.1.0"}
     ]
   end
 
