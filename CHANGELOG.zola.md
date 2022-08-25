@@ -2,6 +2,10 @@
 
 Describes changes between upstream `nerves_system_bbb` and `nerves_system_c2`.
 
+## v2.15.1+zola-2
+
+* Rebase on top of v2.15.1
+
 ## v2.9.0+zola-2
 
 * buildroot: add tcpdump, nftables
