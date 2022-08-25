@@ -2,6 +2,11 @@
 
 Describes changes between upstream `nerves_system_bbb` and `nerves_system_c2`.
 
+## v2.9.0+zola-2
+
+* buildroot: add tcpdump, nftables
+* busybox: add ping
+
 ## v2.9.0+zola-1
 
 * linux: add modules can, bluetooth, serial-omap
