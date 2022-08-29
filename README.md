@@ -15,7 +15,7 @@ and [PocketBeagle](https://beagleboard.org/pocket).
 | CPU                  | 1 GHz ARM Cortex-A8             |
 | Memory               | 512 MB DRAM                     |
 | Storage              | 4 GB eMMC Flash and MicroSD     |
-| Linux kernel         | 5.4 w/ BBB patches              |
+| Linux kernel         | 5.10 w/ BBB patches             |
 | IEx terminal         | UART `ttyS0`                    |
 | GPIO, I2C, SPI       | Yes - [Elixir Circuits](https://github.com/elixir-circuits) |
 | ADC                  | Yes                             |
@@ -35,7 +35,7 @@ for more information.
 
 If you need custom modifications to this system for your device, clone this
 repository and update as described in [Making custom
-systems](https://hexdocs.pm/nerves/systems.html#customizing-your-own-nerves-system)
+systems](https://hexdocs.pm/nerves/customizing-systems.html).
 
 ## Preparing your BeagleBone
 
@@ -116,8 +116,8 @@ in a U-boot environment block. This is a special region that is separate from
 the application partition so reformatting the application partition will not
 lose the serial number or any other data stored in this block.
 
-Additional key value pairs can be provisioned by overriding the default provisioning.conf
-file location by setting the environment variable
+Additional key value pairs can be provisioned by overriding the default
+provisioning.conf file location by setting the environment variable
 `NERVES_PROVISIONING=/path/to/provisioning.conf`. The default provisioning.conf
 will set the `nerves_serial_number`, if you override the location to this file,
 you will be responsible for setting this yourself.
@@ -272,12 +272,12 @@ reinsert the USB dongle to generate new log messages if you don't see them.
 ## Beaglebone Green WiFi
 
 Initial support for the BBGW's onboard wireless module is available. To try it
-out, run (assuming you have Nerves.Network in your image):
+out, run (assuming you have VintageNet in your image):
 
 ```elixir
 :os.cmd('modprobe wl18xx')
-:os.cmd('modprobe wlcore-sdio')
-Nerves.Network.setup "wlan0", ssid: "xxx", key_mgmt: :"WPA-PSK", psk: "yyy"
+:os.cmd('modprobe wlcore_sdio')
+VintageNetWiFi.quick_configure("ssid", "password")
 ```
 
 Be aware that this Nerves system does not configure the MAC address. The result
