@@ -36,10 +36,10 @@ defmodule Test.MixProject do
     [
       {:toolshed, "~> 0.2"},
       {:nerves_runtime, "~> 0.13"},
-      {:zola_ca, github: "OffgridElectric/zola_ca"},
-      {:nerves_system_bbb, path: "../", runtime: false, targets: @targets},
+      {:zola_ca, git: "git@github.com:OffgridElectric/zola_ca.git"},
+      {:nerves_system_c2, path: "../", runtime: false, targets: @targets},
       {:shoehorn, "~> 0.8"},
-      {:nerves_test_client, github: "OffgridElectric/nerves_test_client"},
+      {:nerves_test_client, git: "git@github.com:OffgridElectric/nerves_test_client.git"},
       {:nerves_key, "~> 1.1", targets: @targets},
       {:nerves_runtime_shell, "~> 0.1.0"}
     ]
