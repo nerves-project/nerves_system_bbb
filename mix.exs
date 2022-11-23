@@ -101,6 +101,7 @@ defmodule NervesSystemC2.MixProject do
 
   defp package_files do
     [
+      "package/bborg-overlays.hash",
       "fwup_include",
       "linux",
       "rootfs_overlay",
