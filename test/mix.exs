@@ -41,7 +41,8 @@ defmodule Test.MixProject do
       {:shoehorn, "~> 0.8"},
       {:nerves_test_client, git: "git@github.com:OffgridElectric/nerves_test_client.git"},
       {:nerves_key, "~> 1.1", targets: @targets},
-      {:nerves_runtime_shell, "~> 0.1.0"}
+      {:nerves_runtime_shell, "~> 0.1.0"},
+      {:circuits_uart, "~> 1.5"}
     ]
   end
 
