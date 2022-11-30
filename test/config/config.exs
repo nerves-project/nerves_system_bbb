@@ -2,10 +2,10 @@ import Config
 
 # Repository specific configuration
 
-platform = "bbb"
+platform = "c2"
 arch = "arm"
 
-app_part_devparth = "/dev/mmcblk0p4"
+app_part_devparth = "/dev/mmcblk1p4"
 
 # Environment specific configuration
 #  Nerves Project test farm configuration
