@@ -68,7 +68,7 @@ defmodule NervesSystemC2.MixProject do
     [
       {:nerves, "~> 1.6.0 or ~> 1.7.15 or ~> 1.8.0", runtime: false},
       {:nerves_system_br, "1.20.3", runtime: false},
-      {:nerves_toolchain_armv7_nerves_linux_gnueabihf, "~> 1.6.0", runtime: false},
+      {:nerves_toolchain_armv7_nerves_linux_gnueabihf, "~> 1.4.2", runtime: false},
       {:nerves_system_linter, "~> 0.4", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.22", only: :docs, runtime: false}
     ]
