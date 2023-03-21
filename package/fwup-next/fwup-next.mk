@@ -5,7 +5,7 @@
 ################################################################################
 
 FWUP_NEXT_VERSION = 1.10.1-pre
-FWUP_NEXT_SITE = $(call github,jeanparpaillon,fwup,v$(FWUP_VERSION))
+FWUP_NEXT_SITE = $(call github,jeanparpaillon,fwup,v$(FWUP_NEXT_VERSION))
 FWUP_NEXT_LICENSE = Apache-2.0
 FWUP_NEXT_LICENSE_FILES = LICENSE
 FWUP_NEXT_DEPENDENCIES = host-pkgconf libconfuse libarchive
