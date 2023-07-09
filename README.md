@@ -269,20 +269,6 @@ configure WiFi for your device. At a shell prompt, run `lsmod` to see which
 drivers are loaded.  Running `dmesg` may also give a clue. When using `dmesg`,
 reinsert the USB dongle to generate new log messages if you don't see them.
 
-## Beaglebone Green WiFi
-
-Initial support for the BBGW's onboard wireless module is available. To try it
-out, run (assuming you have VintageNet in your image):
-
-```elixir
-:os.cmd('modprobe wl18xx')
-:os.cmd('modprobe wlcore_sdio')
-VintageNetWiFi.quick_configure("ssid", "password")
-```
-
-Be aware that this Nerves system does not configure the MAC address. The result
-is that only one BBGW may exist on the WiFi network at a time.
-
 ## Bluetooth
 
 The Beaglebone boards with built-in WiFi support use the WiLink8 WL1835 module.
