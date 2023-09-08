@@ -107,7 +107,7 @@ defmodule NervesSystemBbb.MixProject do
       "uboot",
       "busybox.fragment",
       "CHANGELOG.md",
-      "fwup-revert.conf",
+      "fwup-ops.conf",
       "fwup.conf",
       "LICENSE",
       "mix.exs",
