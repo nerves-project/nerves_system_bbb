@@ -11,7 +11,7 @@ update_kernel_patch() {
   local OUTPUT_PATCH=$3
 
   local ORIGINAL_DIFF=patch-$PATCH_VERSION.diff
-  local ORIGINAL_DIFF_XZ=$ORIGINAL_DIFF.xz
+  local ORIGINAL_DIFF_XZ=$ORIGINAL_DIFF.gz
   local KERNEL_TARBALL=linux-$KERNEL_VERSION.tar.xz
 
   # Work in a temporary directory
@@ -21,7 +21,7 @@ update_kernel_patch() {
 
   echo "Downloading files..."
 
-  RCN_PATCH_URL=http://rcn-ee.net/deb/bookworm-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_XZ
+  RCN_PATCH_URL=http://rcn-ee.net/deb/sid-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_XZ
   KERNEL_URL=https://www.kernel.org/pub/linux/kernel/v6.x/$KERNEL_TARBALL
 
   # Download the master patch file for the RCN kernel
@@ -36,7 +36,7 @@ update_kernel_patch() {
   tar -x -f $KERNEL_TARBALL && mv linux-$KERNEL_VERSION b
 
   # Expand the "git" style patch
-  unxz $ORIGINAL_DIFF_XZ
+  gunzip $ORIGINAL_DIFF_XZ
 
   # Make a git repo and apply the "git" style patch
   echo "Creating temporary git repo to extract RCN patch..."
@@ -60,6 +60,6 @@ update_kernel_patch() {
   return 0
 }
 
-update_kernel_patch 6.1.38-bone23 6.1.38 0001-rcn-linux-6.1.39-bone23.patch
+update_kernel_patch 6.1.46-ti-r13 6.1.46 0001-rcn-linux-6.1.46-ti-r13.patch
 
 echo "Updated patches. Now rebuild the linux kernel."
