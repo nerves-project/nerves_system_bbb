@@ -60,6 +60,6 @@ update_kernel_patch() {
   return 0
 }
 
-update_kernel_patch 5.10.162-ti-r59 5.10.162 0001-rcn-linux-5.10.162-ti-r59.patch
+update_kernel_patch 5.15.119-bone40 5.15.119 0001-rcn-linux-5.15.119-bone40.patch
 
 echo "Updated patches. Now rebuild the linux kernel."
