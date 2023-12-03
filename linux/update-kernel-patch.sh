@@ -22,7 +22,7 @@ update_kernel_patch() {
   echo "Downloading files..."
 
   RCN_PATCH_URL=http://rcn-ee.net/deb/bookworm-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_XZ
-  KERNEL_URL=https://www.kernel.org/pub/linux/kernel/v5.x/$KERNEL_TARBALL
+  KERNEL_URL=https://www.kernel.org/pub/linux/kernel/v6.x/$KERNEL_TARBALL
 
   # Download the master patch file for the RCN kernel
   wget $RCN_PATCH_URL
@@ -60,6 +60,6 @@ update_kernel_patch() {
   return 0
 }
 
-update_kernel_patch 5.15.119-bone40 5.15.119 0001-rcn-linux-5.15.119-bone40.patch
+update_kernel_patch 6.1.38-bone23 6.1.38 0001-rcn-linux-6.1.39-bone23.patch
 
 echo "Updated patches. Now rebuild the linux kernel."
