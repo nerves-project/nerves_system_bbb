@@ -12,6 +12,25 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
+## v2.20.0
+
+This is a major Buildroot, toolchain, and Linux kernel update.
+
+Please see [nerves_system_br v1.25.0 release notes](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.25.0)
+for upgrade instructions if you've forked this system.
+
+The Linux kernel update from 5.10 to 6.1 has a side effect of renumbering GPIOs.
+Circuits.GPIO v1.2 accounts for this so programs don't need to change that use
+it. See https://github.com/elixir-circuits/circuits_gpio/pull/153 for more
+information. This system has an optional dependency on Circuits.GPIO to force
+the upgrade.
+
+* Updated dependencies
+  * Linux 6.1.46-ti-r13
+  * [nerves_system_br v1.25.2](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.25.2)
+  * [Buildroot 2023.08.4](https://lore.kernel.org/buildroot/87o7f6t7fs.fsf@48ers.dk/T/)
+  * [Erlang/OTP 26.1.2](https://erlang.org/download/OTP-26.1.2.README)
+
 ## v2.19.1
 
 This is a security/bug fix update.
