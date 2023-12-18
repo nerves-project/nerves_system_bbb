@@ -70,13 +70,7 @@ defmodule NervesSystemBbb.MixProject do
       {:nerves_system_br, "1.25.2", runtime: false},
       {:nerves_toolchain_armv7_nerves_linux_gnueabihf, "~> 13.2.0", runtime: false},
       {:nerves_system_linter, "~> 0.4", only: [:dev, :test], runtime: false},
-      {:ex_doc, "~> 0.22", only: :docs, runtime: false},
-      # Depend on Circuits.GPIO optionally to be able to force users to update
-      # to a version that supports automatic GPIO number remapping. The GPIO
-      # numbering changed between Linux 5.10 and Linux 5.15. This lets programs
-      # continue to use GPIO numbers until more code can be converted to use
-      # better ways like labels.
-      {:circuits_gpio, "~> 1.2 or ~> 2.0", optional: true, runtime: false}
+      {:ex_doc, "~> 0.22", only: :docs, runtime: false}
     ]
   end
 
