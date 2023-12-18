@@ -12,6 +12,13 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
+## v2.20.1
+
+This fixes a regression where the forced `circuits_gpio` dependency update broke
+compilation. This removes the optional dependency, but be sure to see the note
+below about the GPIOs being remapped and Circuits.GPIO v1.2.0 containing a
+workaround.
+
 ## v2.20.0
 
 This is a major Buildroot, toolchain, and Linux kernel update.
