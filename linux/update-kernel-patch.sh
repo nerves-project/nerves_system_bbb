@@ -60,6 +60,6 @@ update_kernel_patch() {
   return 0
 }
 
-update_kernel_patch 6.1.46-ti-r13 6.1.46 0001-rcn-linux-6.1.46-ti-r13.patch
+update_kernel_patch 6.1.69-ti-r21 6.1.69 0001-rcn-linux-6.1.69-ti-r21.patch
 
 echo "Updated patches. Now rebuild the linux kernel."
