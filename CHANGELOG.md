@@ -12,6 +12,21 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
+## v2.21.0
+
+This is a major Buildroot and Linux update. If you use `circuits_gpio`, it is
+critical to update to 1.2.0 or later to get a workaround for GPIO indices
+changing.
+
+Please see the [nerves_system_br v1.26.0 release notes](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.26.0)
+for upgrade instructions if you've forked this system.
+
+* Updated dependencies
+  * linux 6.1.69-ti-r21
+  * [Erlang/OTP 26.2.2](https://erlang.org/download/OTP-26.2.2.README)
+  * [nerves_system_br v1.26.1](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.26.1)
+  * [Buildroot 2023.11.1](https://lore.kernel.org/buildroot/87cyu2k2gu.fsf@48ers.dk/T/)
+
 ## v2.20.2
 
 This is a security/bug fix update.
