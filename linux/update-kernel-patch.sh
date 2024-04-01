@@ -60,6 +60,6 @@ update_kernel_patch() {
   return 0
 }
 
-update_kernel_patch 6.1.69-ti-r21 6.1.69 0001-rcn-linux-6.1.69-ti-r21.patch
+update_kernel_patch 6.6.15-ti-arm32-r1 6.6.15 0001-rcn-linux-6.6.15-ti-arm32-r1.patch
 
 echo "Updated patches. Now rebuild the linux kernel."
