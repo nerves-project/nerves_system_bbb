@@ -60,6 +60,6 @@ update_kernel_patch() {
   return 0
 }
 
-update_kernel_patch 5.10.168-ti-r72 5.10.168 0001-rcn-linux-5.10.168-ti-r72.patch
+update_kernel_patch 5.10.168-ti-rt-r72 5.10.168 0001-rcn-linux-5.10.168-ti-rt-r72.patch
 
 echo "Updated patches. Now rebuild the linux kernel."
