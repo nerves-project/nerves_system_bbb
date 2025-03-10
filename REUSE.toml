@@ -1,0 +1,104 @@
+version = 1
+
+[[annotations]]
+path = [
+ ".formatter.exs",
+ ".github/workflows/ci.yml",
+ ".gitignore",
+ "CHANGELOG.md",
+ "NOTICE",
+ "REUSE.toml",
+ "mix.exs",
+ "mix.lock",
+ "VERSION"
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "None"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = [
+ "docs/kernel.md",
+ "README.md",
+ "uboot/README.md"
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2016 Frank Hunleth"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+# Buildroot derived or related files
+[[annotations]]
+path = [
+ "Config.in",
+ "package/**",
+ "external.mk",
+ "nerves_defconfig",
+ "post-build.sh",
+ "post-createfs.sh"
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "The Buildroot developers <buildroot@buildroot.org>"
+SPDX-License-Identifier = "GPL-2.0-or-later"
+
+# Linux kernel derived or related files
+[[annotations]]
+path = [
+ "linux/*",
+ "rootfs_overlay/usr/bin/config-pin"
+]
+precedence = "override"
+SPDX-FileCopyrightText = "Various"
+SPDX-License-Identifier = "GPL-2.0-only"
+
+# U-Boot derived or related files
+[[annotations]]
+path = [
+ "uboot/*"
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2000-2013 Wolfgang Denk, DENX Software Engineering, wd@denx.de"
+SPDX-License-Identifier = "GPL-2.0-or-later"
+
+# Fwup config files
+[[annotations]]
+path = [
+ "fwup-ops.conf",
+ "fwup.conf",
+ "fwup_include/*"
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "None"
+SPDX-License-Identifier = "CC0-1.0"
+
+# Various config files
+[[annotations]]
+path = [
+ "busybox.fragment",
+ "rootfs_overlay/etc/boardid.config",
+ "rootfs_overlay/etc/erlinit.config",
+ "rootfs_overlay/etc/fw_env.config",
+ "rootfs_overlay/etc/modprobe.d/wl18xx.conf"
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "None"
+SPDX-License-Identifier = "CC0-1.0"
+
+# https://github.com/adafruit/Fritzing-Library
+[[annotations]]
+path = [
+ "assets/images/beaglebone-black.png"
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Adafruit"
+SPDX-License-Identifier = "CC-BY-SA-3.0"
+
+# TI Bluetooth files
+[[annotations]]
+path = [
+ "rootfs_overlay/lib/firmware/ti-connectivity/*",
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2008 – 2013 Texas Instruments Incorporated"
+SPDX-License-Identifier = "LicenseRef-TI-Release"
+
+

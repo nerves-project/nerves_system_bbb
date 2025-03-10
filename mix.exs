@@ -95,8 +95,12 @@ defmodule NervesSystemBbb.MixProject do
   defp package do
     [
       files: package_files(),
-      licenses: ["Apache-2.0"],
-      links: %{"GitHub" => @source_url}
+      licenses: ["GPL-2.0-only", "GPL-2.0-or-later"],
+      links: %{
+        "GitHub" => @source_url,
+        "REUSE Compliance" =>
+          "https://api.reuse.software/info/github.com/nerves-project/nerves_system_bbb"
+      }
     ]
   end
 
@@ -110,12 +114,13 @@ defmodule NervesSystemBbb.MixProject do
       "CHANGELOG.md",
       "fwup-ops.conf",
       "fwup.conf",
-      "LICENSE",
+      "LICENSES/*",
       "mix.exs",
       "nerves_defconfig",
       "post-build.sh",
       "post-createfs.sh",
       "README.md",
+      "REUSE.toml",
       "VERSION"
     ]
   end
