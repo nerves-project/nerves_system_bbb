@@ -12,6 +12,20 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
+## v2.26.0
+
+This is a major Buildroot update.
+
+Please see the [nerves_system_br v1.30.0 release notes](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.30.0)
+for upgrade instructions if you've forked this system.
+
+* Changes
+  * Add REUSE compliance to help improve OSS copyright and licensing accuracy
+
+* Updated dependencies
+  * [Erlang/OTP 27.3](https://erlang.org/download/OTP-27.3.README.md)
+  * [Buildroot 2024.11.2](https://lore.kernel.org/buildroot/87v7t3nyls.fsf@dell.be.48ers.dk/T/)
+
 ## v2.25.1
 
 This is a security/bug fix update.
