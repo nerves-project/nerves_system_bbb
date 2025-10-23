@@ -22,7 +22,7 @@ update_kernel_patch() {
   echo "Downloading files..."
 
   RCN_PATCH_URL=http://rcn-ee.net/deb/sid-armhf/v$PATCH_VERSION/$ORIGINAL_DIFF_GZ
-  KERNEL_URL=https://www.kernel.org/pub/linux/kernel/v5.x/$KERNEL_TARBALL
+  KERNEL_URL=https://www.kernel.org/pub/linux/kernel/v6.x/$KERNEL_TARBALL
 
   # Download the master patch file for the RCN kernel
   wget $RCN_PATCH_URL
@@ -60,6 +60,7 @@ update_kernel_patch() {
   return 0
 }
 
-update_kernel_patch 5.10.168-ti-rt-r72 5.10.168 0001-rcn-linux-5.10.168-ti-rt-r72.patch
+update_kernel_patch 6.12.34-ti-arm32-r12 6.12.34 0001-rcn-linux-6.12.34-ti-arm-r12.patch
+#update_kernel_patch 5.10.168-ti-rt-r72 5.10.168 0001-rcn-linux-5.10.168-ti-rt-r72.patch
 
 echo "Updated patches. Now rebuild the linux kernel."
