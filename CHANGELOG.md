@@ -12,6 +12,19 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
+## v2.29.0
+
+This is a major Buildroot update. It should be seamless for most users.
+
+* Updated dependencies
+  * [nerves_system_br 1.33.0](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.33.0)
+    * [Buildroot 2025.11](https://lore.kernel.org/buildroot/87bjk439tj.fsf@dell.be.48ers.dk/T/)
+    * [Erlang/OTP 28.3](https://erlang.org/download/OTP-28.3.README.md)
+    * [fwup 1.15.0](https://github.com/fwup-home/fwup/releases/tag/v1.15.0)
+    * [erlinit 1.15.1](https://github.com/nerves-project/erlinit/releases/tag/v1.15.1)
+    * [nerves_heart 2.5.0](https://github.com/nerves-project/nerves_heart/releases/tag/v2.5.0)
+    * [boardid 1.15.0](https://github.com/nerves-project/boardid/releases/tag/v1.15.0)
+
 ## v2.28.0
 
 This is a major Erlang and Buildroot update. This updates from Erlang/OTP 27 to
