@@ -67,7 +67,7 @@ defmodule NervesSystemBbb.MixProject do
   defp deps do
     [
       {:nerves, "~> 1.11.1 or ~> 1.12", runtime: false},
-      {:nerves_system_br, "1.33.9", runtime: false},
+      {:nerves_system_br, "1.34.0", runtime: false},
       {:nerves_toolchain_armv7_nerves_linux_gnueabihf, "~> 15.3.0", runtime: false},
       {:nerves_system_linter, "~> 0.4", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.22", only: :docs, runtime: false}
