@@ -12,6 +12,16 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
+## v2.30.0
+
+This is a major update with security and feature updates throughout.
+
+* Updated dependencies
+  * [nerves_system_br v1.34.0 release notes](https://github.com/nerves-project/nerves_system_br/releases/tag/v1.34.0)
+  * GCC 15.3.0
+  * [Erlang/OTP 29.0.2](https://erlang.org/download/OTP-29.0.2.README.md)
+  * [Buildroot 2025.05.2](https://lore.kernel.org/buildroot/7bed9b2e-a9d3-476b-84d6-61134e2f726f@rnout.be/T/)
+
 ## v2.29.5
 
 This is a security and bug fix release.
