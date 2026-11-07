@@ -60,7 +60,7 @@ defmodule NervesSystemBbb.MixProject do
         {"TARGET_GCC_FLAGS",
          "-mabi=aapcs-linux -mfpu=vfpv3 -marm -fstack-protector-strong -mfloat-abi=hard -mcpu=cortex-a8 -fPIE -pie -Wl,-z,now -Wl,-z,relro"}
       ],
-      checksum: package_files()
+      checksum: source_finger_print_files()
     ]
   end
 
@@ -103,25 +103,31 @@ defmodule NervesSystemBbb.MixProject do
     ]
   end
 
-  defp package_files do
+  defp source_finger_print_files do
     [
       "fwup_include",
       "linux",
       "rootfs_overlay",
       "uboot",
       "busybox.fragment",
-      "CHANGELOG.md",
       "fwup-ops.conf",
       "fwup.conf",
-      "LICENSES/*",
       "mix.exs",
       "nerves_defconfig",
       "post-build.sh",
-      "post-createfs.sh",
+      "post-createfs.sh"
+    ]
+  end
+
+  defp package_files do
+    [
+      "CHANGELOG.md",
+      "checksum.exs",
+      "LICENSES/*",
       "README.md",
       "REUSE.toml",
       "VERSION"
-    ]
+    ] ++ source_finger_print_files()
   end
 
   defp build_runner_opts() do
