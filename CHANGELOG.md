@@ -12,6 +12,13 @@ follows:
    releases, and Linux kernel updates. They're also made to fix bugs and add
    features to the build infrastructure.
 
+## v2.31.2
+
+* Changes
+  * Use Nerves 2 to create official system artifacts. Generated artifacts work
+    on both Nerves 1 and Nerves 2 like in the previous release.
+  * Publish SHA256 checksums (checksum.exs) to Hex.pm
+
 ## v2.31.1
 
 This is a security and bug fix release.
